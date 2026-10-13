@@ -6,6 +6,7 @@
 !/PATCH_EXPERIMENTS.md
 !/PLAN.md
 !/union/
+!/patches/
 !/rust_bpe/
 !/rust_bpe_py/
 !/bench_server/

@@ -1,0 +1,142 @@
+diff --git a/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs b/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs
+index 5088409..005e319 100644
+--- a/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs
++++ b/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs
+@@ -11,6 +11,10 @@ pub struct PipelineSequence {
+ }
+ 
+ impl PipelineSequence {
++    pub(crate) fn members(&self) -> &[PipelinePreTokenizer] {
++        &self.pre_tokenizers
++    }
++
+     pub fn new(pre_tokenizers: Vec<PipelinePreTokenizer>) -> Self {
+         Self { pre_tokenizers }
+     }
+diff --git a/tokenizers/tk-encode/src/pre_tokenizers/split.rs b/tokenizers/tk-encode/src/pre_tokenizers/split.rs
+index 4243395..0650098 100644
+--- a/tokenizers/tk-encode/src/pre_tokenizers/split.rs
++++ b/tokenizers/tk-encode/src/pre_tokenizers/split.rs
+@@ -74,6 +74,12 @@ impl PartialEq for Split {
+ }
+ 
+ impl Split {
++    /// One of the recognized GPT regexes (gpt2 / cl100k-Llama-3 / o200k) as they ship: a `\n` with an ASCII
++    /// letter or digit on both sides always ends a pre-token under them.
++    pub(crate) fn is_gpt_regex(&self) -> bool {
++        self.fsm.is_some() && self.behavior == SplitDelimiterBehavior::Isolated && !self.invert
++    }
++
+     pub fn new<I: Into<SplitPattern>>(
+         pattern: I,
+         behavior: SplitDelimiterBehavior,
+diff --git a/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs b/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs
+index cd52088..1a46530 100644
+--- a/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs
++++ b/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs
+@@ -563,6 +563,42 @@ impl PipelineTokenizer {
+     ///
+     /// This is for a writer, which needs the members themselves. A config `Sequence` was
+     /// flattened on the way in, so what comes back is the concatenation, not the nesting.
++    /// Whether a long text can be cut before a `\n` that has an ASCII letter or digit on both sides, and the
++    /// parts encoded on their own, with the same ids: every normalizer works char by char and the
++    /// pre-tokenizer always ends a word there. Lets one long input use every thread.
++    pub(crate) fn can_split_text(&self) -> bool {
++        fn pretok(p: &PipelinePreTokenizer) -> bool {
++            match p {
++                PipelinePreTokenizer::Split(split) => split.is_gpt_regex(),
++                PipelinePreTokenizer::Sequence(seq) => seq.members().iter().all(pretok),
++                // these end a word at every whitespace; Punctuation, Digits and Delimiter alone do not
++                PipelinePreTokenizer::Bert(_)
++                | PipelinePreTokenizer::Whitespace(_)
++                | PipelinePreTokenizer::WhitespaceSplit(_) => true,
++                _ => false,
++            }
++        }
++        pretok(&self.inner.pre_tokenizer)
++            && self.inner.normalizers.iter().all(|n| {
++                !matches!(
++                    n,
++                    PipelineNormalizer::Metaspace(_)
++                        | PipelineNormalizer::Replace(_)
++                        | PipelineNormalizer::Prepend(_)
++                        | PipelineNormalizer::Strip(_)
++                ) && !Self::is_precompiled(n)
++            })
++    }
++
++    #[allow(unreachable_patterns)]
++    fn is_precompiled(n: &PipelineNormalizer) -> bool {
++        #[cfg(feature = "normalizers")]
++        if let PipelineNormalizer::Precompiled(_) = n {
++            return true;
++        }
++        false
++    }
++
+     pub fn get_normalizers(&self) -> &[PipelineNormalizer] {
+         &self.inner.normalizers
+     }
+diff --git a/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs b/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs
+index 9f72fe3..b601a2f 100644
+--- a/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs
++++ b/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs
+@@ -27,6 +27,8 @@ use super::Result;
+ // `tk-convert` now — they need a `Tokenizer` to build from — and have to size an input past
+ // this threshold to reach the parallel path at all.
+ pub const PARALLEL_MIN_BYTES: usize = 8 * 1024;
++/// Size of the chunks a long text is cut into when its tokenizer allows it (`can_split_text`)
++const SPLIT_BYTES: usize = 1 << 20;
+ 
+ impl Input {
+     fn len(&self) -> usize {
+@@ -321,6 +323,7 @@ impl PipelineTokenizer {
+             return;
+         }
+         let current_chunks_len = chunks.len();
++        let splittable = self.can_split_text();
+         for segment in SpecialSegmentIterator::new(
+             input,
+             &self.inner.added_vocabulary,
+@@ -336,13 +339,34 @@ impl PipelineTokenizer {
+                 }
+                 Segment::Text { text, input_offset } => (text, input_offset),
+             };
+-            chunks.push(SequenceChunk {
+-                seq: seq_idx,
+-                idx,
+-                side,
+-                range: offset..offset + segment.len(),
+-            });
+-            seq_outputs.push(ChunkResult::new(None));
++            // A long text is cut into ~SPLIT_BYTES chunks where encoding restarts identically (see
++            // `can_split_text`), so a single long input is encoded on every thread, not one.
++            let (bytes, end) = (input.as_bytes(), offset + segment.len());
++            let mut start = offset;
++            while start < end {
++                let mut cut = end;
++                if splittable && end - start >= 2 * SPLIT_BYTES {
++                    let mut c = start + SPLIT_BYTES;
++                    while c + 1 < end
++                        && !(bytes[c] == b'\n'
++                            && bytes[c - 1].is_ascii_alphanumeric()
++                            && bytes[c + 1].is_ascii_alphanumeric())
++                    {
++                        c += 1;
++                    }
++                    if c + 1 < end {
++                        cut = c;
++                    }
++                }
++                chunks.push(SequenceChunk {
++                    seq: seq_idx,
++                    idx: if start == offset { idx } else { seq_outputs.len() },
++                    side,
++                    range: start..cut,
++                });
++                seq_outputs.push(ChunkResult::new(None));
++                start = cut;
++            }
+         }
+         // make sure we have at least one chunk per sequence, otherwise we'll wait indefinitely
+         // for a completion event

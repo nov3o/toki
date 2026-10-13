@@ -84,6 +84,12 @@ impl WordMap {
             }
         }
     }
+    /// Empty the map, keeping its allocations (a worker's local map is flushed and reused).
+    fn clear(&mut self) {
+        self.s.fill(Slot::default());
+        self.arena.clear();
+        self.n = 0;
+    }
     fn words(&self) -> impl Iterator<Item = (&[u8], u64, u64)> {
         self.s.iter().filter(|x| x.h != 0).map(|x| (self.word(x), x.h, x.cl & CNT))
     }
@@ -210,14 +216,38 @@ fn main() {
     let simd = env_or("HB_SIMD", 1usize) == 1;
     let stage = env_or("HB_STAGE", 2usize); // profiling: 0 pre-tokenize only, 1 + hash, 2 full count
     let next = AtomicUsize::new(0);
-    // per-thread counts keyed by the word's bytes (owned: chunks are reused)
-    let maps: Vec<Vec<WordMap>> = std::thread::scope(|sc| {
+    // Counts: each worker counts into a local map; when it holds more than HB_LOCAL_WORDS (65536) distinct words
+    // it is flushed into one global map split in SHARDS parts by hash, each behind its own lock, and reused. So a
+    // word is stored once globally, plus a bounded local map per worker (memory does not grow with the workers).
+    let local_limit = if t_n == 1 { usize::MAX } else { env_or("HB_LOCAL_WORDS", 1usize << 16) };
+    let global: Vec<std::sync::Mutex<WordMap>> = (0..SHARDS).map(|_| std::sync::Mutex::new(WordMap::new())).collect();
+    let flush = |m: &mut WordMap, by: &mut Vec<Vec<u32>>| {
+        by.iter_mut().for_each(Vec::clear);
+        for (i, x) in m.s.iter().enumerate() {
+            if x.h != 0 {
+                by[(x.h >> 58) as usize % SHARDS].push(i as u32);
+            }
+        }
+        for (k, idx) in by.iter().enumerate() {
+            if idx.is_empty() {
+                continue;
+            }
+            let mut g = global[k].lock().unwrap();
+            for &i in idx {
+                let x = &m.s[i as usize];
+                g.add(m.word(x), x.h, x.cl & CNT);
+            }
+        }
+        m.clear();
+    };
+    std::thread::scope(|sc| {
         let hs: Vec<_> = (0..t_n)
             .map(|_| {
-                let (next, cut, f, norm) = (&next, &cut, &f, &norm);
+                let (next, cut, f, norm, flush) = (&next, &cut, &f, &norm, &flush);
                 sc.spawn(move || {
                     let (mut data, mut scratch) = (Vec::new(), Vec::new());
                     let mut m = WordMap::new();
+                    let mut by: Vec<Vec<u32>> = (0..SHARDS).map(|_| Vec::new()).collect();
                     let mut front = Front::new(env_or("HB_FRONT_BITS", 0u32));
                     let (mut tags, mut starts, mut flag, mut spans) = (Vec::new(), Vec::new(), Vec::new(), Vec::new());
                     let mut sink = 0u64;
@@ -227,12 +257,11 @@ fn main() {
                         if i >= n_chunks {
                             std::hint::black_box(sink);
                             front.drain(&mut m);
-                            // split this thread's counts into SHARDS parts by hash (one pass, still in parallel)
-                            let mut parts: Vec<WordMap> = (0..SHARDS).map(|_| WordMap::new()).collect();
-                            for (w, h, c) in m.words() {
-                                parts[(h >> 58) as usize % SHARDS].add(w, h, c);
-                            }
-                            break parts;
+                            flush(&mut m, &mut by);
+                            break;
+                        }
+                        if m.n > local_limit {
+                            flush(&mut m, &mut by);
                         }
                         let (lo, hi) = (cut(i * block, &mut scratch), cut((i + 1) * block, &mut scratch));
                         data.resize(hi - lo, 0);
@@ -285,30 +314,19 @@ fn main() {
                 })
             })
             .collect();
-        hs.into_iter().map(|h| h.join().unwrap()).collect()
+        hs.into_iter().for_each(|h| h.join().unwrap());
     });
     let t_count = t0.elapsed().as_secs_f64();
-    // shard k of every thread goes to one merging thread, which also maps its words to byte-level chars
-    let mut by_shard: Vec<Vec<WordMap>> = (0..SHARDS).map(|_| Vec::new()).collect();
-    for ms in maps {
-        for (k, m) in ms.into_iter().enumerate() {
-            by_shard[k].push(m);
-        }
-    }
+    let rss_count = rust_bpe::peak_rss_mb();
+    // each global shard is turned into (word, count) entries on its own thread, mapping byte-level words to chars
     let map = byte_chars();
     let parts: Vec<Vec<(CompactString, u64)>> = std::thread::scope(|sc| {
-        let hs: Vec<_> = by_shard
+        let hs: Vec<_> = global
             .into_iter()
-            .map(|ms| {
+            .map(|g| {
                 let map = &map;
                 sc.spawn(move || {
-                    let mut it = ms.into_iter();
-                    let mut all = it.next().unwrap();
-                    for m in it {
-                        for (w, h, c) in m.words() {
-                            all.add(w, h, c);
-                        }
-                    }
+                    let all = g.into_inner().unwrap();
                     all.words()
                         .map(|(w, _, c)| {
                             let k: CompactString = if byte_level { w.iter().map(|&b| map[b as usize]).collect() } else { std::str::from_utf8(w).unwrap().into() };
@@ -321,11 +339,13 @@ fn main() {
         hs.into_iter().map(|h| h.join().unwrap()).collect()
     });
     let t_reduce = t0.elapsed().as_secs_f64();
+    let rss_reduce = rust_bpe::peak_rss_mb();
     let mut wc: AHashMap<CompactString, u64> = AHashMap::with_capacity(parts.iter().map(|p| p.len()).sum());
     for p in parts {
         wc.extend(p);
     }
     let feed_s = t0.elapsed().as_secs_f64();
+    let rss_feed = rust_bpe::peak_rss_mb();
     let t1 = std::time::Instant::now();
     // the merge loop's own worker count (HB_MERGE_THREADS, default = HB_THREADS): it stops scaling before counting does
     tk_encode::parallelism::set_num_threads(env_or("HB_MERGE_THREADS", t_n));
@@ -346,4 +366,5 @@ fn main() {
     }
     println!("count_s={t_count:.3} reduce_s={:.3} collect_s={:.3} feed_s={feed_s:.3} ", t_reduce - t_count, feed_s - t_reduce);
     println!("train_s={train_s:.3} words={}", wc.len());
+    println!("peak_rss_mb: count {rss_count:.0} reduce {rss_reduce:.0} feed {rss_feed:.0} train {:.0}", rust_bpe::peak_rss_mb());
 }

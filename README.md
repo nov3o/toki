@@ -45,14 +45,14 @@ Each sample is drawn at random from a 100 GB pool.
 ### Results (average of the 4 datasets)
 
 <!-- tables -->
-Equivalence: 34 training runs of ours, 34 with merges identical to PR #2501's; 34 encoding runs, 34 with ids identical to HF main's (token by token).
+Equivalence: 88 training runs of ours, 88 with merges identical to PR #2501's; 86 encoding runs, 86 with ids identical to HF main's (token by token).
 
 #### Default setting
 
 | dataset | PR #2501 train s | MEM | **ours** train s | MEM | HF main enc s | MEM | **ours** enc s | MEM |
 |---|---|---|---|---|---|---|---|---|
 | english | 5.21 | 0.37 | **2.48** (2.1×) | **0.31** | 1.80 | 0.69 | **0.99** (1.8×) | **0.31** |
-| multilingual | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 |
+| multilingual | 16.2 | 4.04 | **13.5** (1.2×) | **3.98** | 2.99 | 0.77 | **1.83** (1.6×) | **0.37** |
 | code | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 |
 | mix | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 |
 | **average** | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 |
@@ -112,6 +112,7 @@ Equivalence: 34 training runs of ours, 34 with merges identical to PR #2501's; 3
 |---|---|---|---|---|---|---|---|---|
 | 1 GB | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 |
 | 10 GB | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 | 🕐 |
+
 
 <!-- /tables -->
 

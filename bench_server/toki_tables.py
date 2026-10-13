@@ -47,16 +47,26 @@ def t(x):
     return f"{x:.0f}" if x >= 100 else f"{x:.1f}" if x >= 10 else f"{x:.2f}"
 
 
-def cells(get, s):
+def nbytes(task, s):  # bytes processed: training reads the whole sample, encoding the held-out half (10 GB: all of it)
+    n = 1e10 if s[0] == "10GB" else 1e9
+    return n / 2 if task == "encode" and s[0] == "1GB" else n
+
+
+def rate(x):
+    return f"{x / 1e3:.2f} GB/s" if x >= 1e3 else f"{x:.0f} MB/s"
+
+
+def cells(get, s, tput=False):
     out = []
     for task, base, _ in PAIRS:
         b, o = get(task, s, base), get(task, s, "ours")
-        out += ["🕐", "🕐"] if b is None else [t(b[0]), f"{b[1]:.2f}"]
+        r = (lambda x: f" ({rate(nbytes(task, s) / 1e6 / x)})") if tput else (lambda x: "")
+        out += ["🕐", "🕐"] if b is None else [t(b[0]) + r(b[0]), f"{b[1]:.2f}"]
         if o is None:
             out += ["🕐", "🕐"]
         else:
             sp = f" ({b[0] / o[0]:.1f}×)" if b else ""
-            out += [f"**{t(o[0])}**{sp}", f"**{o[1]:.2f}**"]
+            out += [f"**{t(o[0])}**{sp}{r(o[0])}".replace("×) (", "×, "), f"**{o[1]:.2f}**"]
     return out
 
 
@@ -78,7 +88,7 @@ for ds in DS:
     avg_out.append(f"| {ds} | " + " | ".join(cells(lambda task, s, impl: cell(task, ds, s, impl), DEFAULT)) + " |")
 avg_out.append("| **average** | " + " | ".join(cells(avg, DEFAULT)) + " |")
 avg_out.append("")
-by_out = ["# Results by dataset", ""]
+by_out = ["# Results by dataset", "", "Time in s (throughput: training over the whole sample, encoding over the held-out half; 10 GB: the whole file), MEM = peak GB.", ""]
 for axis, title, header, field, values in AXES:
     avg_out += [f"#### {title}", "", f"| {header} " + HEAD, "|---" * 9 + "|"]
     by_out += [f"## {title}", "", f"| {header} | dataset " + HEAD, "|---" * 10 + "|"]
@@ -87,7 +97,7 @@ for axis, title, header, field, values in AXES:
         avg_out.append(f"| {fmt(axis, v)} | " + " | ".join(cells(avg, s)) + " |")
         for i, ds in enumerate(DS):
             by_out.append(f"| {fmt(axis, v) if i == 0 else ''} | {ds} | "
-                          + " | ".join(cells(lambda task, s, impl: cell(task, ds, s, impl), s)) + " |")
+                          + " | ".join(cells(lambda task, s, impl: cell(task, ds, s, impl), s, True)) + " |")
     avg_out.append("")
     by_out.append("")
 eq = (f"Equivalence: {sum(v for (k, c), v in checks.items() if k == 'train')} training runs of ours, "

@@ -90,6 +90,38 @@ English, GPT-2 byte-level, vocab 128k:
 0.5 GB at 16 cores: counting 0.50 s (PR #2501: 1.30 s, ours: 0.55 s) + merging 0.81 s (PR #2501's loop; ours is a
 serial 1.26 s). The merge loop is now the limit: it stops scaling at ~8 cores.
 
+## Union sweeps: all datasets, pre-tokenizers, normalizers
+
+Full tables: [results_union/SUMMARY.md](bench_server/results_union/SUMMARY.md) (raw runs next to it).
+**248 of 248 outputs identical** (ids token by token vs HF main, merges byte by byte vs ours = HF).
+
+Encode 10 GB (byte-level, vocab 128k), wall time incl. model load / peak memory:
+
+| dataset | HF main, 16 cores | **union, 16 cores** | HF main, 64 cores | **union, 64 cores** |
+|---|---|---|---|---|
+| english | 25.3 s / 9.6 GB | **7.3 s / 0.6 GB** (3.4×) | 20.6 s / 9.9 GB | **2.5 s / 1.9 GB** (8.2×) |
+| multilingual | 37.1 s / 9.8 GB | **14.2 s / 0.8 GB** (2.6×) | 29.9 s / 10.4 GB | **4.3 s / 2.9 GB** (7.0×) |
+| code | 30.1 s / 10.0 GB | **9.3 s / 0.7 GB** (3.2×) | 25.3 s / 10.8 GB | **3.1 s / 2.4 GB** (8.1×) |
+| mix | 30.7 s / 9.8 GB | **11.0 s / 0.7 GB** (2.8×) | 24.8 s / 10.7 GB | **3.4 s / 2.9 GB** (7.3×) |
+
+English at 64 cores: 1.84 s of encoding = **5.4 GB/s**. On the 0.5 GB held-out halves the union is 1.1-2.1× faster
+than HF main for every pre-tokenizer and normalizer (16 cores: 1.3-2.0×).
+
+Train 1 GB, vocab 128k, 16 cores, average of the 4 datasets (union = our counting + PR #2501's merge loop):
+
+| pre-tokenizer | ours | **union** |
+|---|---|---|
+| bytelevel | 21.6 s | **6.1 s** (3.5×) |
+| llama3 | 22.7 s | **6.4 s** (3.5×) |
+| gpt4o | 20.7 s | **6.3 s** (3.3×) |
+| whitespace | 17.4 s | **4.8 s** (3.7×) |
+| metaspace | 45.4 s | **9.5 s** (4.8×) |
+| bert | 16.9 s | **5.8 s** (2.9×) |
+| digits | 252 s | **28.9 s** (8.7×) |
+| unicode_scripts | 143 s | **25.4 s** (5.6×) |
+
+Normalizers: 2.3-2.8× (nfc, nfd, nfkc so far; the rest 🕐 running).
+
 ## Held-out encoding benchmark: HF main vs tiktoken vs ours
 
 Each 1 GB dataset sample is split at a line boundary into a train half and a test half (0.5 GB each). For every
@@ -153,7 +185,7 @@ speed and memory only (1 GB, 8 threads, vocab 131 072; HF rows = 0.22):
 
 ## Next (details: [PLAN.md](PLAN.md))
 
-- union encoder: remove the 0.6 s serial model load (binary model file, or a parallel table build in HF)
+- union encoder: model load is 0.28 s (cached converted JSON + mimalloc, was 0.6 s); the rest is HF's table build
 - union trainer: profile PR #2501's merge loop past 8 cores; counting on few cores (1 core: 6.1 s vs ours 4.3 s)
 - both unions on all 4 datasets, all pre-tokenizers / normalizers, 1 GB and 10 GB
 - upstream: the driver ideas (parallel safe-cut reading, streaming, sharded output) as PRs to HF main; credit PR #2501

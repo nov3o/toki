@@ -31,6 +31,21 @@ the vocab trained on the other half. Every run is pinned to exactly N cores (HF 
 time = median of 2 runs, bytes/s = bytes processed (training: the whole sample; encoding: the held-out half) per second, MEM = peak memory in GB. Per-dataset tables:
 [BY_DATASET.md](bench_server/results_toki/BY_DATASET.md).
 
+**Exactly what is compared:**
+
+| | version | how it is run |
+|---|---|---|
+| HF `main` (encoding baseline) | [`ff8ae1ba`](https://github.com/huggingface/tokenizers/commit/ff8ae1baabca0707b7fa9f22854652e231a933de) (2026-10, the 1.0 rewrite; not on PyPI) | from Rust, no Python: [`hfenc`](bench_server/hfenc/src/main.rs) cuts the whole file into ~256 KB pieces at safe cut points and passes them to HF's batch `encode`, which uses its own thread pool |
+| PR #2501 (training baseline) | [`e4f787dc`](https://github.com/Yikai-Liao/tokenizers/commit/e4f787dc189d9be7192107490d652096cde7480e) (its head: `main` `ff8ae1ba` + the PR) | from Rust: [`hfbench`](bench_server/hfbench/src/main.rs) feeds each line (with its `\n`), normalized and pre-tokenized by HF's own parts from a `tokenizer.json`, to its `BpeTrainer` |
+| ours | this repo, built against the two commits above | [`toki-encode`](ours/encode/src/main.rs), [`toki-train`](ours/train/src/main.rs) |
+
+- **Same input for everyone:** the whole file. No baseline gets a smaller or pre-split input.
+- **Time and memory:** wall time and peak RSS of the whole process (`/usr/bin/time`), including loading the
+  tokenizer, reading the input and writing the ids or the vocab.
+- **Correctness:** checked on every run. Our merges and vocab must equal PR #2501's, and our ids must equal HF
+  `main`'s, token by token.
+- **Build:** Rust 1.99.0, `--release`, no `target-cpu=native`, Linux 6.4.
+
 ### Data
 
 | dataset | source |

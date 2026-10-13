@@ -93,7 +93,7 @@ serial 1.26 s). The merge loop is now the limit: it stops scaling at ~8 cores.
 ## Union sweeps: all datasets, pre-tokenizers, normalizers
 
 Full tables: [results_union/SUMMARY.md](bench_server/results_union/SUMMARY.md) (raw runs next to it).
-**248 of 248 outputs identical** (ids token by token vs HF main, merges byte by byte vs ours = HF).
+**256 of 256 outputs identical** (ids token by token vs HF main, merges byte by byte vs ours = HF).
 
 Encode 10 GB (byte-level, vocab 128k), wall time incl. model load / peak memory:
 
@@ -120,7 +120,7 @@ Train 1 GB, vocab 128k, 16 cores, average of the 4 datasets (union = our countin
 | digits | 252 s | **28.9 s** (8.7×) |
 | unicode_scripts | 143 s | **25.4 s** (5.6×) |
 
-Normalizers: 2.3-2.8× (nfc, nfd, nfkc so far; the rest 🕐 running).
+Normalizers (all 11): 1.8-3.4× faster.
 
 ## Held-out encoding benchmark: HF main vs tiktoken vs ours
 

@@ -1,4 +1,4 @@
-Identical outputs (ids token by token, merges byte by byte): 248 of 248.
+Identical outputs (ids token by token, merges byte by byte): 256 of 256.
 
 ## Encode 10 GB (byte-level, vocab 128k): HF main vs union
 
@@ -66,11 +66,11 @@ Identical outputs (ids token by token, merges byte by byte): 248 of 248.
 | nfc | 27.4 s | **9.9 s** / 3.5 GB | 2.8× |
 | nfd | 25.8 s | **10.6 s** / 3.2 GB | 2.4× |
 | nfkc | 26.6 s | **11.4 s** / 3.4 GB | 2.3× |
-| nfkd | 🕐 | 🕐 | 🕐 |
-| lowercase | 🕐 | 🕐 | 🕐 |
-| strip_accents | 🕐 | 🕐 | 🕐 |
-| nfkc_lowercase | 🕐 | 🕐 | 🕐 |
-| replace | 🕐 | 🕐 | 🕐 |
-| bert | 🕐 | 🕐 | 🕐 |
-| prepend | 🕐 | 🕐 | 🕐 |
-| strip | 🕐 | 🕐 | 🕐 |
+| nfkd | 25.9 s | **10.0 s** / 3.1 GB | 2.6× |
+| lowercase | 23.1 s | **8.9 s** / 3.3 GB | 2.6× |
+| strip_accents | 30.3 s | **10.7 s** / 3.5 GB | 2.8× |
+| nfkc_lowercase | 32.7 s | **13.5 s** / 3.4 GB | 2.4× |
+| replace | 21.6 s | **6.4 s** / 3.6 GB | 3.4× |
+| bert | 12.8 s | **7.0 s** / 1.6 GB | 1.8× |
+| prepend | 21.6 s | **6.6 s** / 3.4 GB | 3.2× |
+| strip | 21.4 s | **6.2 s** / 3.4 GB | 3.4× |

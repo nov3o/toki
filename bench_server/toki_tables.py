@@ -66,7 +66,8 @@ def cells(get, s, tput=True):
             out += ["🕐"] * 3
         else:
             sp = f" ({b[0] / o[0]:.1f}×)" if b else ""
-            out += [f"**{t(o[0])}**{sp}", f"**{r(o[0])}**", f"**{o[1]:.2f}**"]
+            mp = f" ({100 * o[1] / b[1] - 100:+.0f}%)".replace("-", "−") if b else ""
+            out += [f"**{t(o[0])}**{sp}", f"**{r(o[0])}**", f"**{o[1]:.2f}**{mp}"]
     return out
 
 

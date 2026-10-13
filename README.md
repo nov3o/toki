@@ -25,6 +25,30 @@ Ids and merges of both unions are identical to HF's in every run below.
 | [`bench_server/`](bench_server) | benchmark harness and token-by-token equivalence check (`verify.py`); Rust drivers for HF main (`hfenc`, `hfbench`) |
 | [`PLAN.md`](PLAN.md) | what is done and what is next |
 
+## History
+
+I started by implementing algorithms from scratch. After a few of them I got very excited about pre-training, partly
+inspired by my project [chsm8](https://huggingface.co/LegumMagister/chsm8): seeing what data contributes to what
+result made me read a lot about pre-training best practices and its many aspects. While implementing models from
+scratch, after a couple of them I moved on to tokenizers, to figure out how they work.
+
+I came up with my own BPE approach in C++ without knowing how it is implemented in practice; my competitive
+programming background helped me think about how I would implement it. It turned out my implementation (not BPE
+itself) was a bit different, and with Claude I made it more parallel, reaching a 10-20× speedup for training and
+10-33× for encoding.
+
+When I was about to open a PR, I found [a PR from Yikai](https://github.com/huggingface/tokenizers/pull/2501) and
+realized I had compared against a year-old version: HF `main` had moved on, Yikai's trainer is much faster than mine
+and `main`'s encoder a bit faster than mine. Since we had reached our speedups in different ways, a combination should
+be faster than both. So with an agent I refined a combination of (HF `main`, mine) for encoding and (PR #2501, mine)
+for training.
+
+I'm really glad that in just one year HF tokenizers made such a leap: compared with 0.22, `main` encodes ~4× faster and
+PR #2501 trains 8-20× faster with 4-5× less memory. With the combination, 10 GB now takes seconds, not minutes.
+
+While in the beginning I could follow, at the end I stopped understanding the changes going on:
+[this](https://www.youtube.com/watch?v=W_dxteeedgs).
+
 ## Which HF version
 
 | version | released | fast 1.0 encoder | parallel trainer |

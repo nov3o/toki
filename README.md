@@ -140,25 +140,23 @@ python3 toki_tables.py results_toki/results.tsv results_toki
 
 ## History
 
-I started by implementing algorithms from scratch. After a few of them I got very excited about pre-training, partly
-inspired by my project [chsm8](https://huggingface.co/LegumMagister/chsm8): seeing what data contributes to what
-result made me read a lot about pre-training best practices and its many aspects. While implementing models from
-scratch, after a couple of them I moved on to tokenizers, to figure out how they work.
+I started by implementing models and ML algorithms from scratch. At the same time I got very excited about
+pre-training, partly through my project [chsm8](https://huggingface.co/LegumMagister/chsm8): seeing which data leads
+to which result made me read a lot about pre-training and its best practices. After a couple of models I moved on to
+tokenizers, to figure out how they work.
 
-I came up with my own BPE approach in C++ without knowing how it is implemented in practice; my competitive
-programming background helped me think about how I would implement it. It turned out my implementation (not BPE
-itself) was a bit different, and with Claude I made it more parallel, reaching a 10-20× speedup for training and
-10-33× for encoding.
+I wrote my own BPE in C++ without looking at how it is done in practice; my competitive programming background helped
+me work out how I would implement it. My implementation (not BPE itself) turned out a bit different, and with an
+agent I made it more parallel: a 10-20× speedup for training and 10-33× for encoding.
 
-When I was about to open a PR, I found [a PR from Yikai](https://github.com/huggingface/tokenizers/pull/2501) and
-realized I had compared against a year-old version: HF `main` had moved on, Yikai's trainer is much faster than mine
-and `main`'s encoder a bit faster than mine. Since we had reached our speedups in different ways, a combination should
-be faster than both. So with an agent I refined a combination of (HF `main`, mine) for encoding and (PR #2501, mine)
-for training.
+When I was about to open a PR, I found [Yikai's PR](https://github.com/huggingface/tokenizers/pull/2501) and realized
+I had compared against a year-old release: HF `main` had moved on, Yikai's trainer is much faster than mine, and
+`main`'s encoder is a bit faster than mine. Since we got our speedups in different ways, combining them should beat
+both. So with an agent I built (HF `main`, mine) for encoding and (PR #2501, mine) for training.
 
-I'm really glad that in just one year HF tokenizers made such a leap: compared with the 0.22 release, `main` encodes
-12-20× faster with about the same memory, and trains 1.1-2.4× faster; Yikai's PR #2501 trains 8-20× faster with 4-5×
-less memory. Combined with mine, 10 GB is now encoded in seconds, not minutes.
+I'm really glad HF tokenizers made such a leap in just one year: compared with the 0.22 release, `main` encodes 12-20×
+faster with about the same memory and trains 1.1-2.4× faster, and Yikai's PR #2501 trains 8-20× faster with 4-5× less
+memory. Combined with mine, 10 GB is now encoded in seconds, not minutes.
 
-While in the beginning I could follow, at the end I stopped understanding the changes going on:
+In the beginning I could follow; by the end I no longer understood the changes going on:
 [this](https://www.youtube.com/watch?v=W_dxteeedgs).

@@ -59,6 +59,7 @@ def rate(x):
 def cells(get, s, tput=False):
     out = []
     for task, base, _ in PAIRS:
+        out.append("‖")
         b, o = get(task, s, base), get(task, s, "ours")
         r = (lambda x: f" ({rate(nbytes(task, s) / 1e6 / x)})") if tput else (lambda x: "")
         out += ["🕐", "🕐"] if b is None else [t(b[0]) + r(b[0]), f"{b[1]:.2f}"]
@@ -70,7 +71,7 @@ def cells(get, s, tput=False):
     return out
 
 
-HEAD = "| PR #2501 train s | MEM | **ours** train s | MEM | HF main enc s | MEM | **ours** enc s | MEM |"
+HEAD = "| ‖ | PR #2501 train s | MEM | **ours** train s | MEM | ‖ | HF main enc s | MEM | **ours** enc s | MEM |"
 
 
 def setting(field, v):
@@ -83,15 +84,15 @@ def fmt(axis, v):
     return VOCAB.get(v, v) if axis == "vocab" else v.replace("GB", " GB") if axis == "size" else v
 
 
-avg_out = ["#### Default setting", "", "| dataset " + HEAD, "|---" * 9 + "|"]
+avg_out = ["#### Default setting", "", "| dataset " + HEAD, "|---" * 11 + "|"]
 for ds in DS:
     avg_out.append(f"| {ds} | " + " | ".join(cells(lambda task, s, impl: cell(task, ds, s, impl), DEFAULT)) + " |")
 avg_out.append("| **average** | " + " | ".join(cells(avg, DEFAULT)) + " |")
 avg_out.append("")
 by_out = ["# Results by dataset", "", "Time in s (throughput: training over the whole sample, encoding over the held-out half; 10 GB: the whole file), MEM = peak GB.", ""]
 for axis, title, header, field, values in AXES:
-    avg_out += [f"#### {title}", "", f"| {header} " + HEAD, "|---" * 9 + "|"]
-    by_out += [f"## {title}", "", f"| {header} | dataset " + HEAD, "|---" * 10 + "|"]
+    avg_out += [f"#### {title}", "", f"| {header} " + HEAD, "|---" * 11 + "|"]
+    by_out += [f"## {title}", "", f"| {header} | dataset " + HEAD, "|---" * 12 + "|"]
     for v in values:
         s = setting(field, v)
         avg_out.append(f"| {fmt(axis, v)} | " + " | ".join(cells(avg, s)) + " |")

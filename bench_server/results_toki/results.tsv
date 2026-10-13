@@ -346,3 +346,26 @@ encode	pretok	multilingual	1GB	8	char_delimiter	131072	none	hfmain	2	2.94	783532
 train	norm	multilingual	1GB	8	bytelevel	131072	nfc	pr2501	1	16.57	4190812	ref
 train	norm	multilingual	1GB	8	bytelevel	131072	nfc	ours	1	16.04	4173952	same
 train	norm	multilingual	1GB	8	bytelevel	131072	nfc	ours	2	16.16	4163760	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfc	pr2501	2	16.66	4247964	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfc	hfmain	1	3.20	809580	ref (98301474 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfc	ours	1	2.46	368812	same (98301474 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfc	ours	2	2.42	378448	same (98301474 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfc	hfmain	2	3.23	801612	ref (98301474 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	nfd	pr2501	1	17.32	3747300	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	nfd	ours	1	14.42	3726692	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfd	ours	2	14.39	3731032	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfd	pr2501	2	17.43	3700348	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfd	hfmain	1	3.48	800192	ref (108053740 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfd	ours	1	2.35	426684	same (108053740 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfd	ours	2	2.34	407688	same (108053740 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfd	hfmain	2	3.54	805164	ref (108053740 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc	pr2501	1	17.27	4168968	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc	ours	1	16.08	4068720	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc	ours	2	15.93	4082796	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc	pr2501	2	17.35	4194156	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc	hfmain	1	3.95	804984	ref (98210452 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc	ours	1	2.73	383440	same (98210452 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc	ours	2	2.73	380308	same (98210452 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc	hfmain	2	3.98	807892	ref (98210452 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkd	pr2501	1	17.92	3722396	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkd	ours	1	14.45	3714320	same

@@ -1,0 +1,15 @@
+dataset	size_GB	impl	threads	pretok	vocab	norm	step	status	wall_s	inner_s	peak_rss_MB	tokens	dir
+english	10	hf	8	bytelevel	131072	none	train	ok	426.12	424.870	5733		results_10g/english_10GB/t8_bytelevel_v131072/train_hf
+english	10	hf	8	bytelevel	131072	none	encode	ok	740.31	739.633	700	2029251232	results_10g/english_10GB/t8_bytelevel_v131072/encode_hf
+english	10	ours_simd	8	bytelevel	131072	none	train	ok	32.74	31.609	1507		results_10g/english_10GB/t8_bytelevel_v131072/train_ours_simd
+english	10	ours_simd	8	bytelevel	131072	none	encode	ok	41.49	40.672	96	2029251232	results_10g/english_10GB/t8_bytelevel_v131072/encode_ours_simd
+english	10	ours_nosimd	8	bytelevel	131072	none	train	ok	35.69	35.026	1488		results_10g/english_10GB/t8_bytelevel_v131072/train_ours_nosimd
+english	10	ours_nosimd	8	bytelevel	131072	none	encode	ok	38.89	38.089	91	2029251232	results_10g/english_10GB/t8_bytelevel_v131072/encode_ours_nosimd
+english	10	tiktoken	8	bytelevel	131072	none	encode	ok	467.96	466.766	188	2029251232	results_10g/english_10GB/t8_bytelevel_v131072/encode_tiktoken
+code	10	hf	8	bytelevel	131072	none	train	ok	1168.59	1162.037	25581		results_10g/code_10GB/t8_bytelevel_v131072/train_hf
+code	10	hf	8	bytelevel	131072	none	encode	ok	1374.45	1373.746	1157	3042634892	results_10g/code_10GB/t8_bytelevel_v131072/encode_hf
+code	10	ours_simd	8	bytelevel	131072	none	train	ok	97.27	96.370	5635		results_10g/code_10GB/t8_bytelevel_v131072/train_ours_simd
+code	10	ours_simd	8	bytelevel	131072	none	encode	ok	42.75	41.868	122	3042634892	results_10g/code_10GB/t8_bytelevel_v131072/encode_ours_simd
+code	10	ours_nosimd	8	bytelevel	131072	none	train	ok	107.60	103.416	5595		results_10g/code_10GB/t8_bytelevel_v131072/train_ours_nosimd
+code	10	ours_nosimd	8	bytelevel	131072	none	encode	ok	49.37	48.522	108	3042634892	results_10g/code_10GB/t8_bytelevel_v131072/encode_ours_nosimd
+code	10	tiktoken	8	bytelevel	131072	none	encode	ok	564.62	563.515	300	3042634892	results_10g/code_10GB/t8_bytelevel_v131072/encode_tiktoken

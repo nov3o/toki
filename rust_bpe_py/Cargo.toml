@@ -1,0 +1,22 @@
+[package]
+name = "rust_bpe_py"
+version = "0.1.0"
+edition = "2021"
+
+# Python binding for our trainer (bucket_bpe) and encoder (hf_bpe_enc).
+# Built by build.sh into two variants: simd/ and nosimd/.
+[lib]
+name = "rust_bpe_py"
+crate-type = ["cdylib"]
+
+[features]
+simd = ["rust_bpe/simd"]
+
+[dependencies]
+rust_bpe = { path = "../rust_bpe" }
+pyo3 = { version = "0.27", features = ["extension-module", "abi3-py39"] }
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1

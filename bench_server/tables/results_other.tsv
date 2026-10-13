@@ -1,0 +1,17 @@
+dataset	method	step	status	wall_s	inner_s	peak_rss_MB	tokens
+english	sp_bpe	train	ok	105.55	105.322	3599	
+english	sp_bpe	encode	ok	51.02	50.869	108	196390506
+english	sp_unigram	train	ok	1660.26	1660.054	22357	
+english	sp_unigram	encode	ok	62.17	61.893	142	196500409
+english	hf_wordpiece	train	ok	51.22	50.663	1158	
+english	hf_wordpiece	encode	ok	44.30	43.791	479	199277772
+english	hf_unigram	train	ok	310.00	309.164	1996	
+english	hf_unigram	encode	ok	159.14	158.431	513	197582832
+multilingual	sp_bpe	train	ok	217.44	216.646	8450	
+multilingual	sp_bpe	encode	ok	39.20	39.054	126	190710211
+mix	sp_bpe	train	ok	415.46	414.658	6760	
+mix	sp_bpe	encode	ok	53.64	53.495	87	219117743
+mix	sp_unigram	train	timeout	3600		0	
+mix	hf_wordpiece	train	ok	127.05	125.273	7488	
+mix	hf_wordpiece	encode	ok	50.32	49.821	598	237104173
+mix	hf_unigram	train	failed_rc1	213.25		6730	

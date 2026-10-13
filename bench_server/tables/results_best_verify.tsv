@@ -1,0 +1,13 @@
+run	impl	step	file	result_vs_hf
+english_1GB/t16_llama3_v32768	ours_simd	train	merges.txt	same
+english_1GB/t16_llama3_v32768	ours_simd	train	vocab.txt	same
+english_1GB/t16_llama3_v32768	ours_simd	encode	merges_used.txt	same
+english_1GB/t16_llama3_v32768	ours_simd	encode	ids.bytecmp	same (215101938 ids)
+english_1GB/t16_llama3_v32768	tiktoken	encode	merges_used.txt	same
+english_1GB/t16_llama3_v32768	tiktoken	encode	ids.bytecmp	same (215101938 ids)
+english_1GB/t2_llama3_v32768	ours_simd	train	merges.txt	same
+english_1GB/t2_llama3_v32768	ours_simd	train	vocab.txt	same
+english_1GB/t2_llama3_v32768	ours_simd	encode	merges_used.txt	same
+english_1GB/t2_llama3_v32768	ours_simd	encode	ids.sha256	same
+english_1GB/t2_llama3_v32768	tiktoken	encode	merges_used.txt	same
+english_1GB/t2_llama3_v32768	tiktoken	encode	ids.sha256	same

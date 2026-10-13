@@ -1,0 +1,7 @@
+2026-10-12 09:52:41 AB run=1 old count_s=3.558 init_s=5.889 merge_s=32.358 total_s=41.804 peak_rss_mb=7089.1 
+2026-10-12 09:53:24 AB run=1 new count_s=3.330 init_s=6.175 merge_s=31.836 total_s=41.341 peak_rss_mb=7099.2 
+2026-10-12 09:54:07 AB run=2 old count_s=3.235 init_s=5.941 merge_s=32.547 total_s=41.723 peak_rss_mb=7077.9 
+2026-10-12 09:54:49 AB run=2 new count_s=3.205 init_s=6.216 merge_s=32.087 total_s=41.509 peak_rss_mb=7084.1 
+2026-10-12 09:55:32 AB run=3 old count_s=3.176 init_s=5.841 merge_s=32.084 total_s=41.101 peak_rss_mb=7087.0 
+2026-10-12 09:56:14 AB run=3 new count_s=3.184 init_s=6.224 merge_s=32.003 total_s=41.410 peak_rss_mb=7075.2 
+2026-10-12 09:56:14 AB merges identical

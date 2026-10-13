@@ -1,0 +1,21 @@
+run	impl	step	file	result_vs_hf
+code_10GB/t8_bytelevel_v131072	ours_nosimd	train	merges.txt	same
+code_10GB/t8_bytelevel_v131072	ours_nosimd	train	vocab.txt	same
+code_10GB/t8_bytelevel_v131072	ours_nosimd	encode	merges_used.txt	same
+code_10GB/t8_bytelevel_v131072	ours_nosimd	encode	ids.bytecmp	same (3042634892 ids)
+code_10GB/t8_bytelevel_v131072	ours_simd	train	merges.txt	same
+code_10GB/t8_bytelevel_v131072	ours_simd	train	vocab.txt	same
+code_10GB/t8_bytelevel_v131072	ours_simd	encode	merges_used.txt	same
+code_10GB/t8_bytelevel_v131072	ours_simd	encode	ids.bytecmp	same (3042634892 ids)
+code_10GB/t8_bytelevel_v131072	tiktoken	encode	merges_used.txt	same
+code_10GB/t8_bytelevel_v131072	tiktoken	encode	ids.bytecmp	same (3042634892 ids)
+english_10GB/t8_bytelevel_v131072	ours_nosimd	train	merges.txt	same
+english_10GB/t8_bytelevel_v131072	ours_nosimd	train	vocab.txt	same
+english_10GB/t8_bytelevel_v131072	ours_nosimd	encode	merges_used.txt	same
+english_10GB/t8_bytelevel_v131072	ours_nosimd	encode	ids.bytecmp	same (2029251232 ids)
+english_10GB/t8_bytelevel_v131072	ours_simd	train	merges.txt	same
+english_10GB/t8_bytelevel_v131072	ours_simd	train	vocab.txt	same
+english_10GB/t8_bytelevel_v131072	ours_simd	encode	merges_used.txt	same
+english_10GB/t8_bytelevel_v131072	ours_simd	encode	ids.bytecmp	same (2029251232 ids)
+english_10GB/t8_bytelevel_v131072	tiktoken	encode	merges_used.txt	same
+english_10GB/t8_bytelevel_v131072	tiktoken	encode	ids.bytecmp	same (2029251232 ids)

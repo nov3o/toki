@@ -1,0 +1,18 @@
+# track only the code: rust_bpe (algorithm), rust_bpe_py (Python binding), bench_server (benchmark)
+/*
+!/.gitignore
+!/README.md
+!/SCALING_LAWS.md
+!/PATCH_EXPERIMENTS.md
+!/rust_bpe/
+!/rust_bpe_py/
+!/bench_server/
+target/
+build/
+src.bak*/
+__pycache__/
+/bench_server/venv*
+/bench_server/data*/
+/bench_server/results*/
+/bench_server/logs/
+/bench_server/CONTEXT.md

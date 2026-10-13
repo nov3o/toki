@@ -1,0 +1,281 @@
+dataset	size_GB	impl	threads	pretok	vocab	step	status	wall_s	inner_s	peak_rss_MB	tokens	dir
+english	1	hf	8	bytelevel	131072	train	ok	53.70	53.096	1408		results_pretok/english_1GB/t8_bytelevel_v131072/train_hf
+english	1	hf	8	bytelevel	131072	encode	ok	93.13	92.480	578	202748556	results_pretok/english_1GB/t8_bytelevel_v131072/encode_hf
+english	1	ours_simd	8	bytelevel	131072	train	ok	4.32	3.884	456		results_pretok/english_1GB/t8_bytelevel_v131072/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	encode	ok	3.82	3.071	99	202748556	results_pretok/english_1GB/t8_bytelevel_v131072/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	train	ok	4.41	3.964	458		results_pretok/english_1GB/t8_bytelevel_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	encode	ok	3.99	3.242	100	202748556	results_pretok/english_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+english	1	tiktoken	8	bytelevel	131072	encode	ok	22.42	21.721	156	202748556	results_pretok/english_1GB/t8_bytelevel_v131072/encode_tiktoken
+english	1	hf	8	llama3	131072	train	ok	56.24	55.609	1524		results_pretok/english_1GB/t8_llama3_v131072/train_hf
+english	1	hf	8	llama3	131072	encode	ok	81.59	80.920	590	200554217	results_pretok/english_1GB/t8_llama3_v131072/encode_hf
+english	1	ours_simd	8	llama3	131072	train	ok	4.50	4.053	472		results_pretok/english_1GB/t8_llama3_v131072/train_ours_simd
+english	1	ours_simd	8	llama3	131072	encode	ok	3.89	3.147	98	200554217	results_pretok/english_1GB/t8_llama3_v131072/encode_ours_simd
+english	1	ours_nosimd	8	llama3	131072	train	ok	4.50	4.053	470		results_pretok/english_1GB/t8_llama3_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	llama3	131072	encode	ok	4.02	3.261	106	200554217	results_pretok/english_1GB/t8_llama3_v131072/encode_ours_nosimd
+english	1	tiktoken	8	llama3	131072	encode	ok	19.63	18.937	164	200554217	results_pretok/english_1GB/t8_llama3_v131072/encode_tiktoken
+english	1	hf	8	gpt4o	131072	train	ok	54.33	53.714	1503		results_pretok/english_1GB/t8_gpt4o_v131072/train_hf
+english	1	hf	8	gpt4o	131072	encode	ok	94.76	94.106	565	200357734	results_pretok/english_1GB/t8_gpt4o_v131072/encode_hf
+english	1	ours_simd	8	gpt4o	131072	train	ok	33.76	33.325	513		results_pretok/english_1GB/t8_gpt4o_v131072/train_ours_simd
+english	1	ours_simd	8	gpt4o	131072	encode	ok	11.47	10.702	98	200357734	results_pretok/english_1GB/t8_gpt4o_v131072/encode_ours_simd
+english	1	ours_nosimd	8	gpt4o	131072	train	ok	32.96	32.507	516		results_pretok/english_1GB/t8_gpt4o_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	gpt4o	131072	encode	ok	11.96	11.207	110	200357734	results_pretok/english_1GB/t8_gpt4o_v131072/encode_ours_nosimd
+english	1	tiktoken	8	gpt4o	131072	encode	ok	18.84	18.130	172	200357734	results_pretok/english_1GB/t8_gpt4o_v131072/encode_tiktoken
+english	1	hf	8	whitespace	131072	train	ok	33.25	32.742	1253		results_pretok/english_1GB/t8_whitespace_v131072/train_hf
+english	1	hf	8	whitespace	131072	encode	ok	58.85	58.221	586	196809694	results_pretok/english_1GB/t8_whitespace_v131072/encode_hf
+english	1	ours_simd	8	whitespace	131072	train	ok	4.14	3.743	446		results_pretok/english_1GB/t8_whitespace_v131072/train_ours_simd
+english	1	ours_simd	8	whitespace	131072	encode	ok	3.62	2.951	128	196809694	results_pretok/english_1GB/t8_whitespace_v131072/encode_ours_simd
+english	1	ours_nosimd	8	whitespace	131072	train	ok	4.12	3.707	426		results_pretok/english_1GB/t8_whitespace_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	whitespace	131072	encode	ok	3.67	2.998	132	196809694	results_pretok/english_1GB/t8_whitespace_v131072/encode_ours_nosimd
+english	1	hf	8	whitespace_split	131072	train	ok	68.70	67.825	3862		results_pretok/english_1GB/t8_whitespace_split_v131072/train_hf
+english	1	hf	8	whitespace_split	131072	encode	ok	60.18	59.549	465	177064350	results_pretok/english_1GB/t8_whitespace_split_v131072/encode_hf
+english	1	ours_simd	8	whitespace_split	131072	train	ok	10.39	9.984	1227		results_pretok/english_1GB/t8_whitespace_split_v131072/train_ours_simd
+english	1	ours_simd	8	whitespace_split	131072	encode	ok	4.93	4.249	133	177064350	results_pretok/english_1GB/t8_whitespace_split_v131072/encode_ours_simd
+english	1	ours_nosimd	8	whitespace_split	131072	train	ok	10.48	10.075	1223		results_pretok/english_1GB/t8_whitespace_split_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	whitespace_split	131072	encode	ok	5.00	4.339	125	177064350	results_pretok/english_1GB/t8_whitespace_split_v131072/encode_ours_nosimd
+english	1	hf	8	metaspace	131072	train	ok	80.15	79.185	4446		results_pretok/english_1GB/t8_metaspace_v131072/train_hf
+english	1	hf	8	metaspace	131072	encode	ok	70.00	69.335	532	182392957	results_pretok/english_1GB/t8_metaspace_v131072/encode_hf
+english	1	ours_simd	8	metaspace	131072	train	failed_rc1	12.29	12.200	1276		results_pretok/english_1GB/t8_metaspace_v131072/train_ours_simd
+english	1	ours_nosimd	8	metaspace	131072	train	failed_rc1	12.44	12.355	1283		results_pretok/english_1GB/t8_metaspace_v131072/train_ours_nosimd
+english	1	hf	8	bert	131072	train	ok	42.95	42.443	1253		results_pretok/english_1GB/t8_bert_v131072/train_hf
+english	1	hf	8	bert	131072	encode	ok	80.36	79.736	527	198562472	results_pretok/english_1GB/t8_bert_v131072/encode_hf
+english	1	ours_simd	8	bert	131072	train	ok	7.84	7.437	430		results_pretok/english_1GB/t8_bert_v131072/train_ours_simd
+english	1	ours_simd	8	bert	131072	encode	ok	7.27	6.597	126	198562472	results_pretok/english_1GB/t8_bert_v131072/encode_ours_simd
+english	1	ours_nosimd	8	bert	131072	train	ok	7.96	7.551	407		results_pretok/english_1GB/t8_bert_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	bert	131072	encode	ok	7.34	6.676	128	198562472	results_pretok/english_1GB/t8_bert_v131072/encode_ours_nosimd
+english	1	hf	8	punctuation	131072	train	ok	1489.56	1466.840	72920		results_pretok/english_1GB/t8_punctuation_v131072/train_hf
+english	1	hf	8	punctuation	131072	encode	ok	54.91	54.272	441	173574219	results_pretok/english_1GB/t8_punctuation_v131072/encode_hf
+english	1	ours_simd	8	punctuation	131072	none	train	ok	205.25	204.541	16194		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_punctuation_v131072/train_ours_simd
+english	1	ours_simd	8	punctuation	131072	none	encode	ok	25.50	24.816	131	173574219	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_punctuation_v131072/encode_ours_simd
+english	1	ours_nosimd	8	punctuation	131072	none	train	ok	245.29	244.568	16154		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_punctuation_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	punctuation	131072	none	encode	ok	25.59	24.907	128	173574219	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_punctuation_v131072/encode_ours_nosimd
+english	1	hf	8	digits	131072	none	train	ok	1489.74	1476.772	70992		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_digits_v131072/train_hf
+english	1	hf	8	digits	131072	none	encode	ok	46.62	45.942	430	152746226	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_digits_v131072/encode_hf
+english	1	ours_simd	8	digits	131072	none	train	ok	263.45	262.452	20672		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_digits_v131072/train_ours_simd
+english	1	ours_simd	8	digits	131072	none	encode	ok	31.06	30.345	132	152746226	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_digits_v131072/encode_ours_simd
+english	1	ours_nosimd	8	digits	131072	none	train	ok	405.36	404.282	20686		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_digits_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	digits	131072	none	encode	ok	31.18	30.444	139	152746226	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_digits_v131072/encode_ours_nosimd
+english	1	hf	8	unicode_scripts	131072	none	train	ok	1394.93	1374.562	72843		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_unicode_scripts_v131072/train_hf
+english	1	hf	8	unicode_scripts	131072	none	encode	ok	49.10	48.450	435	159965574	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_unicode_scripts_v131072/encode_hf
+english	1	ours_simd	8	unicode_scripts	131072	none	train	ok	198.47	197.668	16243		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_unicode_scripts_v131072/train_ours_simd
+english	1	ours_simd	8	unicode_scripts	131072	none	encode	ok	23.26	22.566	134	159965574	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_unicode_scripts_v131072/encode_ours_simd
+english	1	ours_nosimd	8	unicode_scripts	131072	none	train	ok	221.86	221.070	16248		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_unicode_scripts_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	unicode_scripts	131072	none	encode	ok	28.83	28.143	137	159965574	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_unicode_scripts_v131072/encode_ours_nosimd
+english	1	hf	8	char_delimiter	131072	none	train	ok	75.04	74.003	4148		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_char_delimiter_v131072/train_hf
+english	1	hf	8	char_delimiter	131072	none	encode	ok	52.08	51.438	458	178536263	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_char_delimiter_v131072/encode_hf
+english	1	ours_simd	8	char_delimiter	131072	none	train	ok	10.99	10.458	1205		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_char_delimiter_v131072/train_ours_simd
+english	1	ours_simd	8	char_delimiter	131072	none	encode	ok	5.60	4.930	133	178536263	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_char_delimiter_v131072/encode_ours_simd
+english	1	ours_nosimd	8	char_delimiter	131072	none	train	ok	11.33	10.795	1214		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_char_delimiter_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	char_delimiter	131072	none	encode	ok	5.59	4.913	128	178536263	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_char_delimiter_v131072/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	none	train	ok	484.78	477.792	26898		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bytelevel_v131072/train_hf
+multilingual	1	hf	8	bytelevel	131072	none	encode	ok	80.20	79.505	656	195903947	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bytelevel_v131072/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	none	train	ok	45.05	44.208	7183		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bytelevel_v131072/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	none	encode	ok	8.50	7.701	105	195903947	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bytelevel_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	none	train	ok	48.14	47.297	7172		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bytelevel_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	none	encode	ok	8.45	7.650	110	195903947	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+multilingual	1	tiktoken	8	bytelevel	131072	none	encode	ok	24.42	23.575	170	195903947	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bytelevel_v131072/encode_tiktoken
+multilingual	1	hf	8	llama3	131072	none	train	ok	518.79	511.378	28140		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_llama3_v131072/train_hf
+multilingual	1	hf	8	llama3	131072	none	encode	ok	73.40	72.667	626	191483995	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_llama3_v131072/encode_hf
+multilingual	1	ours_simd	8	llama3	131072	none	train	ok	48.45	47.624	7427		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_llama3_v131072/train_ours_simd
+multilingual	1	ours_simd	8	llama3	131072	none	encode	ok	8.74	7.937	105	191483995	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_llama3_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	llama3	131072	none	train	ok	51.13	50.272	7429		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_llama3_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	llama3	131072	none	encode	ok	8.66	7.862	107	191483995	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_llama3_v131072/encode_ours_nosimd
+multilingual	1	tiktoken	8	llama3	131072	none	encode	ok	21.68	20.931	174	191483995	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_llama3_v131072/encode_tiktoken
+multilingual	1	hf	8	gpt4o	131072	none	train	ok	505.22	497.625	27487		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_gpt4o_v131072/train_hf
+multilingual	1	hf	8	gpt4o	131072	none	encode	ok	74.50	73.815	648	191356670	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_gpt4o_v131072/encode_hf
+multilingual	1	ours_simd	8	gpt4o	131072	none	train	ok	48.56	47.705	7459		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_gpt4o_v131072/train_ours_simd
+multilingual	1	ours_simd	8	gpt4o	131072	none	encode	ok	9.10	8.294	108	191356670	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_gpt4o_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	gpt4o	131072	none	train	ok	50.82	49.979	7476		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_gpt4o_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	gpt4o	131072	none	encode	ok	9.04	8.246	107	191356670	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_gpt4o_v131072/encode_ours_nosimd
+multilingual	1	tiktoken	8	gpt4o	131072	none	encode	ok	20.96	20.175	211	191356670	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_gpt4o_v131072/encode_tiktoken
+multilingual	1	hf	8	whitespace	131072	none	train	ok	220.33	217.419	13051		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_v131072/train_hf
+multilingual	1	hf	8	whitespace	131072	none	encode	ok	49.52	48.867	472	185884321	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_v131072/encode_hf
+multilingual	1	ours_simd	8	whitespace	131072	none	train	ok	31.43	30.838	3854		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_v131072/train_ours_simd
+multilingual	1	ours_simd	8	whitespace	131072	none	encode	ok	5.40	4.716	139	185884321	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	whitespace	131072	none	train	ok	31.57	30.977	3861		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	whitespace	131072	none	encode	ok	5.32	4.635	141	185884321	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_v131072/encode_ours_nosimd
+multilingual	1	hf	8	whitespace_split	131072	none	train	ok	315.36	311.858	17085		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_split_v131072/train_hf
+multilingual	1	hf	8	whitespace_split	131072	none	encode	ok	43.55	42.883	533	177598086	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_split_v131072/encode_hf
+multilingual	1	ours_simd	8	whitespace_split	131072	none	train	ok	43.88	43.254	4608		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_split_v131072/train_ours_simd
+multilingual	1	ours_simd	8	whitespace_split	131072	none	encode	ok	6.20	5.516	135	177598086	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_split_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	whitespace_split	131072	none	train	ok	47.19	46.567	4609		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_split_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	whitespace_split	131072	none	encode	ok	6.20	5.509	136	177598086	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_whitespace_split_v131072/encode_ours_nosimd
+multilingual	1	hf	8	metaspace	131072	none	train	ok	328.56	324.639	18621		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_metaspace_v131072/train_hf
+multilingual	1	hf	8	metaspace	131072	none	encode	ok	43.54	42.905	561	186472918	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_metaspace_v131072/encode_hf
+multilingual	1	ours_simd	8	metaspace	131072	none	train	ok	48.28	47.635	4718		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_metaspace_v131072/train_ours_simd
+multilingual	1	ours_simd	8	metaspace	131072	none	encode	ok	8.29	7.581	132	186472918	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_metaspace_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	metaspace	131072	none	train	ok	50.99	50.357	4720		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_metaspace_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	metaspace	131072	none	encode	ok	8.26	7.550	126	186472918	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_metaspace_v131072/encode_ours_nosimd
+multilingual	1	hf	8	bert	131072	none	train	ok	220.62	217.912	13103		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bert_v131072/train_hf
+multilingual	1	hf	8	bert	131072	none	encode	ok	64.49	63.828	516	187574057	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bert_v131072/encode_hf
+multilingual	1	ours_simd	8	bert	131072	none	train	ok	34.59	34.003	3856		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bert_v131072/train_ours_simd
+multilingual	1	ours_simd	8	bert	131072	none	encode	ok	8.20	7.489	135	187574057	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bert_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	bert	131072	none	train	ok	35.15	34.565	3843		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bert_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bert	131072	none	encode	ok	8.04	7.337	136	187574057	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_bert_v131072/encode_ours_nosimd
+multilingual	1	hf	8	punctuation	131072	none	train	ok	1177.63	1159.845	54834		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_punctuation_v131072/train_hf
+multilingual	1	hf	8	punctuation	131072	none	encode	ok	49.87	49.234	446	200644975	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_punctuation_v131072/encode_hf
+multilingual	1	ours_simd	8	punctuation	131072	none	train	ok	160.09	159.378	11727		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_punctuation_v131072/train_ours_simd
+multilingual	1	ours_simd	8	punctuation	131072	none	encode	ok	16.23	15.544	130	200644975	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_punctuation_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	punctuation	131072	none	train	ok	178.42	177.713	11740		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_punctuation_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	punctuation	131072	none	encode	ok	16.10	15.416	130	200644975	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_punctuation_v131072/encode_ours_nosimd
+multilingual	1	hf	8	digits	131072	none	train	ok	1290.90	1280.241	53677		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_digits_v131072/train_hf
+multilingual	1	hf	8	digits	131072	none	encode	ok	39.76	39.105	476	184507747	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_digits_v131072/encode_hf
+multilingual	1	ours_simd	8	digits	131072	none	train	ok	195.42	194.523	13101		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_digits_v131072/train_ours_simd
+multilingual	1	ours_simd	8	digits	131072	none	encode	ok	18.72	18.031	132	184507747	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_digits_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	digits	131072	none	train	ok	253.52	252.643	13105		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_digits_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	digits	131072	none	encode	ok	18.73	18.048	134	184507747	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_digits_v131072/encode_ours_nosimd
+multilingual	1	hf	8	unicode_scripts	131072	none	train	ok	1154.28	1138.963	54336		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_unicode_scripts_v131072/train_hf
+multilingual	1	hf	8	unicode_scripts	131072	none	encode	ok	45.58	44.946	539	187063517	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_unicode_scripts_v131072/encode_hf
+multilingual	1	ours_simd	8	unicode_scripts	131072	none	train	ok	149.13	148.383	11842		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_unicode_scripts_v131072/train_ours_simd
+multilingual	1	ours_simd	8	unicode_scripts	131072	none	encode	ok	15.90	15.219	133	187063517	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_unicode_scripts_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	unicode_scripts	131072	none	train	ok	168.37	167.617	11859		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_unicode_scripts_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	unicode_scripts	131072	none	encode	ok	20.45	19.780	139	187063517	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_unicode_scripts_v131072/encode_ours_nosimd
+multilingual	1	hf	8	char_delimiter	131072	none	train	ok	314.42	310.896	17966		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_char_delimiter_v131072/train_hf
+multilingual	1	hf	8	char_delimiter	131072	none	encode	ok	41.68	41.033	544	179688596	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_char_delimiter_v131072/encode_hf
+multilingual	1	ours_simd	8	char_delimiter	131072	none	train	ok	45.22	44.597	4703		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_char_delimiter_v131072/train_ours_simd
+multilingual	1	ours_simd	8	char_delimiter	131072	none	encode	ok	6.59	5.903	137	179688596	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_char_delimiter_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	char_delimiter	131072	none	train	ok	52.14	51.494	4685		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_char_delimiter_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	char_delimiter	131072	none	encode	ok	6.56	5.883	136	179688596	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/multilingual_1GB/t8_char_delimiter_v131072/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	none	train	ok	115.01	113.857	4354		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bytelevel_v131072/train_hf
+code	1	hf	8	bytelevel	131072	none	encode	ok	92.62	91.920	1060	302087235	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bytelevel_v131072/encode_hf
+code	1	ours_simd	8	bytelevel	131072	none	train	ok	10.66	10.030	1268		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bytelevel_v131072/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	none	encode	ok	4.10	3.293	120	302087235	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bytelevel_v131072/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	none	train	ok	10.76	10.127	1269		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bytelevel_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	none	encode	ok	4.13	3.337	120	302087235	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+code	1	tiktoken	8	bytelevel	131072	none	encode	ok	36.15	35.281	192	302087235	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bytelevel_v131072/encode_tiktoken
+code	1	hf	8	llama3	131072	none	train	ok	125.79	124.399	5000		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_llama3_v131072/train_hf
+code	1	hf	8	llama3	131072	none	encode	ok	89.28	88.605	1003	255124006	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_llama3_v131072/encode_hf
+code	1	ours_simd	8	llama3	131072	none	train	ok	11.93	11.287	1365		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_llama3_v131072/train_ours_simd
+code	1	ours_simd	8	llama3	131072	none	encode	ok	4.34	3.544	109	255124006	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_llama3_v131072/encode_ours_simd
+code	1	ours_nosimd	8	llama3	131072	none	train	ok	11.96	11.334	1375		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_llama3_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	llama3	131072	none	encode	ok	4.32	3.539	107	255124006	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_llama3_v131072/encode_ours_nosimd
+code	1	tiktoken	8	llama3	131072	none	encode	ok	30.18	29.425	196	255124006	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_llama3_v131072/encode_tiktoken
+code	1	hf	8	gpt4o	131072	none	train	ok	82.42	81.710	2127		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_gpt4o_v131072/train_hf
+code	1	hf	8	gpt4o	131072	none	encode	ok	92.06	91.392	979	258546436	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_gpt4o_v131072/encode_hf
+code	1	ours_simd	8	gpt4o	131072	none	train	ok	6.53	5.932	662		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_gpt4o_v131072/train_ours_simd
+code	1	ours_simd	8	gpt4o	131072	none	encode	ok	4.42	3.626	130	258546436	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_gpt4o_v131072/encode_ours_simd
+code	1	ours_nosimd	8	gpt4o	131072	none	train	ok	6.55	5.950	672		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_gpt4o_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	gpt4o	131072	none	encode	ok	4.42	3.635	125	258546436	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_gpt4o_v131072/encode_ours_nosimd
+code	1	tiktoken	8	gpt4o	131072	none	encode	ok	28.99	28.239	243	258546436	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_gpt4o_v131072/encode_tiktoken
+code	1	hf	8	whitespace	131072	none	train	ok	135.60	134.465	6107		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_v131072/train_hf
+code	1	hf	8	whitespace	131072	none	encode	ok	59.67	59.044	690	227354702	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_v131072/encode_hf
+code	1	ours_simd	8	whitespace	131072	none	train	ok	16.24	15.680	1544		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_v131072/train_ours_simd
+code	1	ours_simd	8	whitespace	131072	none	encode	ok	4.13	3.470	135	227354702	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_v131072/encode_ours_simd
+code	1	ours_nosimd	8	whitespace	131072	none	train	ok	16.62	16.092	1555		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	whitespace	131072	none	encode	ok	4.15	3.495	133	227354702	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_v131072/encode_ours_nosimd
+code	1	hf	8	whitespace_split	131072	none	train	ok	450.14	447.434	22602		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_split_v131072/train_hf
+code	1	hf	8	whitespace_split	131072	none	encode	ok	42.44	41.801	542	170404944	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_split_v131072/encode_hf
+code	1	ours_simd	8	whitespace_split	131072	none	train	ok	60.04	59.386	5352		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_split_v131072/train_ours_simd
+code	1	ours_simd	8	whitespace_split	131072	none	encode	ok	8.45	7.775	128	170404944	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_split_v131072/encode_ours_simd
+code	1	ours_nosimd	8	whitespace_split	131072	none	train	ok	63.74	63.089	5355		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_split_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	whitespace_split	131072	none	encode	ok	8.38	7.720	125	170404944	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_whitespace_split_v131072/encode_ours_nosimd
+code	1	hf	8	metaspace	131072	none	train	ok	514.91	509.258	25036		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_metaspace_v131072/train_hf
+code	1	hf	8	metaspace	131072	none	encode	ok	65.99	65.306	802	298836745	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_metaspace_v131072/encode_hf
+code	1	ours_simd	8	metaspace	131072	none	train	ok	68.76	68.119	5699		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_metaspace_v131072/train_ours_simd
+code	1	ours_simd	8	metaspace	131072	none	encode	ok	11.87	11.154	191	298836745	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_metaspace_v131072/encode_ours_simd
+code	1	ours_nosimd	8	metaspace	131072	none	train	ok	73.09	72.446	5696		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_metaspace_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	metaspace	131072	none	encode	ok	11.75	11.045	202	298836745	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_metaspace_v131072/encode_ours_nosimd
+code	1	hf	8	bert	131072	none	train	ok	92.91	92.154	3756		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bert_v131072/train_hf
+code	1	hf	8	bert	131072	none	encode	ok	74.19	73.547	770	285472855	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bert_v131072/encode_hf
+code	1	ours_simd	8	bert	131072	none	train	ok	13.10	12.594	1165		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bert_v131072/train_ours_simd
+code	1	ours_simd	8	bert	131072	none	encode	ok	6.39	5.729	123	285472855	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bert_v131072/encode_ours_simd
+code	1	ours_nosimd	8	bert	131072	none	train	ok	13.21	12.697	1191		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bert_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	bert	131072	none	encode	ok	6.27	5.604	123	285472855	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_bert_v131072/encode_ours_nosimd
+code	1	hf	8	punctuation	131072	none	train	ok	349.65	347.414	18939		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_punctuation_v131072/train_hf
+code	1	hf	8	punctuation	131072	none	encode	ok	78.46	77.796	800	329938097	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_punctuation_v131072/encode_hf
+code	1	ours_simd	8	punctuation	131072	none	train	ok	50.74	50.165	4348		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_punctuation_v131072/train_ours_simd
+code	1	ours_simd	8	punctuation	131072	none	encode	ok	12.58	11.896	150	329938097	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_punctuation_v131072/encode_ours_simd
+code	1	ours_nosimd	8	punctuation	131072	none	train	ok	53.70	53.128	4321		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_punctuation_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	punctuation	131072	none	encode	ok	12.44	11.771	148	329938097	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_punctuation_v131072/encode_ours_nosimd
+code	1	hf	8	digits	131072	none	train	ok	1106.32	1094.114	52223		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_digits_v131072/train_hf
+code	1	hf	8	digits	131072	none	encode	ok	44.23	43.581	730	191120710	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_digits_v131072/encode_hf
+code	1	ours_simd	8	digits	131072	none	train	ok	131.59	130.852	11095		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_digits_v131072/train_ours_simd
+code	1	ours_simd	8	digits	131072	none	encode	ok	26.16	25.462	209	191120710	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_digits_v131072/encode_ours_simd
+code	1	ours_nosimd	8	digits	131072	none	train	ok	144.82	144.094	11107		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_digits_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	digits	131072	none	encode	ok	26.45	25.743	216	191120710	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_digits_v131072/encode_ours_nosimd
+code	1	hf	8	unicode_scripts	131072	none	train	ok	313.83	311.749	15209		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_unicode_scripts_v131072/train_hf
+code	1	hf	8	unicode_scripts	131072	none	encode	ok	62.78	62.140	690	243297460	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_unicode_scripts_v131072/encode_hf
+code	1	ours_simd	8	unicode_scripts	131072	none	train	ok	45.70	45.129	3543		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_unicode_scripts_v131072/train_ours_simd
+code	1	ours_simd	8	unicode_scripts	131072	none	encode	ok	11.95	11.282	144	243297460	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_unicode_scripts_v131072/encode_ours_simd
+code	1	ours_nosimd	8	unicode_scripts	131072	none	train	ok	49.32	48.728	3581		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_unicode_scripts_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	unicode_scripts	131072	none	encode	ok	16.33	15.656	137	243297460	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_unicode_scripts_v131072/encode_ours_nosimd
+code	1	hf	8	char_delimiter	131072	none	train	ok	484.83	481.619	24671		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_char_delimiter_v131072/train_hf
+code	1	hf	8	char_delimiter	131072	none	encode	ok	42.55	41.873	554	180648905	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_char_delimiter_v131072/encode_hf
+code	1	ours_simd	8	char_delimiter	131072	none	train	ok	65.84	65.181	5582		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_char_delimiter_v131072/train_ours_simd
+code	1	ours_simd	8	char_delimiter	131072	none	encode	ok	9.74	9.051	144	180648905	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_char_delimiter_v131072/encode_ours_simd
+code	1	ours_nosimd	8	char_delimiter	131072	none	train	ok	75.56	74.925	5539		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_char_delimiter_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	char_delimiter	131072	none	encode	ok	9.78	9.109	147	180648905	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/code_1GB/t8_char_delimiter_v131072/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	none	train	ok	223.09	219.863	11490		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bytelevel_v131072/train_hf
+mix	1	hf	8	bytelevel	131072	none	encode	ok	86.30	85.606	861	242831551	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bytelevel_v131072/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	none	train	ok	22.47	21.762	3248		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bytelevel_v131072/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	none	encode	ok	6.05	5.212	118	242831551	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bytelevel_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	none	train	ok	23.14	22.423	3243		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bytelevel_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	none	encode	ok	6.08	5.231	114	242831551	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+mix	1	tiktoken	8	bytelevel	131072	none	encode	ok	28.62	27.728	179	242831551	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bytelevel_v131072/encode_tiktoken
+mix	1	hf	8	llama3	131072	none	train	ok	249.40	245.986	12641		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_llama3_v131072/train_hf
+mix	1	hf	8	llama3	131072	none	encode	ok	80.70	80.017	959	226189406	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_llama3_v131072/encode_hf
+mix	1	ours_simd	8	llama3	131072	none	train	ok	23.92	23.199	3387		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_llama3_v131072/train_ours_simd
+mix	1	ours_simd	8	llama3	131072	none	encode	ok	6.17	5.340	116	226189406	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_llama3_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	llama3	131072	none	train	ok	26.29	25.551	3361		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_llama3_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	llama3	131072	none	encode	ok	6.23	5.398	115	226189406	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_llama3_v131072/encode_ours_nosimd
+mix	1	tiktoken	8	llama3	131072	none	encode	ok	24.87	24.089	189	226189406	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_llama3_v131072/encode_tiktoken
+mix	1	hf	8	gpt4o	131072	none	train	ok	217.90	214.991	11489		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_gpt4o_v131072/train_hf
+mix	1	hf	8	gpt4o	131072	none	encode	ok	82.19	81.496	911	226677218	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_gpt4o_v131072/encode_hf
+mix	1	ours_simd	8	gpt4o	131072	none	train	ok	21.88	21.175	3244		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_gpt4o_v131072/train_ours_simd
+mix	1	ours_simd	8	gpt4o	131072	none	encode	ok	6.61	5.775	118	226677218	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_gpt4o_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	gpt4o	131072	none	train	ok	22.91	22.193	3240		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_gpt4o_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	gpt4o	131072	none	encode	ok	6.60	5.760	118	226677218	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_gpt4o_v131072/encode_ours_nosimd
+mix	1	tiktoken	8	gpt4o	131072	none	encode	ok	23.79	22.985	251	226677218	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_gpt4o_v131072/encode_tiktoken
+mix	1	hf	8	whitespace	131072	none	train	ok	145.79	144.151	8346		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_v131072/train_hf
+mix	1	hf	8	whitespace	131072	none	encode	ok	62.83	62.192	668	212360493	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_v131072/encode_hf
+mix	1	ours_simd	8	whitespace	131072	none	train	ok	19.02	18.479	2192		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_v131072/train_ours_simd
+mix	1	ours_simd	8	whitespace	131072	none	encode	ok	4.84	4.179	132	212360493	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	whitespace	131072	none	train	ok	19.43	18.891	2199		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	whitespace	131072	none	encode	ok	4.75	4.089	134	212360493	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_v131072/encode_ours_nosimd
+mix	1	hf	8	whitespace_split	131072	none	train	ok	356.89	353.402	16334		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_split_v131072/train_hf
+mix	1	hf	8	whitespace_split	131072	none	encode	ok	48.55	47.898	529	189111817	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_split_v131072/encode_hf
+mix	1	ours_simd	8	whitespace_split	131072	none	train	ok	42.59	42.002	4324		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_split_v131072/train_ours_simd
+mix	1	ours_simd	8	whitespace_split	131072	none	encode	ok	6.92	6.259	136	189111817	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_split_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	whitespace_split	131072	none	train	ok	44.92	44.321	4316		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_split_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	whitespace_split	131072	none	encode	ok	6.82	6.163	140	189111817	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_whitespace_split_v131072/encode_ours_nosimd
+mix	1	hf	8	metaspace	131072	none	train	ok	401.07	397.117	18215		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_metaspace_v131072/train_hf
+mix	1	hf	8	metaspace	131072	none	encode	ok	57.93	57.263	652	239445603	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_metaspace_v131072/encode_hf
+mix	1	ours_simd	8	metaspace	131072	none	train	ok	47.63	47.003	4561		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_metaspace_v131072/train_ours_simd
+mix	1	ours_simd	8	metaspace	131072	none	encode	ok	9.44	8.730	158	239445603	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_metaspace_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	metaspace	131072	none	train	ok	49.29	48.670	4550		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_metaspace_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	metaspace	131072	none	encode	ok	9.35	8.645	164	239445603	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_metaspace_v131072/encode_ours_nosimd
+mix	1	hf	8	bert	131072	none	train	ok	132.60	131.222	7005		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bert_v131072/train_hf
+mix	1	hf	8	bert	131072	none	encode	ok	73.67	73.034	621	231629622	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bert_v131072/encode_hf
+mix	1	ours_simd	8	bert	131072	none	train	ok	19.97	19.432	2049		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bert_v131072/train_ours_simd
+mix	1	ours_simd	8	bert	131072	none	encode	ok	7.73	7.065	123	231629622	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bert_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	bert	131072	none	train	ok	20.23	19.692	2045		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bert_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	bert	131072	none	encode	ok	7.60	6.936	137	231629622	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_bert_v131072/encode_ours_nosimd
+mix	1	hf	8	punctuation	131072	none	train	ok	1191.04	1176.772	50304		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_punctuation_v131072/train_hf
+mix	1	hf	8	punctuation	131072	none	encode	ok	57.74	57.085	624	251729324	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_punctuation_v131072/encode_hf
+mix	1	ours_simd	8	punctuation	131072	none	train	ok	146.75	146.032	11599		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_punctuation_v131072/train_ours_simd
+mix	1	ours_simd	8	punctuation	131072	none	encode	ok	17.91	17.246	129	251729324	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_punctuation_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	punctuation	131072	none	train	ok	171.40	170.581	11553		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_punctuation_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	punctuation	131072	none	encode	ok	17.55	16.885	125	251729324	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_punctuation_v131072/encode_ours_nosimd
+mix	1	hf	8	digits	131072	none	train	ok	1388.24	1373.659	58796		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_digits_v131072/train_hf
+mix	1	hf	8	digits	131072	none	encode	ok	44.19	43.533	652	196681030	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_digits_v131072/encode_hf
+mix	1	ours_simd	8	digits	131072	none	train	ok	194.33	193.541	13638		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_digits_v131072/train_ours_simd
+mix	1	ours_simd	8	digits	131072	none	encode	ok	24.88	24.186	161	196681030	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_digits_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	digits	131072	none	train	ok	259.09	258.280	13649		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_digits_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	digits	131072	none	encode	ok	24.65	23.966	152	196681030	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_digits_v131072/encode_ours_nosimd
+mix	1	hf	8	unicode_scripts	131072	none	train	ok	1004.45	991.182	49740		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_unicode_scripts_v131072/train_hf
+mix	1	hf	8	unicode_scripts	131072	none	encode	ok	51.93	51.275	571	213327106	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_unicode_scripts_v131072/encode_hf
+mix	1	ours_simd	8	unicode_scripts	131072	none	train	ok	136.77	136.071	11458		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_unicode_scripts_v131072/train_ours_simd
+mix	1	ours_simd	8	unicode_scripts	131072	none	encode	ok	17.00	16.316	131	213327106	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_unicode_scripts_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	unicode_scripts	131072	none	train	ok	151.86	151.156	11448		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_unicode_scripts_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	unicode_scripts	131072	none	encode	ok	21.54	20.873	129	213327106	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_unicode_scripts_v131072/encode_ours_nosimd
+mix	1	hf	8	char_delimiter	131072	none	train	ok	350.70	348.528	17908		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_char_delimiter_v131072/train_hf
+mix	1	hf	8	char_delimiter	131072	none	encode	ok	55.15	54.525	548	194377759	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_char_delimiter_v131072/encode_hf
+mix	1	ours_simd	8	char_delimiter	131072	none	train	ok	44.82	44.227	4442		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_char_delimiter_v131072/train_ours_simd
+mix	1	ours_simd	8	char_delimiter	131072	none	encode	ok	7.60	6.925	124	194377759	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_char_delimiter_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	char_delimiter	131072	none	train	ok	48.48	47.876	4429		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_char_delimiter_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	char_delimiter	131072	none	encode	ok	7.52	6.838	141	194377759	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/mix_1GB/t8_char_delimiter_v131072/encode_ours_nosimd
+english	1	hf	8	metaspace	131072	none	train	ok	90.04	89.033	4549		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_metaspace_v131072/train_hf
+english	1	hf	8	metaspace	131072	none	encode	ok	59.50	58.838	477	182392957	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_metaspace_v131072/encode_hf
+english	1	ours_simd	8	metaspace	131072	none	train	ok	12.80	12.242	1305		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_metaspace_v131072/train_ours_simd
+english	1	ours_simd	8	metaspace	131072	none	encode	ok	7.28	6.564	142	182392957	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_metaspace_v131072/encode_ours_simd
+english	1	ours_nosimd	8	metaspace	131072	none	train	ok	12.65	12.100	1288		/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_metaspace_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	metaspace	131072	none	encode	ok	7.22	6.503	140	182392957	/iopsstor/scratch/cscs/ibadanin/tok_bench/bench_server/results_pretok/english_1GB/t8_metaspace_v131072/encode_ours_nosimd

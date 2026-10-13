@@ -1,0 +1,269 @@
+dataset	size_GB	impl	threads	pretok	vocab	norm	step	status	wall_s	inner_s	peak_rss_MB	tokens	dir
+english	1	hf	8	bytelevel	131072	none	train	ok	51.84	51.228	1393		results_norm/english_1GB/t8_bytelevel_v131072/train_hf
+english	1	hf	8	bytelevel	131072	none	encode	ok	95.13	94.468	580	202748556	results_norm/english_1GB/t8_bytelevel_v131072/encode_hf
+english	1	ours_simd	8	bytelevel	131072	none	train	ok	4.63	4.010	447		results_norm/english_1GB/t8_bytelevel_v131072/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	none	encode	ok	3.93	3.168	100	202748556	results_norm/english_1GB/t8_bytelevel_v131072/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	none	train	ok	4.39	3.783	452		results_norm/english_1GB/t8_bytelevel_v131072/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	none	encode	ok	4.00	3.252	100	202748556	results_norm/english_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+english	1	tiktoken	8	bytelevel	131072	none	encode	ok	22.26	21.552	162	202748556	results_norm/english_1GB/t8_bytelevel_v131072/encode_tiktoken
+english	1	hf	8	bytelevel	131072	nfc	train	ok	57.17	56.552	1408		results_norm/english_1GB/t8_bytelevel_v131072_nnfc/train_hf
+english	1	hf	8	bytelevel	131072	nfc	encode	ok	83.12	82.450	542	202748556	results_norm/english_1GB/t8_bytelevel_v131072_nnfc/encode_hf
+english	1	ours_simd	8	bytelevel	131072	nfc	train	ok	14.64	14.037	467		results_norm/english_1GB/t8_bytelevel_v131072_nnfc/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	nfc	encode	ok	7.34	6.584	106	202748556	results_norm/english_1GB/t8_bytelevel_v131072_nnfc/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	nfc	train	ok	32.94	32.322	499		results_norm/english_1GB/t8_bytelevel_v131072_nnfc/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	nfc	encode	ok	6.99	6.241	102	202748556	results_norm/english_1GB/t8_bytelevel_v131072_nnfc/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	nfd	train	ok	53.45	52.886	1427		results_norm/english_1GB/t8_bytelevel_v131072_nnfd/train_hf
+english	1	hf	8	bytelevel	131072	nfd	encode	ok	86.01	85.333	606	202860439	results_norm/english_1GB/t8_bytelevel_v131072_nnfd/encode_hf
+english	1	ours_simd	8	bytelevel	131072	nfd	train	ok	12.00	11.394	652		results_norm/english_1GB/t8_bytelevel_v131072_nnfd/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	nfd	encode	ok	5.96	5.211	131	202860439	results_norm/english_1GB/t8_bytelevel_v131072_nnfd/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	nfd	train	ok	19.31	18.692	488		results_norm/english_1GB/t8_bytelevel_v131072_nnfd/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	nfd	encode	ok	5.89	5.134	131	202860439	results_norm/english_1GB/t8_bytelevel_v131072_nnfd/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	nfkc	train	ok	55.13	54.573	1390		results_norm/english_1GB/t8_bytelevel_v131072_nnfkc/train_hf
+english	1	hf	8	bytelevel	131072	nfkc	encode	ok	82.85	82.205	608	202744550	results_norm/english_1GB/t8_bytelevel_v131072_nnfkc/encode_hf
+english	1	ours_simd	8	bytelevel	131072	nfkc	train	ok	14.50	13.876	470		results_norm/english_1GB/t8_bytelevel_v131072_nnfkc/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	nfkc	encode	ok	7.23	6.475	104	202744550	results_norm/english_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	nfkc	train	ok	32.51	31.901	496		results_norm/english_1GB/t8_bytelevel_v131072_nnfkc/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	nfkc	encode	ok	7.07	6.317	106	202744550	results_norm/english_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	nfkd	train	ok	54.83	54.271	1389		results_norm/english_1GB/t8_bytelevel_v131072_nnfkd/train_hf
+english	1	hf	8	bytelevel	131072	nfkd	encode	ok	86.52	85.876	598	202856251	results_norm/english_1GB/t8_bytelevel_v131072_nnfkd/encode_hf
+english	1	ours_simd	8	bytelevel	131072	nfkd	train	ok	10.68	10.053	616		results_norm/english_1GB/t8_bytelevel_v131072_nnfkd/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	nfkd	encode	ok	5.97	5.229	127	202856251	results_norm/english_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	nfkd	train	ok	21.07	20.457	488		results_norm/english_1GB/t8_bytelevel_v131072_nnfkd/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	nfkd	encode	ok	5.99	5.215	126	202856251	results_norm/english_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	lowercase	train	ok	50.70	50.151	1202		results_norm/english_1GB/t8_bytelevel_v131072_nlowercase/train_hf
+english	1	hf	8	bytelevel	131072	lowercase	encode	ok	95.77	95.073	547	200723420	results_norm/english_1GB/t8_bytelevel_v131072_nlowercase/encode_hf
+english	1	ours_simd	8	bytelevel	131072	lowercase	train	ok	10.81	10.205	470		results_norm/english_1GB/t8_bytelevel_v131072_nlowercase/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	lowercase	encode	ok	5.40	4.626	102	200723420	results_norm/english_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	lowercase	train	ok	15.31	14.705	399		results_norm/english_1GB/t8_bytelevel_v131072_nlowercase/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	lowercase	encode	ok	5.44	4.672	109	200723420	results_norm/english_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	strip_accents	train	ok	57.22	56.652	1431		results_norm/english_1GB/t8_bytelevel_v131072_nstrip_accents/train_hf
+english	1	hf	8	bytelevel	131072	strip_accents	encode	ok	84.28	83.619	640	202583582	results_norm/english_1GB/t8_bytelevel_v131072_nstrip_accents/encode_hf
+english	1	ours_simd	8	bytelevel	131072	strip_accents	train	ok	12.12	11.485	563		results_norm/english_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	strip_accents	encode	ok	6.29	5.532	128	202583582	results_norm/english_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	strip_accents	train	ok	15.89	15.251	492		results_norm/english_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	strip_accents	encode	ok	6.21	5.455	129	202583582	results_norm/english_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	nfkc_lowercase	train	ok	56.41	55.856	1203		results_norm/english_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_hf
+english	1	hf	8	bytelevel	131072	nfkc_lowercase	encode	ok	87.16	86.510	559	200720817	results_norm/english_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_hf
+english	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	train	ok	14.84	14.222	455		results_norm/english_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	encode	ok	8.26	7.500	111	200720817	results_norm/english_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	train	ok	15.05	14.436	420		results_norm/english_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	encode	ok	8.08	7.330	114	200720817	results_norm/english_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	replace	train	ok	52.99	52.422	1393		results_norm/english_1GB/t8_bytelevel_v131072_nreplace/train_hf
+english	1	hf	8	bytelevel	131072	replace	encode	ok	78.38	77.727	516	202748556	results_norm/english_1GB/t8_bytelevel_v131072_nreplace/encode_hf
+english	1	ours_simd	8	bytelevel	131072	replace	train	ok	4.94	4.320	496		results_norm/english_1GB/t8_bytelevel_v131072_nreplace/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	replace	encode	ok	4.16	3.406	132	202748556	results_norm/english_1GB/t8_bytelevel_v131072_nreplace/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	replace	train	ok	4.91	4.291	496		results_norm/english_1GB/t8_bytelevel_v131072_nreplace/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	replace	encode	ok	4.22	3.459	135	202748556	results_norm/english_1GB/t8_bytelevel_v131072_nreplace/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	bert	train	ok	67.45	66.917	1183		results_norm/english_1GB/t8_bytelevel_v131072_nbert/train_hf
+english	1	hf	8	bytelevel	131072	bert	encode	ok	94.39	93.721	678	196052396	results_norm/english_1GB/t8_bytelevel_v131072_nbert/encode_hf
+english	1	ours_simd	8	bytelevel	131072	bert	train	ok	11.55	10.911	458		results_norm/english_1GB/t8_bytelevel_v131072_nbert/train_ours_simd
+english	1	ours_simd	8	bytelevel	131072	bert	encode	ok	10.49	9.740	138	196052396	results_norm/english_1GB/t8_bytelevel_v131072_nbert/encode_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	bert	train	ok	11.31	10.689	455		results_norm/english_1GB/t8_bytelevel_v131072_nbert/train_ours_nosimd
+english	1	ours_nosimd	8	bytelevel	131072	bert	encode	ok	10.53	9.773	143	196052396	results_norm/english_1GB/t8_bytelevel_v131072_nbert/encode_ours_nosimd
+english	1	hf	8	bytelevel	131072	prepend	train	ok	52.06	51.497	1403		results_norm/english_1GB/t8_bytelevel_v131072_nprepend/train_hf
+english	1	ours_simd	8	bytelevel	131072	prepend	train	ok	6.94	6.325	513		results_norm/english_1GB/t8_bytelevel_v131072_nprepend/train_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	prepend	train	ok	7.00	6.373	565		results_norm/english_1GB/t8_bytelevel_v131072_nprepend/train_ours_nosimd
+english	1	hf	8	bytelevel	131072	strip	train	ok	53.78	53.210	1394		results_norm/english_1GB/t8_bytelevel_v131072_nstrip/train_hf
+english	1	ours_simd	8	bytelevel	131072	strip	train	ok	4.59	3.964	494		results_norm/english_1GB/t8_bytelevel_v131072_nstrip/train_ours_simd
+english	1	ours_nosimd	8	bytelevel	131072	strip	train	ok	4.94	4.312	495		results_norm/english_1GB/t8_bytelevel_v131072_nstrip/train_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	none	train	ok	482.41	475.223	26811		results_norm/multilingual_1GB/t8_bytelevel_v131072/train_hf
+multilingual	1	hf	8	bytelevel	131072	none	encode	ok	69.17	68.461	605	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	none	train	ok	46.61	45.737	7174		results_norm/multilingual_1GB/t8_bytelevel_v131072/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	none	encode	ok	8.51	7.717	111	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	none	train	ok	48.40	47.557	7144		results_norm/multilingual_1GB/t8_bytelevel_v131072/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	none	encode	ok	8.41	7.625	104	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+multilingual	1	tiktoken	8	bytelevel	131072	none	encode	ok	23.72	22.970	172	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072/encode_tiktoken
+multilingual	1	hf	8	bytelevel	131072	nfc	train	ok	483.94	477.000	26013		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfc/train_hf
+multilingual	1	hf	8	bytelevel	131072	nfc	encode	ok	73.39	72.698	666	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfc/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	nfc	train	ok	51.31	50.461	7206		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfc/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	nfc	encode	ok	11.50	10.704	106	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfc/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfc	train	ok	51.57	50.728	7209		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfc/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfc	encode	ok	11.22	10.417	116	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfc/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	nfd	train	ok	437.69	431.970	22663		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfd/train_hf
+multilingual	1	hf	8	bytelevel	131072	nfd	encode	ok	82.80	82.103	714	215457517	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfd/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	nfd	train	ok	47.67	46.855	6429		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfd/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	nfd	encode	ok	10.09	9.288	137	215457517	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfd/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfd	train	ok	53.31	52.474	6441		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfd/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfd	encode	ok	9.85	9.055	138	215457517	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfd/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	nfkc	train	ok	514.86	507.752	25726		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc/train_hf
+multilingual	1	hf	8	bytelevel	131072	nfkc	encode	ok	78.25	77.561	648	195715914	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	nfkc	train	ok	53.23	52.355	7181		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	nfkc	encode	ok	11.39	10.597	113	195715914	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfkc	train	ok	59.25	58.374	7131		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfkc	encode	ok	11.34	10.536	111	195715914	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	nfkd	train	ok	450.46	444.316	22729		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkd/train_hf
+multilingual	1	hf	8	bytelevel	131072	nfkd	encode	ok	86.15	85.476	714	215277673	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkd/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	nfkd	train	ok	48.39	47.544	6454		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkd/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	nfkd	encode	ok	10.19	9.391	129	215277673	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfkd	train	ok	52.40	51.589	6428		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkd/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfkd	encode	ok	10.03	9.238	131	215277673	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	lowercase	train	ok	452.27	445.427	26383		results_norm/multilingual_1GB/t8_bytelevel_v131072_nlowercase/train_hf
+multilingual	1	hf	8	bytelevel	131072	lowercase	encode	ok	70.32	69.622	665	191199315	results_norm/multilingual_1GB/t8_bytelevel_v131072_nlowercase/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	lowercase	train	ok	49.12	48.231	7090		results_norm/multilingual_1GB/t8_bytelevel_v131072_nlowercase/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	lowercase	encode	ok	10.42	9.623	101	191199315	results_norm/multilingual_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	lowercase	train	ok	68.07	67.194	7124		results_norm/multilingual_1GB/t8_bytelevel_v131072_nlowercase/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	lowercase	encode	ok	10.32	9.506	108	191199315	results_norm/multilingual_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	strip_accents	train	ok	428.60	422.048	26137		results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip_accents/train_hf
+multilingual	1	hf	8	bytelevel	131072	strip_accents	encode	ok	74.52	73.816	694	193208481	results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip_accents/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	strip_accents	train	ok	61.98	61.141	7131		results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	strip_accents	encode	ok	10.62	9.832	127	193208481	results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	strip_accents	train	ok	64.54	63.677	7156		results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	strip_accents	encode	ok	10.34	9.552	127	193208481	results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	nfkc_lowercase	train	ok	506.75	499.906	25167		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_hf
+multilingual	1	hf	8	bytelevel	131072	nfkc_lowercase	encode	ok	73.57	72.875	657	191019882	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	train	ok	69.47	68.636	7129		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	encode	ok	12.65	11.857	125	191019882	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	train	ok	72.80	71.959	7124		results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	encode	ok	12.41	11.607	127	191019882	results_norm/multilingual_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	replace	train	ok	481.10	474.064	25682		results_norm/multilingual_1GB/t8_bytelevel_v131072_nreplace/train_hf
+multilingual	1	hf	8	bytelevel	131072	replace	encode	ok	70.73	70.030	646	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072_nreplace/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	replace	train	ok	52.54	51.661	7150		results_norm/multilingual_1GB/t8_bytelevel_v131072_nreplace/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	replace	encode	ok	8.98	8.186	133	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072_nreplace/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	replace	train	ok	54.23	53.357	7137		results_norm/multilingual_1GB/t8_bytelevel_v131072_nreplace/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	replace	encode	ok	8.90	8.095	133	195903947	results_norm/multilingual_1GB/t8_bytelevel_v131072_nreplace/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	bert	train	ok	162.84	161.037	7413		results_norm/multilingual_1GB/t8_bytelevel_v131072_nbert/train_hf
+multilingual	1	hf	8	bytelevel	131072	bert	encode	ok	118.92	118.236	793	248421850	results_norm/multilingual_1GB/t8_bytelevel_v131072_nbert/encode_hf
+multilingual	1	ours_simd	8	bytelevel	131072	bert	train	ok	21.18	20.488	1982		results_norm/multilingual_1GB/t8_bytelevel_v131072_nbert/train_ours_simd
+multilingual	1	ours_simd	8	bytelevel	131072	bert	encode	ok	13.30	12.482	141	248421850	results_norm/multilingual_1GB/t8_bytelevel_v131072_nbert/encode_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	bert	train	ok	20.46	19.763	1979		results_norm/multilingual_1GB/t8_bytelevel_v131072_nbert/train_ours_nosimd
+multilingual	1	ours_nosimd	8	bytelevel	131072	bert	encode	ok	13.32	12.508	140	248421850	results_norm/multilingual_1GB/t8_bytelevel_v131072_nbert/encode_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	prepend	train	ok	494.48	487.721	26477		results_norm/multilingual_1GB/t8_bytelevel_v131072_nprepend/train_hf
+multilingual	1	ours_simd	8	bytelevel	131072	prepend	train	ok	45.74	44.906	7202		results_norm/multilingual_1GB/t8_bytelevel_v131072_nprepend/train_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	prepend	train	ok	49.22	48.364	7164		results_norm/multilingual_1GB/t8_bytelevel_v131072_nprepend/train_ours_nosimd
+multilingual	1	hf	8	bytelevel	131072	strip	train	ok	502.56	495.350	27102		results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip/train_hf
+multilingual	1	ours_simd	8	bytelevel	131072	strip	train	ok	46.61	45.738	7153		results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip/train_ours_simd
+multilingual	1	ours_nosimd	8	bytelevel	131072	strip	train	ok	47.51	46.638	7135		results_norm/multilingual_1GB/t8_bytelevel_v131072_nstrip/train_ours_nosimd
+code	1	hf	8	bytelevel	131072	none	train	ok	117.57	116.444	4302		results_norm/code_1GB/t8_bytelevel_v131072/train_hf
+code	1	hf	8	bytelevel	131072	none	encode	ok	91.95	91.273	1081	302087235	results_norm/code_1GB/t8_bytelevel_v131072/encode_hf
+code	1	ours_simd	8	bytelevel	131072	none	train	ok	10.71	10.086	1288		results_norm/code_1GB/t8_bytelevel_v131072/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	none	encode	ok	4.02	3.217	134	302087235	results_norm/code_1GB/t8_bytelevel_v131072/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	none	train	ok	11.11	10.468	1276		results_norm/code_1GB/t8_bytelevel_v131072/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	none	encode	ok	4.15	3.360	117	302087235	results_norm/code_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+code	1	tiktoken	8	bytelevel	131072	none	encode	ok	36.15	35.309	194	302087235	results_norm/code_1GB/t8_bytelevel_v131072/encode_tiktoken
+code	1	hf	8	bytelevel	131072	nfc	train	ok	125.45	124.205	4304		results_norm/code_1GB/t8_bytelevel_v131072_nnfc/train_hf
+code	1	hf	8	bytelevel	131072	nfc	encode	ok	95.88	95.188	1148	302085974	results_norm/code_1GB/t8_bytelevel_v131072_nnfc/encode_hf
+code	1	ours_simd	8	bytelevel	131072	nfc	train	ok	14.88	14.251	1283		results_norm/code_1GB/t8_bytelevel_v131072_nnfc/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	nfc	encode	ok	7.51	6.711	119	302085974	results_norm/code_1GB/t8_bytelevel_v131072_nnfc/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	nfc	train	ok	14.72	14.086	1295		results_norm/code_1GB/t8_bytelevel_v131072_nnfc/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	nfc	encode	ok	7.23	6.427	120	302085974	results_norm/code_1GB/t8_bytelevel_v131072_nnfc/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	nfd	train	ok	126.39	125.224	4333		results_norm/code_1GB/t8_bytelevel_v131072_nnfd/train_hf
+code	1	hf	8	bytelevel	131072	nfd	encode	ok	93.80	93.144	1148	302375463	results_norm/code_1GB/t8_bytelevel_v131072_nnfd/encode_hf
+code	1	ours_simd	8	bytelevel	131072	nfd	train	ok	16.11	15.464	1297		results_norm/code_1GB/t8_bytelevel_v131072_nnfd/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	nfd	encode	ok	6.12	5.323	145	302375463	results_norm/code_1GB/t8_bytelevel_v131072_nnfd/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	nfd	train	ok	17.07	16.446	1263		results_norm/code_1GB/t8_bytelevel_v131072_nnfd/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	nfd	encode	ok	6.11	5.312	153	302375463	results_norm/code_1GB/t8_bytelevel_v131072_nnfd/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	nfkc	train	ok	128.50	127.273	4259		results_norm/code_1GB/t8_bytelevel_v131072_nnfkc/train_hf
+code	1	hf	8	bytelevel	131072	nfkc	encode	ok	111.22	110.523	1164	302089887	results_norm/code_1GB/t8_bytelevel_v131072_nnfkc/encode_hf
+code	1	ours_simd	8	bytelevel	131072	nfkc	train	ok	15.01	14.378	1291		results_norm/code_1GB/t8_bytelevel_v131072_nnfkc/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	nfkc	encode	ok	7.45	6.650	127	302089887	results_norm/code_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	nfkc	train	ok	14.40	13.767	1292		results_norm/code_1GB/t8_bytelevel_v131072_nnfkc/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	nfkc	encode	ok	7.30	6.494	116	302089887	results_norm/code_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	nfkd	train	ok	123.64	122.417	4274		results_norm/code_1GB/t8_bytelevel_v131072_nnfkd/train_hf
+code	1	hf	8	bytelevel	131072	nfkd	encode	ok	106.90	106.210	1061	302380400	results_norm/code_1GB/t8_bytelevel_v131072_nnfkd/encode_hf
+code	1	ours_simd	8	bytelevel	131072	nfkd	train	ok	15.31	14.664	1255		results_norm/code_1GB/t8_bytelevel_v131072_nnfkd/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	nfkd	encode	ok	6.19	5.380	148	302380400	results_norm/code_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	nfkd	train	ok	16.18	15.550	1267		results_norm/code_1GB/t8_bytelevel_v131072_nnfkd/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	nfkd	encode	ok	6.19	5.384	149	302380400	results_norm/code_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	lowercase	train	ok	117.39	116.340	3909		results_norm/code_1GB/t8_bytelevel_v131072_nlowercase/train_hf
+code	1	hf	8	bytelevel	131072	lowercase	encode	ok	92.50	91.829	1003	298854189	results_norm/code_1GB/t8_bytelevel_v131072_nlowercase/encode_hf
+code	1	ours_simd	8	bytelevel	131072	lowercase	train	ok	12.71	12.074	1237		results_norm/code_1GB/t8_bytelevel_v131072_nlowercase/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	lowercase	encode	ok	5.70	4.898	120	298854189	results_norm/code_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	lowercase	train	ok	13.51	12.883	1120		results_norm/code_1GB/t8_bytelevel_v131072_nlowercase/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	lowercase	encode	ok	5.73	4.914	115	298854189	results_norm/code_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	strip_accents	train	ok	134.52	133.297	4227		results_norm/code_1GB/t8_bytelevel_v131072_nstrip_accents/train_hf
+code	1	hf	8	bytelevel	131072	strip_accents	encode	ok	96.52	95.837	1085	301784746	results_norm/code_1GB/t8_bytelevel_v131072_nstrip_accents/encode_hf
+code	1	ours_simd	8	bytelevel	131072	strip_accents	train	ok	38.19	37.566	1285		results_norm/code_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	strip_accents	encode	ok	6.44	5.643	138	301784746	results_norm/code_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	strip_accents	train	ok	25.44	24.822	1222		results_norm/code_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	strip_accents	encode	ok	6.39	5.585	133	301784746	results_norm/code_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	nfkc_lowercase	train	ok	122.02	120.981	3863		results_norm/code_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_hf
+code	1	hf	8	bytelevel	131072	nfkc_lowercase	encode	ok	107.87	107.201	1100	298857789	results_norm/code_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_hf
+code	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	train	ok	34.73	34.102	1156		results_norm/code_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	encode	ok	8.58	7.778	122	298857789	results_norm/code_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	train	ok	34.59	33.952	1146		results_norm/code_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	encode	ok	8.47	7.650	126	298857789	results_norm/code_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	replace	train	ok	115.38	114.267	4269		results_norm/code_1GB/t8_bytelevel_v131072_nreplace/train_hf
+code	1	hf	8	bytelevel	131072	replace	encode	ok	93.05	92.384	1098	298907406	results_norm/code_1GB/t8_bytelevel_v131072_nreplace/encode_hf
+code	1	ours_simd	8	bytelevel	131072	replace	train	ok	12.64	12.001	1290		results_norm/code_1GB/t8_bytelevel_v131072_nreplace/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	replace	encode	ok	4.42	3.620	157	298907406	results_norm/code_1GB/t8_bytelevel_v131072_nreplace/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	replace	train	ok	11.83	11.200	1285		results_norm/code_1GB/t8_bytelevel_v131072_nreplace/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	replace	encode	ok	4.43	3.627	166	298907406	results_norm/code_1GB/t8_bytelevel_v131072_nreplace/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	bert	train	ok	133.37	132.396	3713		results_norm/code_1GB/t8_bytelevel_v131072_nbert/train_hf
+code	1	hf	8	bytelevel	131072	bert	encode	ok	113.70	113.060	1140	269156756	results_norm/code_1GB/t8_bytelevel_v131072_nbert/encode_hf
+code	1	ours_simd	8	bytelevel	131072	bert	train	ok	21.01	20.386	959		results_norm/code_1GB/t8_bytelevel_v131072_nbert/train_ours_simd
+code	1	ours_simd	8	bytelevel	131072	bert	encode	ok	10.62	9.872	158	269156756	results_norm/code_1GB/t8_bytelevel_v131072_nbert/encode_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	bert	train	ok	24.64	24.006	914		results_norm/code_1GB/t8_bytelevel_v131072_nbert/train_ours_nosimd
+code	1	ours_nosimd	8	bytelevel	131072	bert	encode	ok	10.71	9.963	163	269156756	results_norm/code_1GB/t8_bytelevel_v131072_nbert/encode_ours_nosimd
+code	1	hf	8	bytelevel	131072	prepend	train	ok	122.63	121.517	4220		results_norm/code_1GB/t8_bytelevel_v131072_nprepend/train_hf
+code	1	ours_simd	8	bytelevel	131072	prepend	train	ok	12.43	11.797	1289		results_norm/code_1GB/t8_bytelevel_v131072_nprepend/train_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	prepend	train	ok	12.16	11.528	1287		results_norm/code_1GB/t8_bytelevel_v131072_nprepend/train_ours_nosimd
+code	1	hf	8	bytelevel	131072	strip	train	ok	114.46	113.225	4421		results_norm/code_1GB/t8_bytelevel_v131072_nstrip/train_hf
+code	1	ours_simd	8	bytelevel	131072	strip	train	ok	11.10	10.470	1294		results_norm/code_1GB/t8_bytelevel_v131072_nstrip/train_ours_simd
+code	1	ours_nosimd	8	bytelevel	131072	strip	train	ok	11.52	10.903	1285		results_norm/code_1GB/t8_bytelevel_v131072_nstrip/train_ours_nosimd
+mix	1	hf	8	bytelevel	131072	none	train	ok	228.59	225.516	11620		results_norm/mix_1GB/t8_bytelevel_v131072/train_hf
+mix	1	hf	8	bytelevel	131072	none	encode	ok	82.84	82.164	893	242831551	results_norm/mix_1GB/t8_bytelevel_v131072/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	none	train	ok	22.45	21.737	3234		results_norm/mix_1GB/t8_bytelevel_v131072/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	none	encode	ok	6.07	5.248	118	242831551	results_norm/mix_1GB/t8_bytelevel_v131072/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	none	train	ok	23.15	22.446	3233		results_norm/mix_1GB/t8_bytelevel_v131072/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	none	encode	ok	6.09	5.252	114	242831551	results_norm/mix_1GB/t8_bytelevel_v131072/encode_ours_nosimd
+mix	1	tiktoken	8	bytelevel	131072	none	encode	ok	28.65	27.865	187	242831551	results_norm/mix_1GB/t8_bytelevel_v131072/encode_tiktoken
+mix	1	hf	8	bytelevel	131072	nfc	train	ok	233.05	229.927	11571		results_norm/mix_1GB/t8_bytelevel_v131072_nnfc/train_hf
+mix	1	hf	8	bytelevel	131072	nfc	encode	ok	86.85	86.171	849	242831336	results_norm/mix_1GB/t8_bytelevel_v131072_nnfc/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	nfc	train	ok	28.39	27.667	3198		results_norm/mix_1GB/t8_bytelevel_v131072_nnfc/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	nfc	encode	ok	9.40	8.572	106	242831336	results_norm/mix_1GB/t8_bytelevel_v131072_nnfc/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	nfc	train	ok	34.24	33.539	3202		results_norm/mix_1GB/t8_bytelevel_v131072_nnfc/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	nfc	encode	ok	9.18	8.349	116	242831336	results_norm/mix_1GB/t8_bytelevel_v131072_nnfc/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	nfd	train	ok	229.48	226.610	10814		results_norm/mix_1GB/t8_bytelevel_v131072_nnfd/train_hf
+mix	1	hf	8	bytelevel	131072	nfd	encode	ok	89.69	88.997	878	249144320	results_norm/mix_1GB/t8_bytelevel_v131072_nnfd/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	nfd	train	ok	27.73	27.036	3004		results_norm/mix_1GB/t8_bytelevel_v131072_nnfd/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	nfd	encode	ok	7.92	7.079	146	249144320	results_norm/mix_1GB/t8_bytelevel_v131072_nnfd/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	nfd	train	ok	35.38	34.670	3018		results_norm/mix_1GB/t8_bytelevel_v131072_nnfd/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	nfd	encode	ok	7.89	7.060	147	249144320	results_norm/mix_1GB/t8_bytelevel_v131072_nnfd/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	nfkc	train	ok	225.55	222.574	11504		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc/train_hf
+mix	1	hf	8	bytelevel	131072	nfkc	encode	ok	85.70	85.009	935	242749654	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	nfkc	train	ok	26.61	25.910	3232		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	nfkc	encode	ok	9.27	8.426	117	242749654	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	nfkc	train	ok	30.47	29.740	3191		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	nfkc	encode	ok	9.22	8.390	119	242749654	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	nfkd	train	ok	214.96	211.940	10722		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkd/train_hf
+mix	1	hf	8	bytelevel	131072	nfkd	encode	ok	87.41	86.712	852	249063354	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkd/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	nfkd	train	ok	30.94	30.224	2936		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkd/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	nfkd	encode	ok	7.96	7.135	147	249063354	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	nfkd	train	ok	30.30	29.595	3021		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkd/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	nfkd	encode	ok	7.91	7.079	149	249063354	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkd/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	lowercase	train	ok	241.98	238.950	11374		results_norm/mix_1GB/t8_bytelevel_v131072_nlowercase/train_hf
+mix	1	hf	8	bytelevel	131072	lowercase	encode	ok	84.15	83.452	848	237994519	results_norm/mix_1GB/t8_bytelevel_v131072_nlowercase/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	lowercase	train	ok	25.58	24.859	3152		results_norm/mix_1GB/t8_bytelevel_v131072_nlowercase/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	lowercase	encode	ok	7.85	6.999	112	237994519	results_norm/mix_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	lowercase	train	ok	24.55	23.824	3192		results_norm/mix_1GB/t8_bytelevel_v131072_nlowercase/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	lowercase	encode	ok	7.68	6.832	114	237994519	results_norm/mix_1GB/t8_bytelevel_v131072_nlowercase/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	strip_accents	train	ok	237.73	234.768	11253		results_norm/mix_1GB/t8_bytelevel_v131072_nstrip_accents/train_hf
+mix	1	hf	8	bytelevel	131072	strip_accents	encode	ok	82.49	81.773	828	241569083	results_norm/mix_1GB/t8_bytelevel_v131072_nstrip_accents/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	strip_accents	train	ok	41.83	41.116	3212		results_norm/mix_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	strip_accents	encode	ok	8.31	7.486	134	241569083	results_norm/mix_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	strip_accents	train	ok	33.44	32.730	3132		results_norm/mix_1GB/t8_bytelevel_v131072_nstrip_accents/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	strip_accents	encode	ok	8.26	7.432	137	241569083	results_norm/mix_1GB/t8_bytelevel_v131072_nstrip_accents/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	nfkc_lowercase	train	ok	229.28	226.061	11180		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_hf
+mix	1	hf	8	bytelevel	131072	nfkc_lowercase	encode	ok	89.78	89.093	918	237919177	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	train	ok	41.13	40.411	3091		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	nfkc_lowercase	encode	ok	10.24	9.380	134	237919177	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	train	ok	40.58	39.864	3073		results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc_lowercase/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	nfkc_lowercase	encode	ok	10.28	9.427	133	237919177	results_norm/mix_1GB/t8_bytelevel_v131072_nnfkc_lowercase/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	replace	train	ok	229.67	226.494	11506		results_norm/mix_1GB/t8_bytelevel_v131072_nreplace/train_hf
+mix	1	hf	8	bytelevel	131072	replace	encode	ok	83.66	82.952	836	241620555	results_norm/mix_1GB/t8_bytelevel_v131072_nreplace/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	replace	train	ok	23.07	22.352	3237		results_norm/mix_1GB/t8_bytelevel_v131072_nreplace/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	replace	encode	ok	6.45	5.608	163	241620555	results_norm/mix_1GB/t8_bytelevel_v131072_nreplace/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	replace	train	ok	23.56	22.853	3225		results_norm/mix_1GB/t8_bytelevel_v131072_nreplace/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	replace	encode	ok	6.47	5.633	154	241620555	results_norm/mix_1GB/t8_bytelevel_v131072_nreplace/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	bert	train	ok	143.28	141.864	4664		results_norm/mix_1GB/t8_bytelevel_v131072_nbert/train_hf
+mix	1	hf	8	bytelevel	131072	bert	encode	ok	104.17	103.510	912	243989962	results_norm/mix_1GB/t8_bytelevel_v131072_nbert/encode_hf
+mix	1	ours_simd	8	bytelevel	131072	bert	train	ok	20.07	19.411	1458		results_norm/mix_1GB/t8_bytelevel_v131072_nbert/train_ours_simd
+mix	1	ours_simd	8	bytelevel	131072	bert	encode	ok	11.90	11.129	154	243989962	results_norm/mix_1GB/t8_bytelevel_v131072_nbert/encode_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	bert	train	ok	19.07	18.411	1479		results_norm/mix_1GB/t8_bytelevel_v131072_nbert/train_ours_nosimd
+mix	1	ours_nosimd	8	bytelevel	131072	bert	encode	ok	12.04	11.265	153	243989962	results_norm/mix_1GB/t8_bytelevel_v131072_nbert/encode_ours_nosimd
+mix	1	hf	8	bytelevel	131072	prepend	train	ok	232.90	229.925	11475		results_norm/mix_1GB/t8_bytelevel_v131072_nprepend/train_hf
+mix	1	ours_simd	8	bytelevel	131072	prepend	train	ok	25.07	24.361	3259		results_norm/mix_1GB/t8_bytelevel_v131072_nprepend/train_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	prepend	train	ok	24.01	23.281	3227		results_norm/mix_1GB/t8_bytelevel_v131072_nprepend/train_ours_nosimd
+mix	1	hf	8	bytelevel	131072	strip	train	ok	247.53	244.366	11518		results_norm/mix_1GB/t8_bytelevel_v131072_nstrip/train_hf
+mix	1	ours_simd	8	bytelevel	131072	strip	train	ok	22.78	22.073	3234		results_norm/mix_1GB/t8_bytelevel_v131072_nstrip/train_ours_simd
+mix	1	ours_nosimd	8	bytelevel	131072	strip	train	ok	23.22	22.508	3223		results_norm/mix_1GB/t8_bytelevel_v131072_nstrip/train_ours_nosimd

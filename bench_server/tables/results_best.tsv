@@ -1,0 +1,12 @@
+dataset	size_GB	impl	threads	pretok	vocab	norm	step	status	wall_s	inner_s	peak_rss_MB	tokens	dir
+english	1	hf	2	llama3	32768	none	train	ok	138.82	138.518	1353		results_best/english_1GB/t2_llama3_v32768/train_hf
+english	1	hf	2	llama3	32768	none	train	ok	139.78	139.476	1351		results_best/english_1GB/t2_llama3_v32768/train_hf
+english	1	hf	2	llama3	32768	none	encode	ok	186.40	186.199	305	215101938	results_best/english_1GB/t2_llama3_v32768/encode_hf
+english	1	ours_simd	2	llama3	32768	none	train	ok	13.16	12.933	385		results_best/english_1GB/t2_llama3_v32768/train_ours_simd
+english	1	ours_simd	2	llama3	32768	none	encode	ok	19.42	19.161	34	215101938	results_best/english_1GB/t2_llama3_v32768/encode_ours_simd
+english	1	tiktoken	2	llama3	32768	none	encode	ok	86.25	85.912	124	215101938	results_best/english_1GB/t2_llama3_v32768/encode_tiktoken
+english	1	hf	16	llama3	32768	none	train	ok	34.95	34.624	1541		results_best/english_1GB/t16_llama3_v32768/train_hf
+english	1	hf	16	llama3	32768	none	encode	ok	60.93	60.683	813	215101938	results_best/english_1GB/t16_llama3_v32768/encode_hf
+english	1	ours_simd	16	llama3	32768	none	train	ok	3.33	3.116	766		results_best/english_1GB/t16_llama3_v32768/train_ours_simd
+english	1	ours_simd	16	llama3	32768	none	encode	ok	1.81	1.567	133	215101938	results_best/english_1GB/t16_llama3_v32768/encode_ours_simd
+english	1	tiktoken	16	llama3	32768	none	encode	ok	33.13	32.815	137	215101938	results_best/english_1GB/t16_llama3_v32768/encode_tiktoken

@@ -1,0 +1,23 @@
+[package]
+name = "rust_bpe"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+# hand-written SIMD in src/simd.rs (AVX2 on x86_64, NEON on aarch64)
+simd = []
+
+[dependencies]
+# Unicode tables, so every pre-tokenizer splits exactly like HF tokenizers:
+# regex-syntax gives the \w / \s / \p{..} classes of the regex crate HF's Whitespace uses;
+# unicode_categories is the crate HF uses for is_punctuation (Bert, Punctuation).
+regex-syntax = "0.8"
+unicode_categories = "0.1"
+# HF's normalization crate (NFC/NFD/NFKC/NFKD, is_combining_mark), so normalizers match HF exactly
+unicode-normalization-alignments = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"

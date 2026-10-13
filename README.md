@@ -149,12 +149,12 @@ I wrote my own BPE in C++ without looking at how it is done in practice; my comp
 me work out how I would implement it. My implementation (not BPE itself) turned out a bit different, and with an
 agent I made it more parallel: a 10-20× speedup for training and 10-33× for encoding.
 
-When I was about to open a PR, I found [Yikai's PR](https://github.com/huggingface/tokenizers/pull/2501) and realized
-I had compared against a year-old release: HF `main` had moved on, Yikai's trainer is much faster than mine, and
+When I was about to open a PR, I found [Yikai](https://github.com/Yikai-Liao)'s [PR](https://github.com/huggingface/tokenizers/pull/2501) and realized
+I had compared against a year-old release: HF [`main`](https://github.com/huggingface/tokenizers) had moved on, Yikai's trainer is much faster than mine, and
 `main`'s encoder is a bit faster than mine. Since we got our speedups in different ways, combining them should beat
 both. So with an agent I built (HF `main`, mine) for encoding and (PR #2501, mine) for training.
 
-I'm really glad HF tokenizers made such a leap in just one year: compared with the 0.22 release, `main` encodes 12-20×
+I'm really glad [HF tokenizers](https://github.com/huggingface/tokenizers) made such a leap in just one year: compared with the [0.22 release](https://github.com/huggingface/tokenizers/releases/tag/v0.22.0), `main` encodes 12-20×
 faster with about the same memory and trains 1.1-2.4× faster, and Yikai's PR #2501 trains 8-20× faster with 4-5× less
 memory. Combined with mine, 10 GB is now encoded in seconds, not minutes.
 

@@ -116,6 +116,15 @@ Equivalence: 143 training runs of ours, 143 with merges identical to PR #2501's;
 
 <!-- /tables -->
 
+### Training vs PR #2501 (its three figures, rerun)
+
+256 MiB per corpus, vocab 100 000, pinned cores; merges identical in all 176 runs. Feed + train is 1.0-1.7× faster
+(the counting); train alone is the same merge loop; peak memory 84-100% of PR #2501's at 1 GiB.
+
+![feed + train](bench_server/results_plots/throughput_feed_train.png)
+![train only](bench_server/results_plots/throughput_train.png)
+![memory](bench_server/results_plots/memory.png)
+
 ## Upstream
 
 - **HF `main`, encoding** ([patch](patches/hf-main-encode-long-input.diff), 77 lines added, 7 removed): `main` splits a

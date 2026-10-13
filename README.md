@@ -21,31 +21,6 @@ exists: HF `main` (the 1.0 rewrite) for encoding and Yikai Liao's parallel train
 | [`rust_bpe/`](rust_bpe) | pre-tokenizers, normalizers and safe cut points shared by ours; our first trainer and encoder |
 | [`bench_server/`](bench_server) | benchmark ([`toki_axes.sh`](bench_server/toki_axes.sh), [`toki_tables.py`](bench_server/toki_tables.py)), HF drivers (`hfenc`, `hfbench`) |
 
-## History
-
-I started by implementing algorithms from scratch. After a few of them I got very excited about pre-training, partly
-inspired by my project [chsm8](https://huggingface.co/LegumMagister/chsm8): seeing what data contributes to what
-result made me read a lot about pre-training best practices and its many aspects. While implementing models from
-scratch, after a couple of them I moved on to tokenizers, to figure out how they work.
-
-I came up with my own BPE approach in C++ without knowing how it is implemented in practice; my competitive
-programming background helped me think about how I would implement it. It turned out my implementation (not BPE
-itself) was a bit different, and with Claude I made it more parallel, reaching a 10-20× speedup for training and
-10-33× for encoding.
-
-When I was about to open a PR, I found [a PR from Yikai](https://github.com/huggingface/tokenizers/pull/2501) and
-realized I had compared against a year-old version: HF `main` had moved on, Yikai's trainer is much faster than mine
-and `main`'s encoder a bit faster than mine. Since we had reached our speedups in different ways, a combination should
-be faster than both. So with an agent I refined a combination of (HF `main`, mine) for encoding and (PR #2501, mine)
-for training.
-
-I'm really glad that in just one year HF tokenizers made such a leap: compared with the 0.22 release, `main` encodes
-12-20× faster with about the same memory, and trains 1.1-2.4× faster; Yikai's PR #2501 trains 8-20× faster with 4-5×
-less memory. Combined with mine, 10 GB is now encoded in seconds, not minutes.
-
-While in the beginning I could follow, at the end I stopped understanding the changes going on:
-[this](https://www.youtube.com/watch?v=W_dxteeedgs).
-
 ## Experiments
 
 **Default setting:** 1 GB (10⁹ bytes), 8 threads, GPT-2 byte-level pre-tokenizer, vocab 131 072, no normalizer,
@@ -161,3 +136,28 @@ BASE=0 ./enc_heldout.sh results_enc_ho3             # held-out halves and their 
 BASE=0 ./toki_axes.sh results_toki
 python3 toki_tables.py results_toki/results.tsv results_toki
 ```
+
+## History
+
+I started by implementing algorithms from scratch. After a few of them I got very excited about pre-training, partly
+inspired by my project [chsm8](https://huggingface.co/LegumMagister/chsm8): seeing what data contributes to what
+result made me read a lot about pre-training best practices and its many aspects. While implementing models from
+scratch, after a couple of them I moved on to tokenizers, to figure out how they work.
+
+I came up with my own BPE approach in C++ without knowing how it is implemented in practice; my competitive
+programming background helped me think about how I would implement it. It turned out my implementation (not BPE
+itself) was a bit different, and with Claude I made it more parallel, reaching a 10-20× speedup for training and
+10-33× for encoding.
+
+When I was about to open a PR, I found [a PR from Yikai](https://github.com/huggingface/tokenizers/pull/2501) and
+realized I had compared against a year-old version: HF `main` had moved on, Yikai's trainer is much faster than mine
+and `main`'s encoder a bit faster than mine. Since we had reached our speedups in different ways, a combination should
+be faster than both. So with an agent I refined a combination of (HF `main`, mine) for encoding and (PR #2501, mine)
+for training.
+
+I'm really glad that in just one year HF tokenizers made such a leap: compared with the 0.22 release, `main` encodes
+12-20× faster with about the same memory, and trains 1.1-2.4× faster; Yikai's PR #2501 trains 8-20× faster with 4-5×
+less memory. Combined with mine, 10 GB is now encoded in seconds, not minutes.
+
+While in the beginning I could follow, at the end I stopped understanding the changes going on:
+[this](https://www.youtube.com/watch?v=W_dxteeedgs).

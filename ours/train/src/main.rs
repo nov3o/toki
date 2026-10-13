@@ -275,10 +275,19 @@ fn main() {
                         // per line (with its '\n'), as HF's feed and ours: a pre-token never spans a line end.
                         // HB_SIMD=1: HF's bitcannon (SIMD classify + bitstream GPT-2 grammar) finds the token starts
                         for line in data.split_inclusive(|&c| c == b'\n') {
+                            // invalid UTF-8 (e.g. a file cut mid-character) becomes U+FFFD, as HF's feed reads it
+                            let lossy;
+                            let line: &[u8] = match std::str::from_utf8(line) {
+                                Ok(_) => line,
+                                Err(_) => {
+                                    lossy = String::from_utf8_lossy(line).into_owned();
+                                    lossy.as_bytes()
+                                }
+                            };
                             let line: &[u8] = if norm.is_empty() {
                                 line
                             } else {
-                                rust_bpe::normalize::apply(&norm, std::str::from_utf8(line).expect("UTF-8"), &mut nbuf);
+                                rust_bpe::normalize::apply(&norm, std::str::from_utf8(line).unwrap(), &mut nbuf);
                                 nbuf.as_bytes()
                             };
                             if simd && kind == pretok::Kind::Gpt2 {

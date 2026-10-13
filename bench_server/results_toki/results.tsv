@@ -369,3 +369,203 @@ encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc	ours	2	2.73	380308	same (98
 encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc	hfmain	2	3.98	807892	ref (98210452 ids)
 train	norm	multilingual	1GB	8	bytelevel	131072	nfkd	pr2501	1	17.92	3722396	ref
 train	norm	multilingual	1GB	8	bytelevel	131072	nfkd	ours	1	14.45	3714320	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkd	ours	2	14.56	3710104	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkd	pr2501	2	17.65	3747200	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkd	hfmain	1	3.52	804540	ref (107966940 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkd	ours	1	2.37	416652	same (107966940 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkd	ours	2	2.34	410264	same (107966940 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkd	hfmain	2	3.52	804948	ref (107966940 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	lowercase	pr2501	1	16.80	4021016	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	lowercase	ours	1	14.48	3989824	same
+train	norm	multilingual	1GB	8	bytelevel	131072	lowercase	ours	2	14.29	4057612	same
+train	norm	multilingual	1GB	8	bytelevel	131072	lowercase	pr2501	2	16.76	4027336	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	lowercase	hfmain	1	3.34	800992	ref (95931826 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	lowercase	ours	1	2.22	410388	same (95931826 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	lowercase	ours	2	2.21	400056	same (95931826 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	lowercase	hfmain	2	3.33	807160	ref (95931826 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	pr2501	1	18.22	4196356	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	ours	1	15.42	4042964	same
+train	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	ours	2	15.44	4066124	same
+train	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	pr2501	2	18.26	4180916	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	hfmain	1	3.68	818704	ref (96901263 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	ours	1	2.53	409120	same (96901263 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	ours	2	2.52	411676	same (96901263 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	strip_accents	hfmain	2	3.71	822248	ref (96901263 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	pr2501	1	17.80	3949824	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	ours	1	16.59	3857032	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	ours	2	16.73	3887180	same
+train	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	pr2501	2	17.95	4097116	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	hfmain	1	4.26	797672	ref (95846711 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	ours	1	3.13	389904	same (95846711 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	ours	2	3.13	380528	same (95846711 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	nfkc_lowercase	hfmain	2	4.33	798552	ref (95846711 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	replace	pr2501	1	16.29	4234764	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	replace	ours	1	13.86	4204764	same
+train	norm	multilingual	1GB	8	bytelevel	131072	replace	ours	2	13.86	4179228	same
+train	norm	multilingual	1GB	8	bytelevel	131072	replace	pr2501	2	16.27	4192312	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	replace	hfmain	1	2.96	801876	ref (98301474 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	replace	ours	1	1.83	371768	same (98301474 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	replace	ours	2	1.83	375248	same (98301474 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	replace	hfmain	2	2.99	802144	ref (98301474 ids)
+train	norm	multilingual	1GB	8	bytelevel	131072	bert	pr2501	1	15.04	1214688	ref
+train	norm	multilingual	1GB	8	bytelevel	131072	bert	ours	1	11.63	1064700	same
+train	norm	multilingual	1GB	8	bytelevel	131072	bert	ours	2	11.65	1059496	same
+train	norm	multilingual	1GB	8	bytelevel	131072	bert	pr2501	2	15.05	1157852	ref
+encode	norm	multilingual	1GB	8	bytelevel	131072	bert	hfmain	1	5.44	800320	ref (124322761 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	bert	ours	1	4.15	334128	same (124322761 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	bert	ours	2	4.12	341000	same (124322761 ids)
+encode	norm	multilingual	1GB	8	bytelevel	131072	bert	hfmain	2	5.41	806936	ref (124322761 ids)
+train	default	code	1GB	8	bytelevel	131072	none	pr2501	1	9.59	1174104	ref
+train	default	code	1GB	8	bytelevel	131072	none	ours	1	4.70	914664	same
+train	default	code	1GB	8	bytelevel	131072	none	ours	2	4.72	911536	same
+train	default	code	1GB	8	bytelevel	131072	none	pr2501	2	9.10	1247360	ref
+encode	default	code	1GB	8	bytelevel	131072	none	hfmain	1	2.33	908804	ref (153190682 ids)
+encode	default	code	1GB	8	bytelevel	131072	none	ours	1	1.23	391288	same (153190682 ids)
+encode	default	code	1GB	8	bytelevel	131072	none	ours	2	1.23	373592	same (153190682 ids)
+encode	default	code	1GB	8	bytelevel	131072	none	hfmain	2	2.32	892052	ref (153190682 ids)
+train	threads	code	1GB	2	bytelevel	131072	none	pr2501	1	22.65	983660	ref
+train	threads	code	1GB	2	bytelevel	131072	none	ours	1	12.23	899176	same
+train	threads	code	1GB	2	bytelevel	131072	none	ours	2	12.28	907772	same
+train	threads	code	1GB	2	bytelevel	131072	none	pr2501	2	22.58	975696	ref
+encode	threads	code	1GB	2	bytelevel	131072	none	hfmain	1	3.97	793172	ref (153190682 ids)
+encode	threads	code	1GB	2	bytelevel	131072	none	ours	1	3.06	153112	same (153190682 ids)
+encode	threads	code	1GB	2	bytelevel	131072	none	ours	2	3.06	152552	same (153190682 ids)
+encode	threads	code	1GB	2	bytelevel	131072	none	hfmain	2	3.85	825620	ref (153190682 ids)
+train	threads	code	1GB	4	bytelevel	131072	none	pr2501	1	12.72	977792	ref
+train	threads	code	1GB	4	bytelevel	131072	none	ours	1	7.17	901388	same
+train	threads	code	1GB	4	bytelevel	131072	none	ours	2	7.19	890876	same
+train	threads	code	1GB	4	bytelevel	131072	none	pr2501	2	12.67	995604	ref
+encode	threads	code	1GB	4	bytelevel	131072	none	hfmain	1	2.83	860416	ref (153190682 ids)
+encode	threads	code	1GB	4	bytelevel	131072	none	ours	1	1.86	228880	same (153190682 ids)
+encode	threads	code	1GB	4	bytelevel	131072	none	ours	2	1.87	223880	same (153190682 ids)
+encode	threads	code	1GB	4	bytelevel	131072	none	hfmain	2	2.87	842892	ref (153190682 ids)
+train	threads	code	1GB	16	bytelevel	131072	none	pr2501	1	9.05	1238916	ref
+train	threads	code	1GB	16	bytelevel	131072	none	ours	1	3.50	961788	same
+train	threads	code	1GB	16	bytelevel	131072	none	ours	2	3.51	961528	same
+train	threads	code	1GB	16	bytelevel	131072	none	pr2501	2	9.50	1251692	ref
+encode	threads	code	1GB	16	bytelevel	131072	none	hfmain	1	2.02	953096	ref (153190682 ids)
+encode	threads	code	1GB	16	bytelevel	131072	none	ours	1	0.95	633200	same (153190682 ids)
+encode	threads	code	1GB	16	bytelevel	131072	none	ours	2	0.95	648124	same (153190682 ids)
+encode	threads	code	1GB	16	bytelevel	131072	none	hfmain	2	2.05	964172	ref (153190682 ids)
+train	vocab	code	1GB	8	bytelevel	32768	none	pr2501	1	8.38	806116	ref
+train	vocab	code	1GB	8	bytelevel	32768	none	ours	1	3.93	689056	same
+train	vocab	code	1GB	8	bytelevel	32768	none	ours	2	4.00	694524	same
+train	vocab	code	1GB	8	bytelevel	32768	none	pr2501	2	8.71	823588	ref
+encode	vocab	code	1GB	8	bytelevel	32768	none	hfmain	1	1.87	812308	ref (160204708 ids)
+encode	vocab	code	1GB	8	bytelevel	32768	none	ours	1	0.92	375192	same (160204708 ids)
+encode	vocab	code	1GB	8	bytelevel	32768	none	ours	2	0.91	378904	same (160204708 ids)
+encode	vocab	code	1GB	8	bytelevel	32768	none	hfmain	2	1.87	825328	ref (160204708 ids)
+train	vocab	code	1GB	8	bytelevel	65536	none	pr2501	1	8.66	991608	ref
+train	vocab	code	1GB	8	bytelevel	65536	none	ours	1	4.28	768492	same
+train	vocab	code	1GB	8	bytelevel	65536	none	ours	2	4.29	764520	same
+train	vocab	code	1GB	8	bytelevel	65536	none	pr2501	2	9.05	995300	ref
+encode	vocab	code	1GB	8	bytelevel	65536	none	hfmain	1	1.97	870604	ref (155971805 ids)
+encode	vocab	code	1GB	8	bytelevel	65536	none	ours	1	0.99	354180	same (155971805 ids)
+encode	vocab	code	1GB	8	bytelevel	65536	none	ours	2	1.01	371640	same (155971805 ids)
+encode	vocab	code	1GB	8	bytelevel	65536	none	hfmain	2	1.97	883868	ref (155971805 ids)
+train	vocab	code	1GB	8	bytelevel	262144	none	pr2501	1	10.06	1262776	ref
+train	vocab	code	1GB	8	bytelevel	262144	none	ours	1	5.19	909596	same
+train	vocab	code	1GB	8	bytelevel	262144	none	ours	2	5.19	898788	same
+train	vocab	code	1GB	8	bytelevel	262144	none	pr2501	2	10.04	1267432	ref
+encode	vocab	code	1GB	8	bytelevel	262144	none	hfmain	1	3.15	912748	ref (151195703 ids)
+encode	vocab	code	1GB	8	bytelevel	262144	none	ours	1	1.73	408332	same (151195703 ids)
+encode	vocab	code	1GB	8	bytelevel	262144	none	ours	2	1.74	397796	same (151195703 ids)
+encode	vocab	code	1GB	8	bytelevel	262144	none	hfmain	2	3.07	902484	ref (151195703 ids)
+train	pretok	code	1GB	8	llama3	131072	none	pr2501	1	9.83	1305516	ref
+train	pretok	code	1GB	8	llama3	131072	none	ours	1	4.74	979676	same
+train	pretok	code	1GB	8	llama3	131072	none	ours	2	4.74	979304	same
+train	pretok	code	1GB	8	llama3	131072	none	pr2501	2	9.51	1269940	ref
+encode	pretok	code	1GB	8	llama3	131072	none	hfmain	1	2.27	882136	ref (130011729 ids)
+encode	pretok	code	1GB	8	llama3	131072	none	ours	1	1.28	384620	same (130011729 ids)
+encode	pretok	code	1GB	8	llama3	131072	none	ours	2	1.26	365288	same (130011729 ids)
+encode	pretok	code	1GB	8	llama3	131072	none	hfmain	2	2.25	845820	ref (130011729 ids)
+train	pretok	code	1GB	8	gpt4o	131072	none	pr2501	1	8.52	574824	ref
+train	pretok	code	1GB	8	gpt4o	131072	none	ours	1	4.08	450324	same
+train	pretok	code	1GB	8	gpt4o	131072	none	ours	2	4.11	435328	same
+train	pretok	code	1GB	8	gpt4o	131072	none	pr2501	2	8.53	594172	ref
+encode	pretok	code	1GB	8	gpt4o	131072	none	hfmain	1	2.17	863308	ref (131161369 ids)
+encode	pretok	code	1GB	8	gpt4o	131072	none	ours	1	1.13	362596	same (131161369 ids)
+encode	pretok	code	1GB	8	gpt4o	131072	none	ours	2	1.15	354868	same (131161369 ids)
+encode	pretok	code	1GB	8	gpt4o	131072	none	hfmain	2	2.14	861832	ref (131161369 ids)
+train	pretok	code	1GB	8	whitespace	131072	none	pr2501	1	10.25	1339192	ref
+train	pretok	code	1GB	8	whitespace	131072	none	ours	1	5.23	1092752	same
+train	pretok	code	1GB	8	whitespace	131072	none	ours	2	5.29	1087036	same
+train	pretok	code	1GB	8	whitespace	131072	none	pr2501	2	10.57	1352380	ref
+encode	pretok	code	1GB	8	whitespace	131072	none	hfmain	1	2.08	762276	ref (116645224 ids)
+encode	pretok	code	1GB	8	whitespace	131072	none	ours	1	1.22	326852	same (116645224 ids)
+encode	pretok	code	1GB	8	whitespace	131072	none	ours	2	1.22	319300	same (116645224 ids)
+encode	pretok	code	1GB	8	whitespace	131072	none	hfmain	2	2.04	756692	ref (116645224 ids)
+train	pretok	code	1GB	8	whitespace_split	131072	none	pr2501	1	18.86	3884200	ref
+train	pretok	code	1GB	8	whitespace_split	131072	none	ours	1	13.18	3715556	same
+train	pretok	code	1GB	8	whitespace_split	131072	none	ours	2	12.96	3696208	same
+train	pretok	code	1GB	8	whitespace_split	131072	none	pr2501	2	18.83	3907456	ref
+encode	pretok	code	1GB	8	whitespace_split	131072	none	hfmain	1	3.08	776784	ref (88905133 ids)
+encode	pretok	code	1GB	8	whitespace_split	131072	none	ours	1	2.36	369964	same (88905133 ids)
+encode	pretok	code	1GB	8	whitespace_split	131072	none	ours	2	2.34	354896	same (88905133 ids)
+encode	pretok	code	1GB	8	whitespace_split	131072	none	hfmain	2	3.09	783200	ref (88905133 ids)
+train	pretok	code	1GB	8	metaspace	131072	none	pr2501	1	21.40	4894036	ref
+train	pretok	code	1GB	8	metaspace	131072	none	ours	1	15.18	4818516	same
+train	pretok	code	1GB	8	metaspace	131072	none	ours	2	15.22	4724180	same
+train	pretok	code	1GB	8	metaspace	131072	none	pr2501	2	21.39	4877836	ref
+encode	pretok	code	1GB	8	metaspace	131072	none	hfmain	1	4.71	963616	ref (152857061 ids)
+encode	pretok	code	1GB	8	metaspace	131072	none	ours	1	3.50	606708	same (152857061 ids)
+encode	pretok	code	1GB	8	metaspace	131072	none	ours	2	3.50	639480	same (152857061 ids)
+encode	pretok	code	1GB	8	metaspace	131072	none	hfmain	2	4.45	959220	ref (152857061 ids)
+train	pretok	code	1GB	8	bert	131072	none	pr2501	1	9.06	1081080	ref
+train	pretok	code	1GB	8	bert	131072	none	ours	1	6.54	818500	same
+train	pretok	code	1GB	8	bert	131072	none	ours	2	6.54	820276	same
+train	pretok	code	1GB	8	bert	131072	none	pr2501	2	9.02	1124492	ref
+encode	pretok	code	1GB	8	bert	131072	none	hfmain	1	2.03	784916	ref (145070025 ids)
+encode	pretok	code	1GB	8	bert	131072	none	ours	1	1.08	331688	same (145070025 ids)
+encode	pretok	code	1GB	8	bert	131072	none	ours	2	1.08	342412	same (145070025 ids)
+encode	pretok	code	1GB	8	bert	131072	none	hfmain	2	2.02	776400	ref (145070025 ids)
+train	pretok	code	1GB	8	punctuation	131072	none	pr2501	1	17.26	3234676	ref
+train	pretok	code	1GB	8	punctuation	131072	none	ours	1	14.98	2880288	same
+train	pretok	code	1GB	8	punctuation	131072	none	ours	2	14.83	2875100	same
+train	pretok	code	1GB	8	punctuation	131072	none	pr2501	2	17.23	3255292	ref
+encode	pretok	code	1GB	8	punctuation	131072	none	hfmain	1	3.51	844888	ref (167392358 ids)
+encode	pretok	code	1GB	8	punctuation	131072	none	ours	1	2.48	367148	same (167392358 ids)
+encode	pretok	code	1GB	8	punctuation	131072	none	ours	2	2.46	354228	same (167392358 ids)
+encode	pretok	code	1GB	8	punctuation	131072	none	hfmain	2	3.47	829748	ref (167392358 ids)
+train	pretok	code	1GB	8	digits	131072	none	pr2501	1	33.99	7619740	ref
+train	pretok	code	1GB	8	digits	131072	none	ours	1	27.19	7310076	same
+train	pretok	code	1GB	8	digits	131072	none	ours	2	27.40	7303756	same
+train	pretok	code	1GB	8	digits	131072	none	pr2501	2	33.55	7761028	ref
+encode	pretok	code	1GB	8	digits	131072	none	hfmain	1	6.53	853860	ref (99486567 ids)
+encode	pretok	code	1GB	8	digits	131072	none	ours	1	5.93	446588	same (99486567 ids)
+encode	pretok	code	1GB	8	digits	131072	none	ours	2	5.94	455368	same (99486567 ids)
+encode	pretok	code	1GB	8	digits	131072	none	hfmain	2	6.55	848416	ref (99486567 ids)
+train	pretok	code	1GB	8	unicode_scripts	131072	none	pr2501	1	15.72	2770268	ref
+train	pretok	code	1GB	8	unicode_scripts	131072	none	ours	1	13.72	2660768	same
+train	pretok	code	1GB	8	unicode_scripts	131072	none	ours	2	13.55	2653560	same
+train	pretok	code	1GB	8	unicode_scripts	131072	none	pr2501	2	15.62	2770032	ref
+encode	pretok	code	1GB	8	unicode_scripts	131072	none	hfmain	1	3.20	815176	ref (124195898 ids)
+encode	pretok	code	1GB	8	unicode_scripts	131072	none	ours	1	2.36	298412	same (124195898 ids)
+encode	pretok	code	1GB	8	unicode_scripts	131072	none	ours	2	2.40	299672	same (124195898 ids)
+encode	pretok	code	1GB	8	unicode_scripts	131072	none	hfmain	2	3.20	805712	ref (124195898 ids)
+train	pretok	code	1GB	8	char_delimiter	131072	none	pr2501	1	19.41	4769060	ref
+train	pretok	code	1GB	8	char_delimiter	131072	none	ours	1	14.07	4512324	same
+train	pretok	code	1GB	8	char_delimiter	131072	none	ours	2	13.93	4485960	same
+train	pretok	code	1GB	8	char_delimiter	131072	none	pr2501	2	19.80	4802364	ref
+encode	pretok	code	1GB	8	char_delimiter	131072	none	hfmain	1	3.59	795064	ref (94122549 ids)
+encode	pretok	code	1GB	8	char_delimiter	131072	none	ours	1	2.87	383432	same (94122549 ids)
+encode	pretok	code	1GB	8	char_delimiter	131072	none	ours	2	2.88	371148	same (94122549 ids)
+encode	pretok	code	1GB	8	char_delimiter	131072	none	hfmain	2	3.55	796188	ref (94122549 ids)
+train	norm	code	1GB	8	bytelevel	131072	nfc	pr2501	1	9.54	1148016	ref
+train	norm	code	1GB	8	bytelevel	131072	nfc	ours	1	8.67	888748	same
+train	norm	code	1GB	8	bytelevel	131072	nfc	ours	2	8.66	904088	same
+train	norm	code	1GB	8	bytelevel	131072	nfc	pr2501	2	9.17	1172168	ref
+encode	norm	code	1GB	8	bytelevel	131072	nfc	hfmain	1	2.34	889452	ref (153189617 ids)
+encode	norm	code	1GB	8	bytelevel	131072	nfc	ours	1	1.61	380344	same (153189617 ids)
+encode	norm	code	1GB	8	bytelevel	131072	nfc	ours	2	1.63	382648	same (153189617 ids)
+encode	norm	code	1GB	8	bytelevel	131072	nfc	hfmain	2	2.39	892780	ref (153189617 ids)
+train	norm	code	1GB	8	bytelevel	131072	nfd	pr2501	1	9.48	916220	ref
+train	norm	code	1GB	8	bytelevel	131072	nfd	ours	1	7.06	749236	same
+train	norm	code	1GB	8	bytelevel	131072	nfd	ours	2	7.09	738092	same
+train	norm	code	1GB	8	bytelevel	131072	nfd	pr2501	2	9.11	894708	ref
+encode	norm	code	1GB	8	bytelevel	131072	nfd	hfmain	1	2.87	924176	ref (153329871 ids)
+encode	norm	code	1GB	8	bytelevel	131072	nfd	ours	1	1.97	462804	same (153329871 ids)
+encode	norm	code	1GB	8	bytelevel	131072	nfd	ours	2	1.96	442064	same (153329871 ids)
+encode	norm	code	1GB	8	bytelevel	131072	nfd	hfmain	2	2.90	910556	ref (153329871 ids)
+train	norm	code	1GB	8	bytelevel	131072	nfkc	pr2501	1	9.62	1266116	ref
+train	norm	code	1GB	8	bytelevel	131072	nfkc	ours	1	8.51	904532	same

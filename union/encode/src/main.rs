@@ -136,7 +136,8 @@ fn main() {
                     if hi > lo {
                         data.resize(hi - lo, 0);
                         f.read_exact_at(&mut data, lo as u64).unwrap();
-                        tk.encode_into(std::str::from_utf8(&data).unwrap(), opts, &mut ids).unwrap();
+                        // lossy as HF's own driver (a file cut mid-character ends in U+FFFD); borrows when the text is valid
+                        tk.encode_into(&String::from_utf8_lossy(&data), opts, &mut ids).unwrap();
                     }
                     o.clear();
                     o.extend(ids.iter().flat_map(|t| t.id().to_le_bytes()));

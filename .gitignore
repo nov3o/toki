@@ -19,6 +19,7 @@ __pycache__/
 /bench_server/results*/
 !/bench_server/results_enc_heldout/
 !/bench_server/results_union/
+!/bench_server/results_train_cmp_pinned/
 /bench_server/logs/
 /bench_server/CONTEXT.md
 union/*/Cargo.toml

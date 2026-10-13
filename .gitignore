@@ -5,7 +5,7 @@
 !/SCALING_LAWS.md
 !/PATCH_EXPERIMENTS.md
 !/PLAN.md
-!/union/
+!/ours/
 !/patches/
 !/rust_bpe/
 !/rust_bpe_py/
@@ -18,12 +18,10 @@ __pycache__/
 /bench_server/data*/
 /bench_server/results*/
 !/bench_server/results_enc_heldout/
-!/bench_server/results_union/
-!/bench_server/results_train_cmp_pinned/
 /bench_server/logs/
 /bench_server/CONTEXT.md
-union/*/Cargo.toml
-union/*/Cargo.lock
-union/*/target/
+ours/*/Cargo.toml
+ours/*/Cargo.lock
+ours/*/target/
 bench_server/night*.sh
 bench_server/more.sh

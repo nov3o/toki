@@ -1,4 +1,4 @@
-//! union-train <corpus> <vocab_size> <out_dir>: our feed + PR #2501's merge. Workers pread chunks cut at line starts
+//! toki-train <corpus> <vocab_size> <out_dir>: our feed + PR #2501's merge. Workers pread chunks cut at line starts
 //! (as our encoder), pre-tokenize them with GPT-2 byte-level (rust_bpe::next_gpt2) and count words as byte slices in
 //! per-thread maps; the maps are merged, mapped to byte-level chars once per unique word and handed to tk-train's
 //! `BpeTrainer::do_train`. env: HB_THREADS (1), HB_BLOCK_KB (4096); HF's pool sized by set_num_threads(HB_THREADS).

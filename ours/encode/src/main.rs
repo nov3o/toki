@@ -1,4 +1,4 @@
-//! union-encode <tokenizer.json> <corpus> <pretok> <ids_out>: HF main's encoder inside our streaming driver (rust_bpe
+//! toki-encode <tokenizer.json> <corpus> <pretok> <ids_out>: HF main's encoder inside our streaming driver (rust_bpe
 //! hf_bpe_enc `stream`). Chunk i covers file bytes [cut(i*B), cut((i+1)*B)), cut(x) = first safe cut >= x, so every
 //! worker finds its own chunk, reads it with pread, encodes it with HF's `encode_into` (serial, on the worker's
 //! thread, no `Encoding`) and writes its ids itself with pwrite at its offset in the output. The only serial step is

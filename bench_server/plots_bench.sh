@@ -6,6 +6,8 @@
 # Chinese; our multilingual set is 7 languages). HF main and PR #2501 train through hfbench2 (HF's own pre-tokenizer,
 # lines fed with Trainer::feed); ours = our counting + PR #2501's merge loop. Every run pinned to cores BASE.. (16).
 # Merges of every run compared with PR #2501's.
+# ours: ../ours/build.sh (or set OURS_TRAIN / OURS_ENCODE)
+OURS_TRAIN=${OURS_TRAIN:-../ours/train/target/release/toki-train}; OURS_ENCODE=${OURS_ENCODE:-../ours/encode/target/release/toki-encode}
 cd "$(dirname "$0")"; RES=$1; mkdir -p $RES; BASE=${BASE:-16}; P=/dev/shm/prof_$USER/plots; mkdir -p $P
 TSV=$RES/results.tsv; [ -f $TSV ] || echo -e "figure\tworkload\tmib\tcores\timpl\trun\twall_s\tpeak_rss_KB\tfeed_s\ttrain_s\tmerges_vs_pr2501" > $TSV
 PY=venv-x86_64/bin/python; V=100000
@@ -17,7 +19,7 @@ one() {  # one <figure> <workload> <mib> <cores> <impl> <run>
     case $5 in
         pr2501) cmd="hfbench2-pr2501/target/release/hfbench $tok $c $V $o $bl $sp" ;;
         hfmain) cmd="hfbench2-main/target/release/hfbench $tok $c $V $o $bl $sp" ;;
-        ours)   cmd="env HB_PRETOK=$pt HB_THREADS=$4 MIMALLOC_PURGE_DELAY=0 ../union-pr2501/target/release/trunion $c $V $o" ;;
+        ours)   cmd="env HB_PRETOK=$pt HB_THREADS=$4 MIMALLOC_PURGE_DELAY=0 $OURS_TRAIN $c $V $o" ;;
     esac
     timeout 7200 taskset -c $BASE-$((BASE + $4 - 1)) /usr/bin/time -f "%e %M" -o $P/tm $cmd > $P/log 2>&1
     local f t r; f=$(grep -o "feed_s=[0-9.]*" $P/log | cut -d= -f2); t=$(grep -o "train_s=[0-9.]*" $P/log | cut -d= -f2)
@@ -26,9 +28,9 @@ one() {  # one <figure> <workload> <mib> <cores> <impl> <run>
 }
 W="code/bytelevel english/bytelevel multilingual/bytelevel multilingual/whitespace"
 for w in $W; do for cores in 1 2 4 6 8; do for run in 1 2 3; do
-    for impl in pr2501 hfmain ours; do one throughput $w 256 $cores $impl $run; done
+    for impl in pr2501 ours; do one throughput $w 256 $cores $impl $run; done
 done; done; done
 for w in $W; do for mib in 16 32 64 128 256 512 1024; do
-    for impl in pr2501 hfmain ours; do one memory $w $mib 8 $impl 1; done
+    for impl in pr2501 ours; do one memory $w $mib 8 $impl 1; done
 done; done
 rm -rf $P; echo done

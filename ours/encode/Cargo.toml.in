@@ -1,5 +1,5 @@
 [package]
-name = "union-encode"
+name = "toki-encode"
 version = "0.1.0"
 edition = "2024"
 

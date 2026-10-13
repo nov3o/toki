@@ -71,11 +71,11 @@ fn main() {
     let map = byte_chars();
     let mut trainer = BpeTrainer::builder().vocab_size(vocab).show_progress(false).special_tokens(special).build();
     let t0 = std::time::Instant::now();
-    let reader = BufReader::with_capacity(1 << 20, std::fs::File::open(corpus).unwrap());
-    let lines = reader.split(b'\n').map(|l| {
-        let mut l = l.unwrap();
-        l.push(b'\n');
-        String::from_utf8_lossy(&l).into_owned()
+    // lines with their '\n' (the last line keeps none if the file does not end with one), as 0.22 and ours read them
+    let mut reader = BufReader::with_capacity(1 << 20, std::fs::File::open(corpus).unwrap());
+    let lines = std::iter::from_fn(move || {
+        let mut l = Vec::new();
+        (reader.read_until(b'\n', &mut l).unwrap() > 0).then(|| String::from_utf8_lossy(&l).into_owned())
     });
     trainer
         .feed(lines, |s: &str| {

@@ -220,10 +220,11 @@ fn main() {
     let simd = env_or("HB_SIMD", 1usize) == 1;
     let stage = env_or("HB_STAGE", 2usize); // profiling: 0 pre-tokenize only, 1 + hash, 2 full count
     let next = AtomicUsize::new(0);
-    // Counts: each worker counts into a local map; when it holds more than HB_LOCAL_WORDS (65536) distinct words
+    // Counts: each worker counts into a local map; when it holds more than HB_LOCAL_WORDS distinct words
     // it is flushed into one global map split in SHARDS parts by hash, each behind its own lock, and reused. So a
     // word is stored once globally, plus a bounded local map per worker (memory does not grow with the workers).
-    let local_limit = if t_n == 1 { usize::MAX } else { env_or("HB_LOCAL_WORDS", 1usize << 16) };
+    // the locals together hold at most ~512k words (65536 each at 8 workers), so memory does not grow with workers
+    let local_limit = if t_n == 1 { usize::MAX } else { env_or("HB_LOCAL_WORDS", (1usize << 19) / t_n) };
     let global: Vec<std::sync::Mutex<WordMap>> = (0..SHARDS).map(|_| std::sync::Mutex::new(WordMap::new())).collect();
     let flush = |m: &mut WordMap, by: &mut Vec<Vec<u32>>| {
         by.iter_mut().for_each(Vec::clear);

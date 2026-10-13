@@ -9,6 +9,8 @@ tk-encode = { path = "@PR@/tokenizers/tk-encode", features = ["parallelism"] }
 rust_bpe = { path = "@RB@" }
 ahash = "0.8"
 compact_str = "0.9"
+mimalloc = { version = "0.1", default-features = false }
+libmimalloc-sys = { version = "0.1", features = ["extended"] }
 bitcannon = { path = "@PR@/tokenizers/bitcannon" }
 
 [profile.release]

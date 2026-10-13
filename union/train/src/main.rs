@@ -3,7 +3,6 @@
 //! per-thread maps; the maps are merged, mapped to byte-level chars once per unique word and handed to tk-train's
 //! `BpeTrainer::do_train`. env: HB_THREADS (1), HB_BLOCK_KB (4096); HF's pool sized by set_num_threads(HB_THREADS).
 //! Writes out_dir/merges.txt and vocab.txt like hfbench. Prints feed_s= train_s=.
-use ahash::AHashMap;
 use compact_str::CompactString;
 use std::fs::File;
 use std::io::Write;
@@ -11,6 +10,11 @@ use std::os::unix::fs::FileExt;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use rust_bpe::{env_or, pretok};
 use tk_train::trainers::BpeTrainer;
+
+// mimalloc (run with MIMALLOC_PURGE_DELAY=0): returns freed memory at once, so what counting freed is not
+// still held while the trainer peaks
+#[global_allocator]
+static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
 const SHARDS: usize = 64;
 
@@ -340,9 +344,15 @@ fn main() {
     });
     let t_reduce = t0.elapsed().as_secs_f64();
     let rss_reduce = rust_bpe::peak_rss_mb();
-    let mut wc: AHashMap<CompactString, u64> = AHashMap::with_capacity(parts.iter().map(|p| p.len()).sum());
+    // unique (word, count) entries straight to the trainer, no map of them (PR #2501's own feed does the same)
+    let mut wc: Vec<(CompactString, u64)> = Vec::with_capacity(parts.iter().map(|p| p.len()).sum());
     for p in parts {
         wc.extend(p);
+    }
+    let n_words = wc.len();
+    // hand the memory counting freed back to the system before training (HB_TRIM=0 keeps it)
+    if env_or("HB_TRIM", 1usize) == 1 {
+        unsafe { libmimalloc_sys::mi_collect(true) };
     }
     let feed_s = t0.elapsed().as_secs_f64();
     let rss_feed = rust_bpe::peak_rss_mb();
@@ -352,7 +362,7 @@ fn main() {
     // non-byte-level pre-tokenizers train with an [UNK] special token, as train_hf.py / train_ours.py
     let specials = if byte_level { vec![] } else { vec![tk_encode::vocab::bucket_added_vocabulary::AddedToken::from("[UNK]", true)] };
     let trainer = BpeTrainer::builder().vocab_size(vocab).special_tokens(specials).show_progress(false).build();
-    let (vocab, merges, _) = trainer.do_train(&wc).unwrap();
+    let (vocab, merges, _) = trainer.do_train_entries(wc).unwrap();
     let train_s = t1.elapsed().as_secs_f64();
     let mut f = std::io::BufWriter::new(File::create(format!("{out}/merges.txt")).unwrap());
     for (l, r) in &merges {
@@ -365,6 +375,6 @@ fn main() {
         writeln!(g, "{i}\t{t}").unwrap();
     }
     println!("count_s={t_count:.3} reduce_s={:.3} collect_s={:.3} feed_s={feed_s:.3} ", t_reduce - t_count, feed_s - t_reduce);
-    println!("train_s={train_s:.3} words={}", wc.len());
+    println!("train_s={train_s:.3} words={n_words}");
     println!("peak_rss_mb: count {rss_count:.0} reduce {rss_reduce:.0} feed {rss_feed:.0} train {:.0}", rust_bpe::peak_rss_mb());
 }

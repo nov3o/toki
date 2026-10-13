@@ -45,12 +45,14 @@ step() {
     if [ -f "$dir/ok" ]; then echo "skip (ok): $dir"; return 0; fi     # finished in an earlier, interrupted run
 
     # 1. which python script, and which threads / build env vars
-    local script env
+    local script env py=$PY
     case $impl in
         hf)          script=${st}_hf.py;   env="RAYON_NUM_THREADS=$t TOKENIZERS_PARALLELISM=true" ;;
         ours_simd)   script=${st}_ours.py; env="BB_THREADS=$t HB_THREADS=$t PYTHONPATH=../rust_bpe_py/build/$ARCH/simd" ;;
         ours_nosimd) script=${st}_ours.py; env="BB_THREADS=$t HB_THREADS=$t PYTHONPATH=../rust_bpe_py/build/$ARCH/nosimd" ;;
         tiktoken)    script=encode_tiktoken.py; env="RAYON_NUM_THREADS=$t" ;;   # threads passed as an argument below
+        hf*)         script=${st}_hf.py;   env="RAYON_NUM_THREADS=$t TOKENIZERS_PARALLELISM=true"
+                     py=venv-$impl/bin/python ;;                               # another tokenizers build (e.g. hfmain)
     esac
     if [ "$st" = train ]; then args="$corpus $pretok $vocab $dir $norm"
     elif [ "$impl" = tiktoken ]; then args="$train_dir/tokenizer.json $corpus $pretok $t $dir"
@@ -60,7 +62,7 @@ step() {
     #    encode writes its ids to RAM (/dev/shm); afterwards only their sha256 is kept, in ids.sha256
     local ids=$SHM/ids.u32
     echo "$(date +%T) $impl $st $(basename "$corpus") t=$t pretok=$pretok vocab=$vocab norm=$norm"
-    env $env IDS_PATH=$ids timeout ${STEP_TIMEOUT:-0} /usr/bin/time -f "%e %M" -o "$dir/time.txt" $PY $script $args > "$dir/log.txt" 2>&1
+    env $env IDS_PATH=$ids timeout ${STEP_TIMEOUT:-0} /usr/bin/time -f "%e %M" -o "$dir/time.txt" $py $script $args > "$dir/log.txt" 2>&1
     local rc=$?
     [ $rc -eq 124 ] && echo "${STEP_TIMEOUT} 0" > "$dir/time.txt"     # timed out: wall = the limit, memory unknown
     if [ -f "$ids" ]; then
@@ -98,7 +100,7 @@ config() {
     if [ -f "$run/done" ]; then echo "skip (done): $run"; return; fi
     rm -f "$SHM/hf_ids.u32"
     for impl in $IMPLS; do
-        local who=${impl%%_*}                                  # hf | ours
+        local who=${impl%%_*}; [ "${who#hf}" != "$who" ] && who=hf   # hf | ours (hfmain etc. are hf builds)
         if $PY pretokenizers.py "$who" train "$pretok"; then
             step "$impl" train "$corpus" "$t" "$pretok" "$vocab" "$norm" "$run" || continue
             if [ $enc = 1 ] && $PY pretokenizers.py "$who" encode "$pretok"; then

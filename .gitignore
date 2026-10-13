@@ -4,6 +4,8 @@
 !/README.md
 !/SCALING_LAWS.md
 !/PATCH_EXPERIMENTS.md
+!/PLAN.md
+!/union/
 !/rust_bpe/
 !/rust_bpe_py/
 !/bench_server/
@@ -14,5 +16,11 @@ __pycache__/
 /bench_server/venv*
 /bench_server/data*/
 /bench_server/results*/
+!/bench_server/results_enc_heldout/
 /bench_server/logs/
 /bench_server/CONTEXT.md
+union/*/Cargo.toml
+union/*/Cargo.lock
+union/*/target/
+bench_server/night*.sh
+bench_server/more.sh

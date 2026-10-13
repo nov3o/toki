@@ -1,0 +1,15 @@
+[package]
+name = "union-encode"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tk-encode = { path = "@HF@/tokenizers/tk-encode", features = ["normalizers", "unicode-scripts", "parallelism"] }
+tk-serialize = { path = "@HF@/tokenizers/tk-serialize", features = ["normalizers", "unicode-scripts", "parallelism"] }
+tk-convert = { path = "@HF@/tokenizers/tk-convert" }
+rust_bpe = { path = "@RB@" }
+libc = "0.2"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1

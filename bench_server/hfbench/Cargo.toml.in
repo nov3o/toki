@@ -1,0 +1,16 @@
+[package]
+name = "hfbench"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tk-train = { path = "@HF@/tokenizers/tk-train" }
+tk-encode = { path = "@HF@/tokenizers/tk-encode", features = ["normalizers", "unicode-scripts"] }
+tk-serialize = { path = "@HF@/tokenizers/tk-serialize", features = ["normalizers", "unicode-scripts"] }
+serde_json = "1.0"
+tk-convert = { path = "@HF@/tokenizers/tk-convert" }
+bitcannon = { path = "@HF@/tokenizers/bitcannon" }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1

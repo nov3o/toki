@@ -1,0 +1,493 @@
+dataset	axis	threads	pretok	vocab	norm	impl	run	wall_s	peak_rss_MB	tokens	ids_vs_hfmain
+english	default	8	bytelevel	131072	none	hfmain	1	1.82	712	101633129	ref
+mix	default	8	bytelevel	131072	none	hfmain	1	2.42	823	122318529	ref
+code	default	8	bytelevel	131072	none	hfmain	1	2.33	872	153190682	ref
+multilingual	default	8	bytelevel	131072	none	hfmain	1	3.31	757	98301474	ref
+english	default	8	bytelevel	131072	none	ours	1	2.47	110	101633129	same (101633129 ids)
+code	default	8	bytelevel	131072	none	ours	1	2.51	116	153190682	same (153190682 ids)
+mix	default	8	bytelevel	131072	none	ours	1	3.51	111	122318529	same (122318529 ids)
+multilingual	default	8	bytelevel	131072	none	ours	1	4.84	122	98301474	same (98301474 ids)
+english	default	8	bytelevel	131072	none	tiktoken	1	9.71	206	101633129	same (101633129 ids)
+english	default	8	bytelevel	131072	none	ours	2	2.47	109	101633129	same (101633129 ids)
+english	default	8	bytelevel	131072	none	hfmain	2	1.82	708	101633129	same (101633129 ids)
+multilingual	default	8	bytelevel	131072	none	tiktoken	1	11.29	204	98301474	same (98301474 ids)
+mix	default	8	bytelevel	131072	none	tiktoken	1	13.47	232	122318529	same (122318529 ids)
+english	threads	2	bytelevel	131072	none	hfmain	1	2.93	691	101633129	ref
+code	default	8	bytelevel	131072	none	tiktoken	1	17.43	250	153190682	same (153190682 ids)
+mix	default	8	bytelevel	131072	none	ours	2	3.51	122	122318529	same (122318529 ids)
+multilingual	default	8	bytelevel	131072	none	ours	2	4.78	120	98301474	same (98301474 ids)
+code	default	8	bytelevel	131072	none	ours	2	2.51	120	153190682	same (153190682 ids)
+mix	default	8	bytelevel	131072	none	hfmain	2	2.47	832	122318529	same (122318529 ids)
+multilingual	default	8	bytelevel	131072	none	hfmain	2	3.26	768	98301474	same (98301474 ids)
+code	default	8	bytelevel	131072	none	hfmain	2	2.30	879	153190682	same (153190682 ids)
+english	threads	2	bytelevel	131072	none	ours	1	7.02	99	101633129	same (101633129 ids)
+mix	threads	2	bytelevel	131072	none	hfmain	1	4.70	765	122318529	ref
+code	threads	2	bytelevel	131072	none	hfmain	1	3.90	802	153190682	ref
+multilingual	threads	2	bytelevel	131072	none	hfmain	1	6.60	712	98301474	ref
+code	threads	2	bytelevel	131072	none	ours	1	7.22	103	153190682	same (153190682 ids)
+mix	threads	2	bytelevel	131072	none	ours	1	11.08	109	122318529	same (122318529 ids)
+multilingual	threads	2	bytelevel	131072	none	ours	1	16.10	111	98301474	same (98301474 ids)
+english	threads	2	bytelevel	131072	none	tiktoken	1	24.32	204	101633129	same (101633129 ids)
+english	threads	2	bytelevel	131072	none	ours	2	7.08	101	101633129	same (101633129 ids)
+english	threads	2	bytelevel	131072	none	hfmain	2	2.92	687	101633129	same (101633129 ids)
+english	threads	4	bytelevel	131072	none	hfmain	1	2.24	686	101633129	ref
+english	threads	4	bytelevel	131072	none	ours	1	4.05	103	101633129	same (101633129 ids)
+mix	threads	2	bytelevel	131072	none	tiktoken	1	32.44	217	122318529	same (122318529 ids)
+multilingual	threads	2	bytelevel	131072	none	tiktoken	1	27.77	190	98301474	same (98301474 ids)
+code	threads	2	bytelevel	131072	none	tiktoken	1	41.40	232	153190682	same (153190682 ids)
+english	threads	4	bytelevel	131072	none	tiktoken	1	14.32	206	101633129	same (101633129 ids)
+mix	threads	2	bytelevel	131072	none	ours	2	11.09	109	122318529	same (122318529 ids)
+code	threads	2	bytelevel	131072	none	ours	2	7.15	102	153190682	same (153190682 ids)
+english	threads	4	bytelevel	131072	none	ours	2	4.08	104	101633129	same (101633129 ids)
+mix	threads	2	bytelevel	131072	none	hfmain	2	4.75	766	122318529	same (122318529 ids)
+english	threads	4	bytelevel	131072	none	hfmain	2	2.22	686	101633129	same (101633129 ids)
+code	threads	2	bytelevel	131072	none	hfmain	2	3.90	788	153190682	same (153190682 ids)
+english	threads	16	bytelevel	131072	none	hfmain	1	1.69	742	101633129	ref
+mix	threads	4	bytelevel	131072	none	hfmain	1	3.28	795	122318529	ref
+multilingual	threads	2	bytelevel	131072	none	ours	2	16.04	112	98301474	same (98301474 ids)
+english	threads	16	bytelevel	131072	none	ours	1	1.74	154	101633129	same (101633129 ids)
+code	threads	4	bytelevel	131072	none	hfmain	1	2.85	811	153190682	ref
+mix	threads	4	bytelevel	131072	none	ours	1	6.03	111	122318529	same (122318529 ids)
+code	threads	4	bytelevel	131072	none	ours	1	4.11	111	153190682	same (153190682 ids)
+multilingual	threads	2	bytelevel	131072	none	hfmain	2	6.63	696	98301474	same (98301474 ids)
+english	threads	16	bytelevel	131072	none	tiktoken	1	8.86	217	101633129	same (101633129 ids)
+multilingual	threads	4	bytelevel	131072	none	hfmain	1	4.42	728	98301474	ref
+english	threads	16	bytelevel	131072	none	ours	2	1.75	153	101633129	same (101633129 ids)
+english	threads	16	bytelevel	131072	none	hfmain	2	1.63	749	101633129	same (101633129 ids)
+english	vocab	8	bytelevel	32768	none	hfmain	1	1.44	683	108653655	ref
+english	vocab	8	bytelevel	32768	none	ours	1	1.81	76	108653655	same (108653655 ids)
+multilingual	threads	4	bytelevel	131072	none	ours	1	8.66	114	98301474	same (98301474 ids)
+mix	threads	4	bytelevel	131072	none	tiktoken	1	19.45	230	122318529	same (122318529 ids)
+english	vocab	8	bytelevel	32768	none	tiktoken	1	9.55	138	108653655	same (108653655 ids)
+english	vocab	8	bytelevel	32768	none	ours	2	1.82	78	108653655	same (108653655 ids)
+code	threads	4	bytelevel	131072	none	tiktoken	1	25.14	243	153190682	same (153190682 ids)
+mix	threads	4	bytelevel	131072	none	ours	2	6.12	111	122318529	same (122318529 ids)
+english	vocab	8	bytelevel	32768	none	hfmain	2	1.43	682	108653655	same (108653655 ids)
+english	vocab	8	bytelevel	65536	none	hfmain	1	1.55	700	104139352	ref
+mix	threads	4	bytelevel	131072	none	hfmain	2	3.28	793	122318529	same (122318529 ids)
+code	threads	4	bytelevel	131072	none	ours	2	4.08	106	153190682	same (153190682 ids)
+english	vocab	8	bytelevel	65536	none	ours	1	2.05	73	104139352	same (104139352 ids)
+multilingual	threads	4	bytelevel	131072	none	tiktoken	1	16.50	203	98301474	same (98301474 ids)
+mix	threads	16	bytelevel	131072	none	hfmain	1	2.07	885	122318529	ref
+code	threads	4	bytelevel	131072	none	hfmain	2	2.88	829	153190682	same (153190682 ids)
+mix	threads	16	bytelevel	131072	none	ours	1	2.22	152	122318529	same (122318529 ids)
+code	threads	16	bytelevel	131072	none	hfmain	1	2.05	944	153190682	ref
+code	threads	16	bytelevel	131072	none	ours	1	1.70	177	153190682	same (153190682 ids)
+multilingual	threads	4	bytelevel	131072	none	ours	2	8.48	116	98301474	same (98301474 ids)
+english	vocab	8	bytelevel	65536	none	tiktoken	1	9.52	147	104139352	same (104139352 ids)
+english	vocab	8	bytelevel	65536	none	ours	2	2.08	76	104139352	same (104139352 ids)
+multilingual	threads	4	bytelevel	131072	none	hfmain	2	4.49	732	98301474	same (98301474 ids)
+english	vocab	8	bytelevel	65536	none	hfmain	2	1.46	700	104139352	same (104139352 ids)
+mix	threads	16	bytelevel	131072	none	tiktoken	1	11.96	247	122318529	same (122318529 ids)
+multilingual	threads	16	bytelevel	131072	none	hfmain	1	2.65	839	98301474	ref
+english	vocab	8	bytelevel	262144	none	hfmain	1	2.59	746	100341963	ref
+mix	threads	16	bytelevel	131072	none	ours	2	2.23	156	122318529	same (122318529 ids)
+multilingual	threads	16	bytelevel	131072	none	ours	1	2.87	145	98301474	same (98301474 ids)
+english	vocab	8	bytelevel	262144	none	ours	1	3.33	189	100341963	same (100341963 ids)
+mix	threads	16	bytelevel	131072	none	hfmain	2	2.01	877	122318529	same (122318529 ids)
+code	threads	16	bytelevel	131072	none	tiktoken	1	15.41	273	153190682	same (153190682 ids)
+mix	vocab	8	bytelevel	32768	none	hfmain	1	2.12	787	138899953	ref
+code	threads	16	bytelevel	131072	none	ours	2	1.73	179	153190682	same (153190682 ids)
+mix	vocab	8	bytelevel	32768	none	ours	1	2.79	87	138899953	same (138899953 ids)
+code	threads	16	bytelevel	131072	none	hfmain	2	2.06	947	153190682	same (153190682 ids)
+multilingual	threads	16	bytelevel	131072	none	tiktoken	1	9.56	215	98301474	same (98301474 ids)
+code	vocab	8	bytelevel	32768	none	hfmain	1	1.80	805	160204708	ref
+english	vocab	8	bytelevel	262144	none	tiktoken	1	10.34	341	100341963	same (100341963 ids)
+code	vocab	8	bytelevel	32768	none	ours	1	1.88	97	160204708	same (160204708 ids)
+multilingual	threads	16	bytelevel	131072	none	ours	2	2.88	140	98301474	same (98301474 ids)
+english	vocab	8	bytelevel	262144	none	ours	2	3.33	188	100341963	same (100341963 ids)
+multilingual	threads	16	bytelevel	131072	none	hfmain	2	2.70	842	98301474	same (98301474 ids)
+english	vocab	8	bytelevel	262144	none	hfmain	2	2.55	741	100341963	same (100341963 ids)
+multilingual	vocab	8	bytelevel	32768	none	hfmain	1	2.88	730	119796741	ref
+english	pretok	8	llama3	131072	none	hfmain	1	1.82	707	100535891	ref
+mix	vocab	8	bytelevel	32768	none	tiktoken	1	13.81	184	138899953	same (138899953 ids)
+english	pretok	8	llama3	131072	none	ours	1	2.45	101	100535891	same (100535891 ids)
+multilingual	vocab	8	bytelevel	32768	none	ours	1	3.91	80	119796741	same (119796741 ids)
+mix	vocab	8	bytelevel	32768	none	ours	2	2.78	87	138899953	same (138899953 ids)
+mix	vocab	8	bytelevel	32768	none	hfmain	2	2.06	782	138899953	same (138899953 ids)
+mix	vocab	8	bytelevel	65536	none	hfmain	1	2.18	829	129183070	ref
+code	vocab	8	bytelevel	32768	none	tiktoken	1	17.16	198	160204708	same (160204708 ids)
+english	pretok	8	llama3	131072	none	tiktoken	1	8.49	211	100535891	same (100535891 ids)
+code	vocab	8	bytelevel	32768	none	ours	2	1.87	101	160204708	same (160204708 ids)
+mix	vocab	8	bytelevel	65536	none	ours	1	3.06	88	129183070	same (129183070 ids)
+english	pretok	8	llama3	131072	none	ours	2	2.48	103	100535891	same (100535891 ids)
+code	vocab	8	bytelevel	32768	none	hfmain	2	1.77	805	160204708	same (160204708 ids)
+multilingual	vocab	8	bytelevel	32768	none	tiktoken	1	11.82	153	119796741	same (119796741 ids)
+english	pretok	8	llama3	131072	none	hfmain	2	1.84	712	100535891	same (100535891 ids)
+code	vocab	8	bytelevel	65536	none	hfmain	1	1.98	856	155971805	ref
+english	pretok	8	gpt4o	131072	none	hfmain	1	1.86	707	100433185	ref
+code	vocab	8	bytelevel	65536	none	ours	1	2.09	103	155971805	same (155971805 ids)
+multilingual	vocab	8	bytelevel	32768	none	ours	2	3.84	76	119796741	same (119796741 ids)
+english	pretok	8	gpt4o	131072	none	ours	1	2.73	98	100433185	same (100433185 ids)
+multilingual	vocab	8	bytelevel	32768	none	hfmain	2	2.92	733	119796741	same (119796741 ids)
+multilingual	vocab	8	bytelevel	65536	none	hfmain	1	2.99	755	107647373	ref
+mix	vocab	8	bytelevel	65536	none	tiktoken	1	13.48	198	129183070	same (129183070 ids)
+english	pretok	8	gpt4o	131072	none	tiktoken	1	7.86	214	100433185	same (100433185 ids)
+mix	vocab	8	bytelevel	65536	none	ours	2	3.07	90	129183070	same (129183070 ids)
+multilingual	vocab	8	bytelevel	65536	none	ours	1	4.25	84	107647373	same (107647373 ids)
+english	pretok	8	gpt4o	131072	none	ours	2	2.74	97	100433185	same (100433185 ids)
+mix	vocab	8	bytelevel	65536	none	hfmain	2	2.18	838	129183070	same (129183070 ids)
+english	pretok	8	gpt4o	131072	none	hfmain	2	1.90	706	100433185	same (100433185 ids)
+mix	vocab	8	bytelevel	262144	none	hfmain	1	3.28	832	117580500	ref
+english	pretok	8	whitespace	131072	none	hfmain	1	1.70	697	98637827	ref
+code	vocab	8	bytelevel	65536	none	tiktoken	1	17.15	213	155971805	same (155971805 ids)
+english	pretok	8	whitespace	131072	none	ours	1	2.35	136	98637827	same (98637827 ids)
+code	vocab	8	bytelevel	65536	none	ours	2	2.10	104	155971805	same (155971805 ids)
+mix	vocab	8	bytelevel	262144	none	ours	1	4.42	200	117580500	same (117580500 ids)
+english	pretok	8	whitespace	131072	none	ours	2	2.35	137	98637827	same (98637827 ids)
+code	vocab	8	bytelevel	65536	none	hfmain	2	1.94	863	155971805	same (155971805 ids)
+multilingual	vocab	8	bytelevel	65536	none	tiktoken	1	11.51	161	107647373	same (107647373 ids)
+english	pretok	8	whitespace	131072	none	hfmain	2	1.69	696	98637827	same (98637827 ids)
+code	vocab	8	bytelevel	262144	none	hfmain	1	3.10	890	151195703	ref
+english	pretok	8	whitespace_split	131072	none	hfmain	1	1.92	691	88747017	ref
+multilingual	vocab	8	bytelevel	65536	none	ours	2	4.23	78	107647373	same (107647373 ids)
+code	vocab	8	bytelevel	262144	none	ours	1	3.31	198	151195703	same (151195703 ids)
+english	pretok	8	whitespace_split	131072	none	ours	1	3.06	133	88747017	same (88747017 ids)
+multilingual	vocab	8	bytelevel	65536	none	hfmain	2	2.98	749	107647373	same (107647373 ids)
+english	pretok	8	whitespace_split	131072	none	ours	2	3.06	130	88747017	same (88747017 ids)
+mix	vocab	8	bytelevel	262144	none	tiktoken	1	13.84	357	117580500	same (117580500 ids)
+multilingual	vocab	8	bytelevel	262144	none	hfmain	1	4.13	778	91282150	ref
+english	pretok	8	whitespace_split	131072	none	hfmain	2	1.91	692	88747017	same (88747017 ids)
+english	pretok	8	metaspace	131072	none	hfmain	1	2.76	775	91392536	ref
+mix	vocab	8	bytelevel	262144	none	ours	2	4.42	202	117580500	same (117580500 ids)
+multilingual	vocab	8	bytelevel	262144	none	ours	1	5.86	203	91282150	same (91282150 ids)
+english	pretok	8	metaspace	131072	none	ours	1	4.09	128	91392536	same (91392536 ids)
+mix	vocab	8	bytelevel	262144	none	hfmain	2	3.29	825	117580500	same (117580500 ids)
+mix	pretok	8	llama3	131072	none	hfmain	1	2.49	817	114296279	ref
+english	pretok	8	metaspace	131072	none	ours	2	4.10	135	91392536	same (91392536 ids)
+code	vocab	8	bytelevel	262144	none	tiktoken	1	17.80	386	151195703	same (151195703 ids)
+english	pretok	8	metaspace	131072	none	hfmain	2	2.79	761	91392536	same (91392536 ids)
+mix	pretok	8	llama3	131072	none	ours	1	3.59	121	114296279	same (114296279 ids)
+code	vocab	8	bytelevel	262144	none	ours	2	3.36	197	151195703	same (151195703 ids)
+english	pretok	8	bert	131072	none	hfmain	1	1.67	696	99514125	ref
+multilingual	vocab	8	bytelevel	262144	none	tiktoken	1	11.93	339	91282150	same (91282150 ids)
+code	vocab	8	bytelevel	262144	none	hfmain	2	3.12	891	151195703	same (151195703 ids)
+english	pretok	8	bert	131072	none	ours	1	4.14	130	99514125	same (99514125 ids)
+code	pretok	8	llama3	131072	none	hfmain	1	2.25	833	130011729	ref
+multilingual	vocab	8	bytelevel	262144	none	ours	2	5.92	204	91282150	same (91282150 ids)
+code	pretok	8	llama3	131072	none	ours	1	2.60	121	130011729	same (130011729 ids)
+english	pretok	8	bert	131072	none	ours	2	4.12	127	99514125	same (99514125 ids)
+mix	pretok	8	llama3	131072	none	tiktoken	1	11.64	231	114296279	same (114296279 ids)
+english	pretok	8	bert	131072	none	hfmain	2	1.70	692	99514125	same (99514125 ids)
+multilingual	vocab	8	bytelevel	262144	none	hfmain	2	4.13	774	91282150	same (91282150 ids)
+mix	pretok	8	llama3	131072	none	ours	2	3.58	118	114296279	same (114296279 ids)
+multilingual	pretok	8	llama3	131072	none	hfmain	1	3.27	759	96078939	ref
+mix	pretok	8	llama3	131072	none	hfmain	2	2.46	828	114296279	same (114296279 ids)
+english	pretok	8	punctuation	131072	none	hfmain	1	6.91	758	86878945	ref
+mix	pretok	8	gpt4o	131072	none	hfmain	1	2.50	843	114404715	ref
+multilingual	pretok	8	llama3	131072	none	ours	1	4.86	120	96078939	same (96078939 ids)
+code	pretok	8	llama3	131072	none	tiktoken	1	14.22	244	130011729	same (130011729 ids)
+mix	pretok	8	gpt4o	131072	none	ours	1	3.78	117	114404715	same (114404715 ids)
+code	pretok	8	llama3	131072	none	ours	2	2.60	113	130011729	same (130011729 ids)
+code	pretok	8	llama3	131072	none	hfmain	2	2.24	855	130011729	same (130011729 ids)
+english	pretok	8	punctuation	131072	none	ours	1	13.17	132	86878945	same (86878945 ids)
+code	pretok	8	gpt4o	131072	none	hfmain	1	2.17	851	131161369	ref
+multilingual	pretok	8	llama3	131072	none	tiktoken	1	10.29	200	96078939	same (96078939 ids)
+code	pretok	8	gpt4o	131072	none	ours	1	2.66	121	131161369	same (131161369 ids)
+mix	pretok	8	gpt4o	131072	none	tiktoken	1	11.20	240	114404715	same (114404715 ids)
+multilingual	pretok	8	llama3	131072	none	ours	2	4.86	118	96078939	same (96078939 ids)
+mix	pretok	8	gpt4o	131072	none	ours	2	3.78	122	114404715	same (114404715 ids)
+multilingual	pretok	8	llama3	131072	none	hfmain	2	3.34	758	96078939	same (96078939 ids)
+mix	pretok	8	gpt4o	131072	none	hfmain	2	2.50	824	114404715	same (114404715 ids)
+multilingual	pretok	8	gpt4o	131072	none	hfmain	1	3.36	761	96010945	ref
+english	pretok	8	punctuation	131072	none	ours	2	13.17	136	86878945	same (86878945 ids)
+mix	pretok	8	whitespace	131072	none	hfmain	1	2.22	754	107126343	ref
+mix	pretok	8	whitespace	131072	none	ours	1	2.84	130	107126343	same (107126343 ids)
+code	pretok	8	gpt4o	131072	none	tiktoken	1	13.58	252	131161369	same (131161369 ids)
+multilingual	pretok	8	gpt4o	131072	none	ours	1	5.08	122	96010945	same (96010945 ids)
+mix	pretok	8	whitespace	131072	none	ours	2	2.85	134	107126343	same (107126343 ids)
+code	pretok	8	gpt4o	131072	none	ours	2	2.68	111	131161369	same (131161369 ids)
+english	pretok	8	punctuation	131072	none	hfmain	2	6.89	749	86878945	same (86878945 ids)
+mix	pretok	8	whitespace	131072	none	hfmain	2	2.19	753	107126343	same (107126343 ids)
+code	pretok	8	gpt4o	131072	none	hfmain	2	2.16	836	131161369	same (131161369 ids)
+code	pretok	8	whitespace	131072	none	hfmain	1	2.07	738	116645224	ref
+mix	pretok	8	whitespace_split	131072	none	hfmain	1	2.75	752	95849725	ref
+code	pretok	8	whitespace	131072	none	ours	1	2.49	133	116645224	same (116645224 ids)
+multilingual	pretok	8	gpt4o	131072	none	tiktoken	1	9.98	204	96010945	same (96010945 ids)
+mix	pretok	8	whitespace_split	131072	none	ours	1	3.86	141	95849725	same (95849725 ids)
+code	pretok	8	whitespace	131072	none	ours	2	2.49	136	116645224	same (116645224 ids)
+code	pretok	8	whitespace	131072	none	hfmain	2	2.09	738	116645224	same (116645224 ids)
+multilingual	pretok	8	gpt4o	131072	none	ours	2	5.08	117	96010945	same (96010945 ids)
+mix	pretok	8	whitespace_split	131072	none	ours	2	3.86	144	95849725	same (95849725 ids)
+code	pretok	8	whitespace_split	131072	none	hfmain	1	3.11	767	88905133	ref
+mix	pretok	8	whitespace_split	131072	none	hfmain	2	2.74	744	95849725	same (95849725 ids)
+multilingual	pretok	8	gpt4o	131072	none	hfmain	2	3.38	762	96010945	same (96010945 ids)
+multilingual	pretok	8	whitespace	131072	none	hfmain	1	2.93	740	93042849	ref
+mix	pretok	8	metaspace	131072	none	hfmain	1	3.72	887	121633238	ref
+code	pretok	8	whitespace_split	131072	none	ours	1	4.59	135	88905133	same (88905133 ids)
+multilingual	pretok	8	whitespace	131072	none	ours	1	3.30	142	93042849	same (93042849 ids)
+mix	pretok	8	metaspace	131072	none	ours	1	5.01	158	121633238	same (121633238 ids)
+code	pretok	8	whitespace_split	131072	none	ours	2	4.60	127	88905133	same (88905133 ids)
+multilingual	pretok	8	whitespace	131072	none	ours	2	3.26	144	93042849	same (93042849 ids)
+code	pretok	8	whitespace_split	131072	none	hfmain	2	3.14	767	88905133	same (88905133 ids)
+mix	pretok	8	metaspace	131072	none	ours	2	5.02	157	121633238	same (121633238 ids)
+multilingual	pretok	8	whitespace	131072	none	hfmain	2	2.94	736	93042849	same (93042849 ids)
+code	pretok	8	metaspace	131072	none	hfmain	1	4.45	943	152857061	ref
+multilingual	pretok	8	whitespace_split	131072	none	hfmain	1	3.15	742	88860785	ref
+mix	pretok	8	metaspace	131072	none	hfmain	2	3.66	878	121633238	same (121633238 ids)
+mix	pretok	8	bert	131072	none	hfmain	1	2.17	749	116470957	ref
+multilingual	pretok	8	whitespace_split	131072	none	ours	1	3.65	140	88860785	same (88860785 ids)
+code	pretok	8	metaspace	131072	none	ours	1	6.15	175	152857061	same (152857061 ids)
+mix	pretok	8	bert	131072	none	ours	1	4.22	130	116470957	same (116470957 ids)
+multilingual	pretok	8	whitespace_split	131072	none	ours	2	3.66	141	88860785	same (88860785 ids)
+multilingual	pretok	8	whitespace_split	131072	none	hfmain	2	3.13	749	88860785	same (88860785 ids)
+mix	pretok	8	bert	131072	none	ours	2	4.22	136	116470957	same (116470957 ids)
+code	pretok	8	metaspace	131072	none	ours	2	6.16	166	152857061	same (152857061 ids)
+mix	pretok	8	bert	131072	none	hfmain	2	2.16	752	116470957	same (116470957 ids)
+code	pretok	8	metaspace	131072	none	hfmain	2	4.43	946	152857061	same (152857061 ids)
+code	pretok	8	bert	131072	none	hfmain	1	2.00	769	145070025	ref
+code	pretok	8	bert	131072	none	ours	1	3.53	123	145070025	same (145070025 ids)
+code	pretok	8	bert	131072	none	ours	2	3.51	131	145070025	same (145070025 ids)
+code	pretok	8	bert	131072	none	hfmain	2	2.01	754	145070025	same (145070025 ids)
+multilingual	pretok	8	metaspace	131072	none	hfmain	1	3.59	804	93294103	ref
+multilingual	pretok	8	metaspace	131072	none	ours	1	4.49	142	93294103	same (93294103 ids)
+multilingual	pretok	8	metaspace	131072	none	ours	2	4.56	138	93294103	same (93294103 ids)
+multilingual	pretok	8	metaspace	131072	none	hfmain	2	3.60	805	93294103	same (93294103 ids)
+code	pretok	8	punctuation	131072	none	hfmain	1	3.46	812	167392358	ref
+code	pretok	8	punctuation	131072	none	ours	1	6.61	145	167392358	same (167392358 ids)
+code	pretok	8	punctuation	131072	none	ours	2	6.64	140	167392358	same (167392358 ids)
+multilingual	pretok	8	bert	131072	none	hfmain	1	2.93	740	93876148	ref
+code	pretok	8	punctuation	131072	none	hfmain	2	3.44	825	167392358	same (167392358 ids)
+multilingual	pretok	8	bert	131072	none	ours	1	4.62	142	93876148	same (93876148 ids)
+multilingual	pretok	8	bert	131072	none	ours	2	4.56	143	93876148	same (93876148 ids)
+multilingual	pretok	8	bert	131072	none	hfmain	2	2.96	735	93876148	same (93876148 ids)
+mix	pretok	8	punctuation	131072	none	hfmain	1	5.12	786	126571892	ref
+mix	pretok	8	punctuation	131072	none	ours	1	9.19	124	126571892	same (126571892 ids)
+mix	pretok	8	punctuation	131072	none	ours	2	9.18	134	126571892	same (126571892 ids)
+mix	pretok	8	punctuation	131072	none	hfmain	2	5.14	782	126571892	same (126571892 ids)
+english	pretok	8	digits	131072	none	hfmain	1	7.84	773	76457644	ref
+english	pretok	8	digits	131072	none	ours	1	15.80	134	76457644	same (76457644 ids)
+code	pretok	8	digits	131072	none	hfmain	1	6.66	830	99486567	ref
+english	pretok	8	digits	131072	none	ours	2	15.83	145	76457644	same (76457644 ids)
+code	pretok	8	digits	131072	none	ours	1	13.55	185	99486567	same (99486567 ids)
+english	pretok	8	digits	131072	none	hfmain	2	7.87	773	76457644	same (76457644 ids)
+code	pretok	8	digits	131072	none	ours	2	13.60	181	99486567	same (99486567 ids)
+code	pretok	8	digits	131072	none	hfmain	2	6.72	813	99486567	same (99486567 ids)
+multilingual	pretok	8	punctuation	131072	none	hfmain	1	5.38	728	100296074	ref
+multilingual	pretok	8	punctuation	131072	none	ours	1	8.60	140	100296074	same (100296074 ids)
+multilingual	pretok	8	punctuation	131072	none	ours	2	8.59	137	100296074	same (100296074 ids)
+multilingual	pretok	8	punctuation	131072	none	hfmain	2	5.47	735	100296074	same (100296074 ids)
+code	pretok	8	unicode_scripts	131072	none	hfmain	1	3.26	788	124195898	ref
+code	pretok	8	unicode_scripts	131072	none	ours	1	8.55	135	124195898	same (124195898 ids)
+code	pretok	8	unicode_scripts	131072	none	ours	2	8.57	134	124195898	same (124195898 ids)
+code	pretok	8	unicode_scripts	131072	none	hfmain	2	3.26	790	124195898	same (124195898 ids)
+mix	pretok	8	digits	131072	none	hfmain	1	6.46	764	99719944	ref
+mix	pretok	8	digits	131072	none	ours	1	12.66	128	99719944	same (99719944 ids)
+mix	pretok	8	digits	131072	none	ours	2	12.67	127	99719944	same (99719944 ids)
+code	pretok	8	char_delimiter	131072	none	hfmain	1	3.59	783	94122549	ref
+mix	pretok	8	digits	131072	none	hfmain	2	6.46	764	99719944	same (99719944 ids)
+code	pretok	8	char_delimiter	131072	none	ours	1	5.35	131	94122549	same (94122549 ids)
+code	pretok	8	char_delimiter	131072	none	ours	2	5.35	134	94122549	same (94122549 ids)
+english	pretok	8	unicode_scripts	131072	none	hfmain	1	6.62	718	80086906	ref
+code	pretok	8	char_delimiter	131072	none	hfmain	2	3.58	769	94122549	same (94122549 ids)
+code	norm	8	bytelevel	131072	nfc	hfmain	1	2.31	869	153189617	ref
+english	pretok	8	unicode_scripts	131072	none	ours	1	14.83	136	80086906	same (80086906 ids)
+code	norm	8	bytelevel	131072	nfc	ours	1	3.87	122	153189617	same (153189617 ids)
+code	norm	8	bytelevel	131072	nfc	ours	2	3.88	126	153189617	same (153189617 ids)
+code	norm	8	bytelevel	131072	nfc	hfmain	2	2.38	867	153189617	same (153189617 ids)
+english	pretok	8	unicode_scripts	131072	none	ours	2	14.72	137	80086906	same (80086906 ids)
+code	norm	8	bytelevel	131072	nfd	hfmain	1	2.89	885	153329871	ref
+english	pretok	8	unicode_scripts	131072	none	hfmain	2	6.56	721	80086906	same (80086906 ids)
+code	norm	8	bytelevel	131072	nfd	ours	1	3.45	154	153329871	same (153329871 ids)
+code	norm	8	bytelevel	131072	nfd	ours	2	3.45	156	153329871	same (153329871 ids)
+english	pretok	8	char_delimiter	131072	none	hfmain	1	2.11	710	89476288	ref
+code	norm	8	bytelevel	131072	nfd	hfmain	2	2.88	892	153329871	same (153329871 ids)
+english	pretok	8	char_delimiter	131072	none	ours	1	3.24	129	89476288	same (89476288 ids)
+english	pretok	8	char_delimiter	131072	none	ours	2	3.25	130	89476288	same (89476288 ids)
+english	pretok	8	char_delimiter	131072	none	hfmain	2	2.14	708	89476288	same (89476288 ids)
+code	norm	8	bytelevel	131072	nfkc	hfmain	1	3.21	872	153186756	ref
+code	norm	8	bytelevel	131072	nfkc	ours	1	3.90	118	153186756	same (153186756 ids)
+english	norm	8	bytelevel	131072	nfc	hfmain	1	1.91	718	101633129	ref
+code	norm	8	bytelevel	131072	nfkc	ours	2	3.90	121	153186756	same (153186756 ids)
+mix	pretok	8	unicode_scripts	131072	none	hfmain	1	4.90	739	107406041	ref
+multilingual	pretok	8	digits	131072	none	hfmain	1	5.83	764	92287327	ref
+english	norm	8	bytelevel	131072	nfc	ours	1	3.85	109	101633129	same (101633129 ids)
+code	norm	8	bytelevel	131072	nfkc	hfmain	2	3.24	867	153186756	same (153186756 ids)
+english	norm	8	bytelevel	131072	nfc	ours	2	3.88	103	101633129	same (101633129 ids)
+english	norm	8	bytelevel	131072	nfc	hfmain	2	1.92	707	101633129	same (101633129 ids)
+multilingual	pretok	8	digits	131072	none	ours	1	9.84	138	92287327	same (92287327 ids)
+mix	pretok	8	unicode_scripts	131072	none	ours	1	11.26	129	107406041	same (107406041 ids)
+code	norm	8	bytelevel	131072	nfkd	hfmain	1	2.94	894	153327789	ref
+code	norm	8	bytelevel	131072	nfkd	ours	1	3.46	152	153327789	same (153327789 ids)
+english	norm	8	bytelevel	131072	nfd	hfmain	1	2.49	713	101685762	ref
+multilingual	pretok	8	digits	131072	none	ours	2	9.82	137	92287327	same (92287327 ids)
+code	norm	8	bytelevel	131072	nfkd	ours	2	3.45	151	153327789	same (153327789 ids)
+english	norm	8	bytelevel	131072	nfd	ours	1	3.42	129	101685762	same (101685762 ids)
+mix	pretok	8	unicode_scripts	131072	none	ours	2	11.21	130	107406041	same (107406041 ids)
+code	norm	8	bytelevel	131072	nfkd	hfmain	2	2.95	899	153327789	same (153327789 ids)
+english	norm	8	bytelevel	131072	nfd	ours	2	3.43	127	101685762	same (101685762 ids)
+multilingual	pretok	8	digits	131072	none	hfmain	2	5.82	761	92287327	same (92287327 ids)
+english	norm	8	bytelevel	131072	nfd	hfmain	2	2.47	716	101685762	same (101685762 ids)
+mix	pretok	8	unicode_scripts	131072	none	hfmain	2	4.93	743	107406041	same (107406041 ids)
+code	norm	8	bytelevel	131072	lowercase	hfmain	1	2.39	867	151362247	ref
+code	norm	8	bytelevel	131072	lowercase	ours	1	3.17	128	151362247	same (151362247 ids)
+english	norm	8	bytelevel	131072	nfkc	hfmain	1	3.05	715	101631075	ref
+code	norm	8	bytelevel	131072	lowercase	ours	2	3.17	125	151362247	same (151362247 ids)
+english	norm	8	bytelevel	131072	nfkc	ours	1	3.84	110	101631075	same (101631075 ids)
+code	norm	8	bytelevel	131072	lowercase	hfmain	2	2.48	869	151362247	same (151362247 ids)
+english	norm	8	bytelevel	131072	nfkc	ours	2	3.84	114	101631075	same (101631075 ids)
+english	norm	8	bytelevel	131072	nfkc	hfmain	2	3.07	706	101631075	same (101631075 ids)
+mix	pretok	8	char_delimiter	131072	none	hfmain	1	3.03	777	98535085	ref
+english	norm	8	bytelevel	131072	nfkd	hfmain	1	2.48	714	101684357	ref
+code	norm	8	bytelevel	131072	strip_accents	hfmain	1	3.08	879	152996765	ref
+mix	pretok	8	char_delimiter	131072	none	ours	1	4.21	135	98535085	same (98535085 ids)
+english	norm	8	bytelevel	131072	nfkd	ours	1	3.43	131	101684357	same (101684357 ids)
+code	norm	8	bytelevel	131072	strip_accents	ours	1	3.62	137	152996765	same (152996765 ids)
+mix	pretok	8	char_delimiter	131072	none	ours	2	4.22	136	98535085	same (98535085 ids)
+english	norm	8	bytelevel	131072	nfkd	ours	2	3.42	125	101684357	same (101684357 ids)
+code	norm	8	bytelevel	131072	strip_accents	ours	2	3.62	136	152996765	same (152996765 ids)
+mix	pretok	8	char_delimiter	131072	none	hfmain	2	3.02	780	98535085	same (98535085 ids)
+english	norm	8	bytelevel	131072	nfkd	hfmain	2	2.49	714	101684357	same (101684357 ids)
+code	norm	8	bytelevel	131072	strip_accents	hfmain	2	3.05	878	152996765	same (152996765 ids)
+english	norm	8	bytelevel	131072	lowercase	hfmain	1	1.95	713	100601178	ref
+english	norm	8	bytelevel	131072	lowercase	ours	1	3.01	113	100601178	same (100601178 ids)
+english	norm	8	bytelevel	131072	lowercase	ours	2	3.02	109	100601178	same (100601178 ids)
+mix	norm	8	bytelevel	131072	nfc	hfmain	1	2.57	823	122318490	ref
+english	norm	8	bytelevel	131072	lowercase	hfmain	2	1.95	710	100601178	same (100601178 ids)
+code	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	1	3.36	869	151360039	ref
+mix	norm	8	bytelevel	131072	nfc	ours	1	4.89	117	122318490	same (122318490 ids)
+code	norm	8	bytelevel	131072	nfkc_lowercase	ours	1	4.52	129	151360039	same (151360039 ids)
+mix	norm	8	bytelevel	131072	nfc	ours	2	4.87	118	122318490	same (122318490 ids)
+english	norm	8	bytelevel	131072	strip_accents	hfmain	1	2.69	714	101549365	ref
+code	norm	8	bytelevel	131072	nfkc_lowercase	ours	2	4.50	141	151360039	same (151360039 ids)
+mix	norm	8	bytelevel	131072	nfc	hfmain	2	2.60	835	122318490	same (122318490 ids)
+english	norm	8	bytelevel	131072	strip_accents	ours	1	3.58	136	101549365	same (101549365 ids)
+code	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	2	3.34	880	151360039	same (151360039 ids)
+english	norm	8	bytelevel	131072	strip_accents	ours	2	3.60	130	101549365	same (101549365 ids)
+english	norm	8	bytelevel	131072	strip_accents	hfmain	2	2.69	713	101549365	same (101549365 ids)
+code	norm	8	bytelevel	131072	replace	hfmain	1	2.32	900	151609936	ref
+code	norm	8	bytelevel	131072	replace	ours	1	2.67	164	151609936	same (151609936 ids)
+mix	norm	8	bytelevel	131072	nfd	hfmain	1	3.19	850	125446914	ref
+code	norm	8	bytelevel	131072	replace	ours	2	2.68	164	151609936	same (151609936 ids)
+english	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	1	3.24	712	100599952	ref
+code	norm	8	bytelevel	131072	replace	hfmain	2	2.35	883	151609936	same (151609936 ids)
+mix	norm	8	bytelevel	131072	nfd	ours	1	4.37	145	125446914	same (125446914 ids)
+multilingual	pretok	8	unicode_scripts	131072	none	hfmain	1	5.13	716	93531335	ref
+english	norm	8	bytelevel	131072	nfkc_lowercase	ours	1	4.32	126	100599952	same (100599952 ids)
+mix	norm	8	bytelevel	131072	nfd	ours	2	4.37	136	125446914	same (125446914 ids)
+english	norm	8	bytelevel	131072	nfkc_lowercase	ours	2	4.32	124	100599952	same (100599952 ids)
+mix	norm	8	bytelevel	131072	nfd	hfmain	2	3.12	831	125446914	same (125446914 ids)
+english	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	2	3.22	709	100599952	same (100599952 ids)
+multilingual	pretok	8	unicode_scripts	131072	none	ours	1	10.73	141	93531335	same (93531335 ids)
+code	norm	8	bytelevel	131072	bert	hfmain	1	5.11	867	136477088	ref
+english	norm	8	bytelevel	131072	replace	hfmain	1	1.77	710	101633129	ref
+code	norm	8	bytelevel	131072	bert	ours	1	5.79	160	136477088	same (136477088 ids)
+english	norm	8	bytelevel	131072	replace	ours	1	2.58	132	101633129	same (101633129 ids)
+english	norm	8	bytelevel	131072	replace	ours	2	2.58	145	101633129	same (101633129 ids)
+multilingual	pretok	8	unicode_scripts	131072	none	ours	2	10.78	142	93531335	same (93531335 ids)
+english	norm	8	bytelevel	131072	replace	hfmain	2	1.79	704	101633129	same (101633129 ids)
+code	norm	8	bytelevel	131072	bert	ours	2	5.77	152	136477088	same (136477088 ids)
+mix	norm	8	bytelevel	131072	nfkc	hfmain	1	3.67	834	122277217	ref
+multilingual	pretok	8	unicode_scripts	131072	none	hfmain	2	5.12	723	93531335	same (93531335 ids)
+code	norm	8	bytelevel	131072	bert	hfmain	2	5.13	867	136477088	same (136477088 ids)
+mix	norm	8	bytelevel	131072	nfkc	ours	1	4.89	125	122277217	same (122277217 ids)
+english	norm	8	bytelevel	131072	bert	hfmain	1	4.68	719	98249086	ref
+mix	norm	8	bytelevel	131072	nfkc	ours	2	4.84	122	122277217	same (122277217 ids)
+english	norm	8	bytelevel	131072	bert	ours	1	5.61	155	98249086	same (98249086 ids)
+code	headline	2	llama3	32768	none	hfmain	1	3.68	738	139775880	ref
+mix	norm	8	bytelevel	131072	nfkc	hfmain	2	3.63	838	122277217	same (122277217 ids)
+english	norm	8	bytelevel	131072	bert	ours	2	5.59	152	98249086	same (98249086 ids)
+code	headline	2	llama3	32768	none	ours	1	6.71	40	139775880	same (139775880 ids)
+english	norm	8	bytelevel	131072	bert	hfmain	2	4.73	709	98249086	same (98249086 ids)
+english	headline	2	llama3	32768	none	hfmain	1	2.91	651	107638944	ref
+mix	norm	8	bytelevel	131072	nfkd	hfmain	1	3.09	837	125403461	ref
+english	headline	2	llama3	32768	none	ours	1	6.02	37	107638944	same (107638944 ids)
+mix	norm	8	bytelevel	131072	nfkd	ours	1	4.38	145	125403461	same (125403461 ids)
+multilingual	pretok	8	char_delimiter	131072	none	hfmain	1	3.17	750	89914805	ref
+multilingual	pretok	8	char_delimiter	131072	none	ours	1	3.81	137	89914805	same (89914805 ids)
+mix	norm	8	bytelevel	131072	nfkd	ours	2	4.40	144	125403461	same (125403461 ids)
+multilingual	pretok	8	char_delimiter	131072	none	ours	2	3.82	131	89914805	same (89914805 ids)
+mix	norm	8	bytelevel	131072	nfkd	hfmain	2	3.11	841	125403461	same (125403461 ids)
+multilingual	pretok	8	char_delimiter	131072	none	hfmain	2	3.21	750	89914805	same (89914805 ids)
+code	headline	2	llama3	32768	none	tiktoken	1	30.94	185	139775880	same (139775880 ids)
+english	headline	2	llama3	32768	none	tiktoken	1	19.91	132	107638944	same (107638944 ids)
+code	headline	2	llama3	32768	none	ours	2	6.77	40	139775880	same (139775880 ids)
+mix	norm	8	bytelevel	131072	lowercase	hfmain	1	2.71	813	119835639	ref
+english	headline	2	llama3	32768	none	ours	2	6.04	37	107638944	same (107638944 ids)
+code	headline	2	llama3	32768	none	hfmain	2	3.67	741	139775880	same (139775880 ids)
+code	headline	16	llama3	32768	none	hfmain	1	1.55	870	139775880	ref
+english	headline	2	llama3	32768	none	hfmain	2	2.87	655	107638944	same (107638944 ids)
+mix	norm	8	bytelevel	131072	lowercase	ours	1	4.18	120	119835639	same (119835639 ids)
+code	headline	16	llama3	32768	none	ours	1	1.16	175	139775880	same (139775880 ids)
+english	headline	16	llama3	32768	none	hfmain	1	1.20	718	107638944	ref
+english	headline	16	llama3	32768	none	ours	1	1.06	131	107638944	same (107638944 ids)
+mix	norm	8	bytelevel	131072	lowercase	ours	2	4.18	120	119835639	same (119835639 ids)
+mix	norm	8	bytelevel	131072	lowercase	hfmain	2	2.66	823	119835639	same (119835639 ids)
+english	headline	16	llama3	32768	none	tiktoken	1	8.19	143	107638944	same (107638944 ids)
+english	headline	16	llama3	32768	none	ours	2	1.07	144	107638944	same (107638944 ids)
+english	headline	16	llama3	32768	none	hfmain	2	1.24	725	107638944	same (107638944 ids)
+code	headline	16	llama3	32768	none	tiktoken	1	13.02	218	139775880	same (139775880 ids)
+code	headline	16	llama3	32768	none	ours	2	1.17	163	139775880	same (139775880 ids)
+multilingual	norm	8	bytelevel	131072	nfc	hfmain	1	3.51	770	98301474	ref
+code	headline	16	llama3	32768	none	hfmain	2	1.52	868	139775880	same (139775880 ids)
+multilingual	norm	8	bytelevel	131072	nfc	ours	1	6.08	124	98301474	same (98301474 ids)
+multilingual	norm	8	bytelevel	131072	nfc	ours	2	5.92	113	98301474	same (98301474 ids)
+mix	norm	8	bytelevel	131072	strip_accents	hfmain	1	3.32	819	121686024	ref
+multilingual	norm	8	bytelevel	131072	nfc	hfmain	2	3.49	772	98301474	same (98301474 ids)
+mix	norm	8	bytelevel	131072	strip_accents	ours	1	4.58	130	121686024	same (121686024 ids)
+mix	norm	8	bytelevel	131072	strip_accents	ours	2	4.58	133	121686024	same (121686024 ids)
+mix	norm	8	bytelevel	131072	strip_accents	hfmain	2	3.33	836	121686024	same (121686024 ids)
+multilingual	norm	8	bytelevel	131072	nfd	hfmain	1	3.80	773	108053740	ref
+mix	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	1	3.95	811	119794722	ref
+multilingual	norm	8	bytelevel	131072	nfd	ours	1	5.47	131	108053740	same (108053740 ids)
+mix	norm	8	bytelevel	131072	nfkc_lowercase	ours	1	5.42	126	119794722	same (119794722 ids)
+multilingual	norm	8	bytelevel	131072	nfd	ours	2	5.47	138	108053740	same (108053740 ids)
+mix	norm	8	bytelevel	131072	nfkc_lowercase	ours	2	5.43	139	119794722	same (119794722 ids)
+multilingual	norm	8	bytelevel	131072	nfd	hfmain	2	3.82	770	108053740	same (108053740 ids)
+mix	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	2	3.90	816	119794722	same (119794722 ids)
+mix	norm	8	bytelevel	131072	replace	hfmain	1	2.47	839	121704130	ref
+mix	norm	8	bytelevel	131072	replace	ours	1	3.70	152	121704130	same (121704130 ids)
+mix	norm	8	bytelevel	131072	replace	ours	2	3.69	151	121704130	same (121704130 ids)
+mix	norm	8	bytelevel	131072	replace	hfmain	2	2.49	853	121704130	same (121704130 ids)
+multilingual	norm	8	bytelevel	131072	nfkc	hfmain	1	4.30	766	98210452	ref
+multilingual	norm	8	bytelevel	131072	nfkc	ours	1	6.01	126	98210452	same (98210452 ids)
+mix	norm	8	bytelevel	131072	bert	hfmain	1	5.19	803	122782482	ref
+multilingual	norm	8	bytelevel	131072	nfkc	ours	2	5.99	126	98210452	same (98210452 ids)
+mix	norm	8	bytelevel	131072	bert	ours	1	6.40	155	122782482	same (122782482 ids)
+multilingual	norm	8	bytelevel	131072	nfkc	hfmain	2	4.34	767	98210452	same (98210452 ids)
+mix	norm	8	bytelevel	131072	bert	ours	2	6.36	152	122782482	same (122782482 ids)
+mix	norm	8	bytelevel	131072	bert	hfmain	2	5.13	820	122782482	same (122782482 ids)
+mix	headline	2	llama3	32768	none	hfmain	1	4.82	732	132517440	ref
+multilingual	norm	8	bytelevel	131072	nfkd	hfmain	1	3.80	767	107966940	ref
+mix	headline	2	llama3	32768	none	ours	1	9.95	40	132517440	same (132517440 ids)
+multilingual	norm	8	bytelevel	131072	nfkd	ours	1	5.49	133	107966940	same (107966940 ids)
+multilingual	norm	8	bytelevel	131072	nfkd	ours	2	5.51	131	107966940	same (107966940 ids)
+multilingual	norm	8	bytelevel	131072	nfkd	hfmain	2	3.81	769	107966940	same (107966940 ids)
+mix	headline	2	llama3	32768	none	tiktoken	1	26.84	173	132517440	same (132517440 ids)
+mix	headline	2	llama3	32768	none	ours	2	9.95	43	132517440	same (132517440 ids)
+mix	headline	2	llama3	32768	none	hfmain	2	4.80	719	132517440	same (132517440 ids)
+mix	headline	16	llama3	32768	none	hfmain	1	1.71	899	132517440	ref
+mix	headline	16	llama3	32768	none	ours	1	1.59	146	132517440	same (132517440 ids)
+multilingual	norm	8	bytelevel	131072	lowercase	hfmain	1	3.60	768	95931826	ref
+multilingual	norm	8	bytelevel	131072	lowercase	ours	1	5.56	119	95931826	same (95931826 ids)
+mix	headline	16	llama3	32768	none	tiktoken	1	11.21	198	132517440	same (132517440 ids)
+multilingual	norm	8	bytelevel	131072	lowercase	ours	2	5.53	119	95931826	same (95931826 ids)
+mix	headline	16	llama3	32768	none	ours	2	1.58	149	132517440	same (132517440 ids)
+mix	headline	16	llama3	32768	none	hfmain	2	1.70	896	132517440	same (132517440 ids)
+multilingual	norm	8	bytelevel	131072	lowercase	hfmain	2	3.64	760	95931826	same (95931826 ids)
+multilingual	norm	8	bytelevel	131072	strip_accents	hfmain	1	3.97	779	96901263	ref
+multilingual	norm	8	bytelevel	131072	strip_accents	ours	1	5.75	135	96901263	same (96901263 ids)
+multilingual	norm	8	bytelevel	131072	strip_accents	ours	2	5.75	142	96901263	same (96901263 ids)
+multilingual	norm	8	bytelevel	131072	strip_accents	hfmain	2	3.98	787	96901263	same (96901263 ids)
+multilingual	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	1	4.71	771	95846711	ref
+multilingual	norm	8	bytelevel	131072	nfkc_lowercase	ours	1	6.57	138	95846711	same (95846711 ids)
+multilingual	norm	8	bytelevel	131072	nfkc_lowercase	ours	2	6.57	137	95846711	same (95846711 ids)
+multilingual	norm	8	bytelevel	131072	nfkc_lowercase	hfmain	2	4.66	765	95846711	same (95846711 ids)
+multilingual	norm	8	bytelevel	131072	replace	hfmain	1	3.20	767	98301474	ref
+multilingual	norm	8	bytelevel	131072	replace	ours	1	4.92	133	98301474	same (98301474 ids)
+multilingual	norm	8	bytelevel	131072	replace	ours	2	4.94	142	98301474	same (98301474 ids)
+multilingual	norm	8	bytelevel	131072	replace	hfmain	2	3.22	761	98301474	same (98301474 ids)
+multilingual	norm	8	bytelevel	131072	bert	hfmain	1	5.67	781	124322761	ref
+multilingual	norm	8	bytelevel	131072	bert	ours	1	6.95	155	124322761	same (124322761 ids)
+multilingual	norm	8	bytelevel	131072	bert	ours	2	6.98	150	124322761	same (124322761 ids)
+multilingual	norm	8	bytelevel	131072	bert	hfmain	2	5.68	779	124322761	same (124322761 ids)
+multilingual	headline	2	llama3	32768	none	hfmain	1	6.82	664	118158376	ref
+multilingual	headline	2	llama3	32768	none	ours	1	14.22	40	118158376	same (118158376 ids)
+multilingual	headline	2	llama3	32768	none	tiktoken	1	24.95	143	118158376	same (118158376 ids)
+multilingual	headline	2	llama3	32768	none	ours	2	14.28	39	118158376	same (118158376 ids)
+multilingual	headline	2	llama3	32768	none	hfmain	2	6.87	666	118158376	same (118158376 ids)
+multilingual	headline	16	llama3	32768	none	hfmain	1	2.25	828	118158376	ref
+multilingual	headline	16	llama3	32768	none	ours	1	2.13	137	118158376	same (118158376 ids)
+multilingual	headline	16	llama3	32768	none	tiktoken	1	9.60	167	118158376	same (118158376 ids)
+multilingual	headline	16	llama3	32768	none	ours	2	2.13	131	118158376	same (118158376 ids)
+multilingual	headline	16	llama3	32768	none	hfmain	2	2.35	821	118158376	same (118158376 ids)

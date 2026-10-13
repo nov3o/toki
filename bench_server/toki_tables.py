@@ -56,21 +56,22 @@ def rate(x):
     return f"{x / 1e3:.2f} GB/s" if x >= 1e3 else f"{x:.0f} MB/s"
 
 
-def cells(get, s, tput=False):
+def cells(get, s, tput=True):
     out = []
     for task, base, _ in PAIRS:
         b, o = get(task, s, base), get(task, s, "ours")
-        r = (lambda x: f" ({rate(nbytes(task, s) / 1e6 / x)})") if tput else (lambda x: "")
-        out += ["🕐", "🕐"] if b is None else [t(b[0]) + r(b[0]), f"{b[1]:.2f}"]
+        r = lambda x: rate(nbytes(task, s) / 1e6 / x)
+        out += ["🕐"] * 3 if b is None else [t(b[0]), r(b[0]), f"{b[1]:.2f}"]
         if o is None:
-            out += ["🕐", "🕐"]
+            out += ["🕐"] * 3
         else:
             sp = f" ({b[0] / o[0]:.1f}×)" if b else ""
-            out += [f"**{t(o[0])}**{sp}{r(o[0])}".replace("×) (", "×, "), f"**{o[1]:.2f}**"]
+            out += [f"**{t(o[0])}**{sp}", f"**{r(o[0])}**", f"**{o[1]:.2f}**"]
     return out
 
 
-HEAD = "| PR #2501 train s | MEM | **ours** train s | MEM | HF main enc s | MEM | **ours** enc s | MEM |"
+HEAD = ("| PR #2501 train s | bytes/s | MEM | **ours** train s | bytes/s | MEM "
+        "| HF main enc s | bytes/s | MEM | **ours** enc s | bytes/s | MEM |")
 
 
 def setting(field, v):
@@ -83,21 +84,21 @@ def fmt(axis, v):
     return VOCAB.get(v, v) if axis == "vocab" else v.replace("GB", " GB") if axis == "size" else v
 
 
-avg_out = ["#### Default setting", "", "| dataset " + HEAD, "|---" * 9 + "|"]
+avg_out = ["#### Default setting", "", "| dataset " + HEAD, "|---" * 13 + "|"]
 for ds in DS:
     avg_out.append(f"| {ds} | " + " | ".join(cells(lambda task, s, impl: cell(task, ds, s, impl), DEFAULT)) + " |")
 avg_out.append("| **average** | " + " | ".join(cells(avg, DEFAULT)) + " |")
 avg_out.append("")
-by_out = ["# Results by dataset", "", "Time in s (throughput: training over the whole sample, encoding over the held-out half; 10 GB: the whole file), MEM = peak GB.", ""]
+by_out = ["# Results by dataset", "", "bytes/s: training over the whole sample, encoding over the held-out half (10 GB: the whole file). MEM = peak GB.", ""]
 for axis, title, header, field, values in AXES:
-    avg_out += [f"#### {title}", "", f"| {header} " + HEAD, "|---" * 9 + "|"]
-    by_out += [f"## {title}", "", f"| {header} | dataset " + HEAD, "|---" * 10 + "|"]
+    avg_out += [f"#### {title}", "", f"| {header} " + HEAD, "|---" * 13 + "|"]
+    by_out += [f"## {title}", "", f"| {header} | dataset " + HEAD, "|---" * 14 + "|"]
     for v in values:
         s = setting(field, v)
         avg_out.append(f"| {fmt(axis, v)} | " + " | ".join(cells(avg, s)) + " |")
         for i, ds in enumerate(DS):
             by_out.append(f"| {fmt(axis, v) if i == 0 else ''} | {ds} | "
-                          + " | ".join(cells(lambda task, s, impl: cell(task, ds, s, impl), s, True)) + " |")
+                          + " | ".join(cells(lambda task, s, impl: cell(task, ds, s, impl), s)) + " |")
     avg_out.append("")
     by_out.append("")
 eq = (f"Equivalence: {sum(v for (k, c), v in checks.items() if k == 'train')} training runs of ours, "

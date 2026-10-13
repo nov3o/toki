@@ -1,4 +1,4 @@
-//! union-train <corpus> <vocab_size> <out_dir>: our feed + PR #2501's merge. Workers pread chunks cut at safe points
+//! union-train <corpus> <vocab_size> <out_dir>: our feed + PR #2501's merge. Workers pread chunks cut at line starts
 //! (as our encoder), pre-tokenize them with GPT-2 byte-level (rust_bpe::next_gpt2) and count words as byte slices in
 //! per-thread maps; the maps are merged, mapped to byte-level chars once per unique word and handed to tk-train's
 //! `BpeTrainer::do_train`. env: HB_THREADS (1), HB_BLOCK_KB (4096); HF's pool sized by set_num_threads(HB_THREADS).
@@ -17,12 +17,14 @@ const SHARDS: usize = 64;
 #[derive(Clone, Copy, Default)]
 struct Slot {
     h: u64,
-    off: u64,
-    len: u32,
-    cnt: u64,
+    cl: u64,       // count in the low 56 bits, word length in the top 8 (words >= 255 bytes: 255, length in the arena)
+    key: [u8; 16], // the word itself when <= 16 bytes, else its arena offset (u64 LE) and length (u64 LE)
 }
 
-/// unique word -> count, open addressing on the word's hash, keys in the map's own arena (as rust_bpe's trainer)
+const CNT: u64 = (1 << 56) - 1;
+
+/// unique word -> count, open addressing on the word's hash; words of <= 16 bytes live in the slot (one memory access
+/// per lookup), longer ones in the map's own arena
 struct WordMap {
     s: Vec<Slot>,
     arena: Vec<u8>,
@@ -35,19 +37,37 @@ impl WordMap {
         WordMap { s: vec![Slot::default(); 1 << 10], arena: Vec::new(), n: 0, mask: (1 << 10) - 1 }
     }
     #[inline]
+    fn word<'a>(&'a self, x: &'a Slot) -> &'a [u8] {
+        let l = (x.cl >> 56) as usize;
+        if l <= 16 {
+            &x.key[..l]
+        } else {
+            let off = u64::from_le_bytes(x.key[..8].try_into().unwrap()) as usize;
+            let len = u64::from_le_bytes(x.key[8..].try_into().unwrap()) as usize;
+            &self.arena[off..off + len]
+        }
+    }
+    #[inline]
     fn add(&mut self, w: &[u8], h: u64, c: u64) {
-        let len = w.len() as u32;
+        let l8 = (w.len().min(255) as u64) << 56;
         let mut i = h as usize & self.mask;
         while self.s[i].h != 0 {
-            let x = &mut self.s[i];
-            if x.h == h && x.len == len && &self.arena[x.off as usize..x.off as usize + w.len()] == w {
-                x.cnt += c;
+            let x = &self.s[i];
+            if x.h == h && x.cl & !CNT == l8 && self.word(x) == w {
+                self.s[i].cl += c;
                 return;
             }
             i = (i + 1) & self.mask;
         }
-        self.s[i] = Slot { h, off: self.arena.len() as u64, len, cnt: c };
-        self.arena.extend_from_slice(w);
+        let mut key = [0u8; 16];
+        if w.len() <= 16 {
+            key[..w.len()].copy_from_slice(w);
+        } else {
+            key[..8].copy_from_slice(&(self.arena.len() as u64).to_le_bytes());
+            key[8..].copy_from_slice(&(w.len() as u64).to_le_bytes());
+            self.arena.extend_from_slice(w);
+        }
+        self.s[i] = Slot { h, cl: l8 | c, key };
         self.n += 1;
         if self.n * 2 > self.s.len() {
             let old = std::mem::take(&mut self.s);
@@ -65,7 +85,70 @@ impl WordMap {
         }
     }
     fn words(&self) -> impl Iterator<Item = (&[u8], u64, u64)> {
-        self.s.iter().filter(|x| x.h != 0).map(|x| (&self.arena[x.off as usize..x.off as usize + x.len as usize], x.h, x.cnt))
+        self.s.iter().filter(|x| x.h != 0).map(|x| (self.word(x), x.h, x.cl & CNT))
+    }
+}
+
+/// Small direct-mapped front for WordMap: words of <= 16 bytes with the key inline, counts accumulated here and
+/// flushed to the big map on eviction and at the end. Frequent words never touch the big map (tens of MB, misses the
+/// CPU caches). env HB_FRONT_BITS (12; 0 = off).
+#[derive(Clone, Copy, Default)]
+struct FSlot {
+    key: u128,
+    h: u64,
+    cnt: u32,
+    len: u32,
+}
+
+struct Front {
+    s: Vec<FSlot>,
+    mask: usize,
+}
+
+impl Front {
+    fn new(bits: u32) -> Self {
+        Front { s: vec![FSlot::default(); 1 << bits], mask: (1 << bits) - 1 }
+    }
+    #[inline]
+    fn add(&mut self, w: &[u8], h: u64, back: &mut WordMap) {
+        if w.len() > 16 || self.mask == 0 {
+            back.add(w, h, 1);
+            return;
+        }
+        let mut b = [0u8; 16];
+        b[..w.len()].copy_from_slice(w);
+        let key = u128::from_le_bytes(b);
+        let s = &mut self.s[(h >> 24) as usize & self.mask];
+        if s.h == h && s.key == key && s.len as usize == w.len() {
+            s.cnt += 1;
+            if s.cnt == u32::MAX {
+                Self::flush(s, back);
+            }
+            return;
+        }
+        if s.h != 0 {
+            Self::flush(s, back);
+        }
+        *s = FSlot { key, h, cnt: 1, len: w.len() as u32 };
+    }
+    #[inline]
+    fn prefetch(&self, h: u64) {
+        rust_bpe::prefetch(&self.s[(h >> 24) as usize & self.mask]);
+    }
+    #[inline]
+    fn flush(s: &mut FSlot, back: &mut WordMap) {
+        if s.h != 0 && s.cnt > 0 {
+            back.add(&s.key.to_le_bytes()[..s.len as usize], s.h, s.cnt as u64);
+        }
+        s.cnt = 0;
+        if s.h != 0 {
+            s.h = 0;
+        }
+    }
+    fn drain(&mut self, back: &mut WordMap) {
+        for s in self.s.iter_mut() {
+            Self::flush(s, back);
+        }
     }
 }
 
@@ -95,7 +178,11 @@ fn main() {
     let t_n = env_or("HB_THREADS", 1usize);
     tk_encode::parallelism::set_num_threads(t_n);
     let block = env_or("HB_BLOCK_KB", 4096usize) << 10;
-    let kind = pretok::Kind::Gpt2;
+    // HB_PRETOK: pre-tokenizer name (rust_bpe::pretok, default bytelevel); HB_NORMALIZER: normalizer spec
+    // (rust_bpe::normalize, as BB_NORMALIZER of our trainer), applied to every line first
+    let kind = pretok::Kind::from_name(&std::env::var("HB_PRETOK").unwrap_or("bytelevel".into())).expect("HB_PRETOK");
+    let norm = rust_bpe::normalize::parse(&std::env::var("HB_NORMALIZER").unwrap_or_default()).expect("HB_NORMALIZER");
+    let byte_level = kind.byte_level();
     let t0 = std::time::Instant::now();
     let f = File::open(corpus).unwrap();
     let size = f.metadata().unwrap().len() as usize;
@@ -109,7 +196,7 @@ fn main() {
             scratch.resize(n, 0);
             f.read_exact_at(scratch, from as u64).unwrap();
             for c in (x.max(from + 2))..from + n {
-                if pretok::safe_cut(kind, scratch, c - from) {
+                if scratch[c - from - 1] == b'\n' {
                     return c;
                 }
             }
@@ -120,33 +207,79 @@ fn main() {
         }
     };
     let n_chunks = size.div_ceil(block).max(1);
+    let simd = env_or("HB_SIMD", 1usize) == 1;
+    let stage = env_or("HB_STAGE", 2usize); // profiling: 0 pre-tokenize only, 1 + hash, 2 full count
     let next = AtomicUsize::new(0);
     // per-thread counts keyed by the word's bytes (owned: chunks are reused)
     let maps: Vec<Vec<WordMap>> = std::thread::scope(|sc| {
         let hs: Vec<_> = (0..t_n)
             .map(|_| {
-                let (next, cut, f) = (&next, &cut, &f);
+                let (next, cut, f, norm) = (&next, &cut, &f, &norm);
                 sc.spawn(move || {
                     let (mut data, mut scratch) = (Vec::new(), Vec::new());
-                    let mut m: Vec<WordMap> = (0..SHARDS).map(|_| WordMap::new()).collect();
+                    let mut m = WordMap::new();
+                    let mut front = Front::new(env_or("HB_FRONT_BITS", 0u32));
+                    let (mut tags, mut starts, mut flag, mut spans) = (Vec::new(), Vec::new(), Vec::new(), Vec::new());
+                    let mut sink = 0u64;
+                    let (mut nbuf, mut wbuf) = (String::new(), Vec::new());
                     loop {
                         let i = next.fetch_add(1, Ordering::Relaxed);
                         if i >= n_chunks {
-                            break m;
+                            std::hint::black_box(sink);
+                            front.drain(&mut m);
+                            // split this thread's counts into SHARDS parts by hash (one pass, still in parallel)
+                            let mut parts: Vec<WordMap> = (0..SHARDS).map(|_| WordMap::new()).collect();
+                            for (w, h, c) in m.words() {
+                                parts[(h >> 58) as usize % SHARDS].add(w, h, c);
+                            }
+                            break parts;
                         }
                         let (lo, hi) = (cut(i * block, &mut scratch), cut((i + 1) * block, &mut scratch));
                         data.resize(hi - lo, 0);
                         f.read_exact_at(&mut data, lo as u64).unwrap();
                         // per line (with its '\n'), as HF's feed and ours: a pre-token never spans a line end
+                        // per line (with its '\n'), as HF's feed and ours: a pre-token never spans a line end.
+                        // HB_SIMD=1: HF's bitcannon (SIMD classify + bitstream GPT-2 grammar) finds the token starts
                         for line in data.split_inclusive(|&c| c == b'\n') {
-                            let mut p = 0;
-                            while p < line.len() {
-                                let e = rust_bpe::next_gpt2(line, p);
-                                let w = &line[p..e];
-                                let h = rust_bpe::hbytes(w) | 1;
-                                m[(h >> 58) as usize % SHARDS].add(w, h, 1);
-                                p = e;
+                            let line: &[u8] = if norm.is_empty() {
+                                line
+                            } else {
+                                rust_bpe::normalize::apply(&norm, std::str::from_utf8(line).expect("UTF-8"), &mut nbuf);
+                                nbuf.as_bytes()
+                            };
+                            if simd && kind == pretok::Kind::Gpt2 {
+                                let n = line.len();
+                                tags.resize(n.max(tags.len()), 0);
+                                starts.resize(n.div_ceil(64).max(starts.len()), 0);
+                                flag.resize(n.div_ceil(64).max(flag.len()), 0);
+                                spans.resize(n.max(spans.len()), bitcannon::Span { start: 0, end: 0 });
+                                bitcannon::classify::classify(line, &mut tags[..n]);
+                                let k = bitcannon::bitcannon_byte_level(line, &tags[..n], &mut starts, &mut flag, &mut spans);
+                                for sp in &spans[..k] {
+                                    let w = &line[sp.start as usize..sp.end as usize];
+                                    front.add(w, rust_bpe::hbytes(w) | 1, &mut m);
+                                }
+                                continue;
                             }
+                            if kind == pretok::Kind::Gpt2 {
+                                let mut p = 0;
+                                while p < line.len() {
+                                    let e = rust_bpe::next_gpt2(line, p);
+                                    let w = &line[p..e];
+                                    match stage {
+                                        0 => sink = sink.wrapping_add(e as u64),
+                                        1 => sink ^= rust_bpe::hbytes(w),
+                                        _ => front.add(w, rust_bpe::hbytes(w) | 1, &mut m),
+                                    }
+                                    p = e;
+                                }
+                                continue;
+                            }
+                            pretok::for_each_word(kind, line, &mut wbuf, |w| {
+                                if !w.is_empty() {
+                                    front.add(w, rust_bpe::hbytes(w) | 1, &mut m);
+                                }
+                            });
                         }
                     }
                 })
@@ -154,6 +287,7 @@ fn main() {
             .collect();
         hs.into_iter().map(|h| h.join().unwrap()).collect()
     });
+    let t_count = t0.elapsed().as_secs_f64();
     // shard k of every thread goes to one merging thread, which also maps its words to byte-level chars
     let mut by_shard: Vec<Vec<WordMap>> = (0..SHARDS).map(|_| Vec::new()).collect();
     for ms in maps {
@@ -175,19 +309,29 @@ fn main() {
                             all.add(w, h, c);
                         }
                     }
-                    all.words().map(|(w, _, c)| (w.iter().map(|&b| map[b as usize]).collect(), c)).collect()
+                    all.words()
+                        .map(|(w, _, c)| {
+                            let k: CompactString = if byte_level { w.iter().map(|&b| map[b as usize]).collect() } else { std::str::from_utf8(w).unwrap().into() };
+                            (k, c)
+                        })
+                        .collect()
                 })
             })
             .collect();
         hs.into_iter().map(|h| h.join().unwrap()).collect()
     });
+    let t_reduce = t0.elapsed().as_secs_f64();
     let mut wc: AHashMap<CompactString, u64> = AHashMap::with_capacity(parts.iter().map(|p| p.len()).sum());
     for p in parts {
         wc.extend(p);
     }
     let feed_s = t0.elapsed().as_secs_f64();
     let t1 = std::time::Instant::now();
-    let trainer = BpeTrainer::builder().vocab_size(vocab).show_progress(false).build();
+    // the merge loop's own worker count (HB_MERGE_THREADS, default = HB_THREADS): it stops scaling before counting does
+    tk_encode::parallelism::set_num_threads(env_or("HB_MERGE_THREADS", t_n));
+    // non-byte-level pre-tokenizers train with an [UNK] special token, as train_hf.py / train_ours.py
+    let specials = if byte_level { vec![] } else { vec![tk_encode::vocab::bucket_added_vocabulary::AddedToken::from("[UNK]", true)] };
+    let trainer = BpeTrainer::builder().vocab_size(vocab).special_tokens(specials).show_progress(false).build();
     let (vocab, merges, _) = trainer.do_train(&wc).unwrap();
     let train_s = t1.elapsed().as_secs_f64();
     let mut f = std::io::BufWriter::new(File::create(format!("{out}/merges.txt")).unwrap());
@@ -200,5 +344,6 @@ fn main() {
     for (t, i) in v {
         writeln!(g, "{i}\t{t}").unwrap();
     }
-    println!("feed_s={feed_s:.3} train_s={train_s:.3} words={}", wc.len());
+    println!("count_s={t_count:.3} reduce_s={:.3} collect_s={:.3} feed_s={feed_s:.3} ", t_reduce - t_count, feed_s - t_reduce);
+    println!("train_s={train_s:.3} words={}", wc.len());
 }

@@ -12,6 +12,9 @@ use std::sync::{Condvar, Mutex};
 use rust_bpe::{env_or, pretok};
 use tk_encode::pipeline::EncodeOptions;
 
+#[global_allocator]
+static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+
 struct Prefix {
     known: usize,               // chunks 0..known have their output offset in offs
     offs: Vec<usize>,           // offs[i] = output offset (ids) of chunk i, valid for i <= known
@@ -29,6 +32,10 @@ fn main() {
     let tl = std::time::Instant::now();
     let json = if tok.ends_with(".canon.json") { std::fs::read_to_string(tok).unwrap() } else { tk_convert::canonicalize_file(tok).unwrap() };
     let t_conv = tl.elapsed().as_secs_f64();
+    // HB_SAVE_CANON=1: keep the converted (2.0) JSON next to the input as <name>.canon.json, which loads without conversion
+    if env_or("HB_SAVE_CANON", 0usize) == 1 && !tok.ends_with(".canon.json") {
+        std::fs::write(tok.replace(".json", ".canon.json"), &json).unwrap();
+    }
     let models: Vec<_> = std::thread::scope(|sc| {
         let hs: Vec<_> = (0..reps)
             .map(|j| {

@@ -218,6 +218,7 @@ fn main() {
     };
     let n_chunks = size.div_ceil(block).max(1);
     let simd = env_or("HB_SIMD", 1usize) == 1;
+    let strip_nl = env_or("HB_STRIP_NL", 0usize) == 1;
     let stage = env_or("HB_STAGE", 2usize); // profiling: 0 pre-tokenize only, 1 + hash, 2 full count
     let next = AtomicUsize::new(0);
     // Counts: each worker counts into a local map; when it holds more than HB_LOCAL_WORDS distinct words
@@ -271,7 +272,6 @@ fn main() {
                         let (lo, hi) = (cut(i * block, &mut scratch), cut((i + 1) * block, &mut scratch));
                         data.resize(hi - lo, 0);
                         f.read_exact_at(&mut data, lo as u64).unwrap();
-                        // per line (with its '\n'), as HF's feed and ours: a pre-token never spans a line end
                         // per line (with its '\n'), as HF's feed and ours: a pre-token never spans a line end.
                         // HB_SIMD=1: HF's bitcannon (SIMD classify + bitstream GPT-2 grammar) finds the token starts
                         for line in data.split_inclusive(|&c| c == b'\n') {
@@ -284,6 +284,8 @@ fn main() {
                                     lossy.as_bytes()
                                 }
                             };
+                            // HB_STRIP_NL=1: drop the line's "\n" / "\r\n", as a feed of `BufRead::lines()` does
+                            let line = if strip_nl { line.strip_suffix(b"\n").map_or(line, |l| l.strip_suffix(b"\r").unwrap_or(l)) } else { line };
                             let line: &[u8] = if norm.is_empty() {
                                 line
                             } else {
@@ -370,8 +372,13 @@ fn main() {
     // the merge loop's own worker count (HB_MERGE_THREADS, default = HB_THREADS): it stops scaling before counting does
     tk_encode::parallelism::set_num_threads(env_or("HB_MERGE_THREADS", t_n));
     // non-byte-level pre-tokenizers train with an [UNK] special token, as train_hf.py / train_ours.py
-    let specials = if byte_level { vec![] } else { vec![tk_encode::vocab::bucket_added_vocabulary::AddedToken::from("[UNK]", true)] };
-    let trainer = BpeTrainer::builder().vocab_size(vocab).special_tokens(specials).show_progress(false).build();
+    // (HB_UNK=0: no special token); HB_BYTE_ALPHABET=1: all 256 byte-level chars in the vocab, as initial_alphabet
+    let specials = if byte_level || env_or("HB_UNK", 1usize) == 0 { vec![] } else { vec![tk_encode::vocab::bucket_added_vocabulary::AddedToken::from("[UNK]", true)] };
+    let mut builder = BpeTrainer::builder().vocab_size(vocab).min_frequency(env_or("HB_MIN_FREQ", 0u64)).special_tokens(specials).show_progress(false);
+    if byte_level && env_or("HB_BYTE_ALPHABET", 0usize) == 1 {
+        builder = builder.initial_alphabet(byte_chars().into_iter().collect());
+    }
+    let trainer = builder.build();
     let (vocab, merges, _) = trainer.do_train_entries(wc).unwrap();
     let train_s = t1.elapsed().as_secs_f64();
     let mut f = std::io::BufWriter::new(File::create(format!("{out}/merges.txt")).unwrap());

@@ -57,7 +57,7 @@ all runs from Rust, no Python (see [Python binding overhead](#python-binding-ove
 
 Each sample is drawn at random from a 100 GB pool.
 
-**From Python:** HF's `encode` costs 2-5× its Rust time and +3-4 GB. Our fork's streaming
+**From Python:** HF's `encode` / `encode_batch` costs 1.5-5× its Rust time and +2.5-4 GB. Our fork's streaming
 `Tokenizer.encode_file` costs 0.9-1.6× and at most +0.12 GB, on every setting tested; training from Python costs
 nothing extra in time. See [Python binding overhead](#python-binding-overhead-rust-only-vs-python-and-encode_file).
 

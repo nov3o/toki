@@ -1,5 +1,6 @@
 """py_bench.py <mode> <tokenizer.json | vocab> <corpus>: the Python-binding side of the toki benchmark.
 
+encode_file: `Tokenizer.encode_file`, the file streamed from Rust in numpy id arrays (written to <out> if given).
 encode_batch: the file cut into ~256 KB pieces before a "\\n" between ASCII letters/digits (as the Rust driver
 `hfenc`), 256 pieces per `encode_batch` call. encode_whole: the file as one `encode` call. train: `train_bpe`.
 Prints ids= (or merges=)."""
@@ -12,6 +13,15 @@ if mode == "train":
     print(f"merges={len(merges)}")
     sys.exit()
 tok = tokenizers.Tokenizer.from_file(arg)
+if mode == "encode_file":
+    out = open(sys.argv[4], "wb") if len(sys.argv) > 4 else None
+    ids = 0
+    for a in tok.encode_file(path, threads=int(sys.argv[5]) if len(sys.argv) > 5 else None):
+        ids += len(a)
+        if out:
+            a.tofile(out)
+    print(f"ids={ids}")
+    sys.exit()
 text = open(path, "rb").read().decode("utf-8", "replace")
 if mode == "encode_whole":
     print(f"ids={len(tok.encode(text, add_special_tokens=False).ids_array)}")

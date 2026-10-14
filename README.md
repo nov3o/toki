@@ -156,10 +156,30 @@ Python (Python ÷ Rust), median of 2 runs, whole process:
 | HF `main` encode | 2.21 / 5.18 (2.3×) | 3.33 / 6.72 (2.0×) | 2.97 / 15.44 (5.2×) | 2.86 / 8.81 (3.1×) |
 | **ours** encode | 1.22 / 5.22 (4.3×) | 2.08 / 4.10 (2.0×) | 1.38 / 3.75 (2.7×) | 1.68 / 3.12 (1.9×) |
 | **ours** train | 3.04 / 2.71 (0.9×) | 14.02 / 13.45 (1.0×) | 4.96 / 4.91 (1.0×) | 8.38 / 8.22 (1.0×) |
+| **ours** `encode_file` | 1.22 / 1.29 (1.06×) | 2.08 / 2.23 (1.07×) | 1.38 / 1.50 (1.09×) | 1.68 / 1.94 (1.15×) |
 
-From Python, encoding takes 2-5× the Rust time and ~3.5-4.5 GB instead of 0.3-0.9 GB: the text is read into a Python
-string and every id comes back as a Python object. Training from Python costs nothing extra in time (it hands
-`train_bpe` a path and gets back the vocab and merges) and 0.1-0.9 GB more memory (no mimalloc inside Python).
+Peak memory, GB, Rust / Python (Python ÷ Rust):
+
+| | english | multilingual | code | mix |
+|---|---|---|---|---|
+| HF `main` encode | 0.69 / 3.72 (5.4×) | 0.77 / 3.33 (4.3×) | 0.86 / 3.93 (4.6×) | 0.80 / 3.75 (4.7×) |
+| **ours** encode | 0.30 / 3.90 (13×) | 0.34 / 3.37 (9.9×) | 0.35 / 4.64 (13×) | 0.36 / 4.00 (11×) |
+| **ours** `encode_file` | 0.30 / 0.24 (0.8×) | 0.34 / 0.26 (0.8×) | 0.35 / 0.29 (0.8×) | 0.36 / 0.29 (0.8×) |
+
+Through `encode` / `encode_batch`, encoding from Python takes 2-5× the Rust time and ~3.5-4.5 GB instead of
+0.3-0.9 GB, for both: the text is read into a Python string and every token comes back in an `Encoding` (ids, type
+ids, mask, offsets). Our fork adds `Tokenizer.encode_file(path)`, which streams instead: Rust threads read and encode
+the file piece by piece and the iterator yields each piece's ids, in file order, as a `uint32` numpy array (no
+copy), running at most `4 × threads` pieces ahead of the consumer:
+
+```python
+for ids in tok.encode_file("corpus.txt", threads=8):
+    ids.tofile(out)
+```
+
+From Python that is 6-15% over Rust-only, with less memory than HF `main` from Rust; ids are identical. Training from
+Python costs nothing extra in time (it hands `train_bpe` a path and gets back the vocab and merges) and 0.1-0.9 GB more
+memory (no mimalloc inside Python).
 
 ## Upstream
 

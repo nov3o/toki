@@ -18,6 +18,7 @@ for ds in english multilingual code mix; do
     run encode $ds hfmain python $r $SCRATCH/hfmain-venv/bin/python py_bench.py encode_batch $tok $T
     run encode $ds ours rust $r env HB_THREADS=8 ../union-enc2/target/release/unienc $tok $T bytelevel $P/b.u32
     run encode $ds ours python $r $SCRATCH/fork-venv/bin/python py_bench.py encode_whole $tok $T
+    run encode $ds ours python_stream $r $SCRATCH/fork-venv/bin/python py_bench.py encode_file $tok $T $P/c.u32 8
     rm -rf $P/o; run train $ds ours rust $r env HB_THREADS=8 MIMALLOC_PURGE_DELAY=0 ../union-pr2501/target/release/trunion $C 131072 $P/o
     run train $ds ours python $r $SCRATCH/fork-venv/bin/python py_bench.py train 131072 $C 8
   done

@@ -20,6 +20,7 @@ __pycache__/
 !/bench_server/results_enc_heldout/
 !/bench_server/results_toki/
 !/bench_server/results_plots/
+!/bench_server/results_yikai/
 /bench_server/logs/
 /bench_server/CONTEXT.md
 ours/*/Cargo.toml

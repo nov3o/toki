@@ -181,6 +181,13 @@ From Python that is 6-15% over Rust-only, with less memory than HF `main` from R
 Python costs nothing extra in time (it hands `train_bpe` a path and gets back the vocab and merges) and 0.1-0.9 GB more
 memory (no mimalloc inside Python).
 
+Other settings (2 and 16 threads, llama3, BERT, Metaspace, NFKC + lowercase, vocab 32k; english and multilingual;
+[`results_py_axes.tsv`](bench_server/results_toki/results_py_axes.tsv)): Python ÷ Rust time is 1.5-2.7× for HF
+`main` and 0.9-1.6× for `encode_file`; memory 3.9-5.6× (+2.5-3 GB) for HF `main` and 0.6-1.6× (at most +0.12 GB)
+for `encode_file`. Measured against our Rust tool with mimalloc returning memory at once (`MIMALLOC_PURGE_DELAY=0`),
+since by default it keeps freed memory and its peak looks higher than the Python run's. Ids are identical in every
+setting.
+
 ## Upstream
 
 - **HF `main`, encoding** ([patch](patches/hf-main-encode-long-input.diff), 77 lines added, 7 removed): `main` splits a

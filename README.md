@@ -28,7 +28,7 @@ exists: HF `main` (the 1.0 rewrite) for encoding and Yikai Liao's parallel train
 datasets. **Training**: ours vs PR #2501 (its Rust `BpeTrainer`, with HF's own pre-tokenizer and normalizers), on the
 whole sample. **Encoding**: ours vs HF `main` (from Rust, its batch `encode`), on the held-out half of each sample, with
 the vocab trained on the other half. Every run is pinned to exactly N cores (HF 1.0 ignores `RAYON_NUM_THREADS`);
-all runs from Rust, no Python (see [Rust-only vs Python binding](#rust-only-vs-python-binding)); time = median of 2 runs, bytes/s = bytes processed (training: the whole sample; encoding: the held-out half) per second, MEM = peak memory in GB (ours: change vs the baseline in parentheses). Per-dataset tables:
+all runs from Rust, no Python (see [Python binding overhead](#python-binding-overhead-rust-only-vs-python-and-encode_file)); time = median of 2 runs, bytes/s = bytes processed (training: the whole sample; encoding: the held-out half) per second, MEM = peak memory in GB (ours: change vs the baseline in parentheses). Per-dataset tables:
 [BY_DATASET.md](bench_server/results_toki/BY_DATASET.md).
 
 **Exactly what is compared:**
@@ -56,6 +56,10 @@ all runs from Rust, no Python (see [Rust-only vs Python binding](#rust-only-vs-p
 | mix | english + multilingual + code, 1:1:1 |
 
 Each sample is drawn at random from a 100 GB pool.
+
+**From Python:** HF's `encode` costs 2-5× its Rust time and +3-4 GB. Our fork's streaming
+`Tokenizer.encode_file` costs 0.9-1.6× and at most +0.12 GB, on every setting tested; training from Python costs
+nothing extra in time. See [Python binding overhead](#python-binding-overhead-rust-only-vs-python-and-encode_file).
 
 ### Results (average of the 4 datasets)
 
@@ -140,7 +144,7 @@ Equivalence: 216 training runs of ours, 216 with merges identical to PR #2501's;
 ![train only](bench_server/results_plots/throughput_train.png)
 ![memory](bench_server/results_plots/memory.png)
 
-### Rust-only vs Python binding
+### Python binding overhead: Rust-only vs Python, and `encode_file`
 
 **Every other number in this README is Rust-only:** HF `main` and PR #2501 run from Rust drivers
 ([`hfenc`](bench_server/hfenc/src/main.rs), [`hfbench`](bench_server/hfbench/src/main.rs)), ours as the Rust tools; no

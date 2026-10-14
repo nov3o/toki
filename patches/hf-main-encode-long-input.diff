@@ -1,5 +1,17 @@
+From 4aaa3a0bebb9f8809d2db1fa4029b0c57c21717f Mon Sep 17 00:00:00 2001
+From: nov3o <ilya.badaneen@gmail.com>
+Date: Wed, 14 Oct 2026 08:13:14 +0200
+Subject: [PATCH] Encode one long input on every thread
+
+---
+ .../tk-encode/src/pre_tokenizers/sequence.rs  |   4 +
+ .../tk-encode/src/pre_tokenizers/split.rs     |   6 +
+ .../tk-encode/src/tokenizer/pipeline/mod.rs   | 146 ++++++++++++++++++
+ .../src/tokenizer/pipeline/parallel.rs        |  42 ++++-
+ 4 files changed, 191 insertions(+), 7 deletions(-)
+
 diff --git a/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs b/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs
-index 5088409..005e319 100644
+index 5088409e..005e3191 100644
 --- a/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs
 +++ b/tokenizers/tk-encode/src/pre_tokenizers/sequence.rs
 @@ -11,6 +11,10 @@ pub struct PipelineSequence {
@@ -14,7 +26,7 @@ index 5088409..005e319 100644
          Self { pre_tokenizers }
      }
 diff --git a/tokenizers/tk-encode/src/pre_tokenizers/split.rs b/tokenizers/tk-encode/src/pre_tokenizers/split.rs
-index 4243395..0650098 100644
+index 42433957..06500989 100644
 --- a/tokenizers/tk-encode/src/pre_tokenizers/split.rs
 +++ b/tokenizers/tk-encode/src/pre_tokenizers/split.rs
 @@ -74,6 +74,12 @@ impl PartialEq for Split {
@@ -31,13 +43,13 @@ index 4243395..0650098 100644
          pattern: I,
          behavior: SplitDelimiterBehavior,
 diff --git a/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs b/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs
-index cd52088..1a46530 100644
+index cd520885..245dfbc9 100644
 --- a/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs
 +++ b/tokenizers/tk-encode/src/tokenizer/pipeline/mod.rs
-@@ -563,6 +563,42 @@ impl PipelineTokenizer {
-     ///
-     /// This is for a writer, which needs the members themselves. A config `Sequence` was
-     /// flattened on the way in, so what comes back is the concatenation, not the nesting.
+@@ -559,6 +559,43 @@ impl PipelineTokenizer {
+         &self.inner.post_processor
+     }
+ 
 +    /// Whether a long text can be cut before a `\n` that has an ASCII letter or digit on both sides, and the
 +    /// parts encoded on their own, with the same ids: every normalizer works char by char and the
 +    /// pre-tokenizer always ends a word there. Lets one long input use every thread.
@@ -66,6 +78,7 @@ index cd52088..1a46530 100644
 +    }
 +
 +    #[allow(unreachable_patterns)]
++    #[cfg_attr(not(feature = "normalizers"), allow(unused_variables))]
 +    fn is_precompiled(n: &PipelineNormalizer) -> bool {
 +        #[cfg(feature = "normalizers")]
 +        if let PipelineNormalizer::Precompiled(_) = n {
@@ -74,11 +87,125 @@ index cd52088..1a46530 100644
 +        false
 +    }
 +
-     pub fn get_normalizers(&self) -> &[PipelineNormalizer] {
-         &self.inner.normalizers
+     /// The whole flattened normalizer chain, in the order it runs.
+     ///
+     /// This is for a writer, which needs the members themselves. A config `Sequence` was
+@@ -1855,4 +1892,113 @@ mod tests {
+     fn hello_pipeline_with_truncation(truncation: TruncationParams) -> PipelineTokenizer {
+         hello_pipeline_with(PipelinePostProcessor::default(), None, Some(truncation))
      }
++
++    /// A long multi-line text of `hello` pieces (~3 MiB): past twice the split size, so a splittable tokenizer
++    /// cuts it, with `\n` between letters to cut at.
++    fn long_text() -> String {
++        let pieces = ["hello", "hell", "he", "h", "lo", "hhello"];
++        let mut s = String::new();
++        let mut i = 0usize;
++        while s.len() < 3 << 20 {
++            s.push_str(pieces[i % pieces.len()]);
++            s.push(if i % 7 == 6 { '\n' } else { ' ' });
++            i += 1;
++        }
++        s
++    }
++
++    fn pipeline_with_pre_tokenizer(pre_tokenizer: PipelinePreTokenizer) -> PipelineTokenizer {
++        PipelineTokenizer::from_parts(
++            BucketAddedVocabulary::new(),
++            Vec::new(),
++            pre_tokenizer,
++            PipelineModel::BPE(hello_bpe()),
++            PipelinePostProcessor::default(),
++            None,
++            Default::default(),
++            None,
++            None,
++        )
++    }
++
++    fn gpt2_split() -> PipelinePreTokenizer {
++        use crate::pre_tokenizers::split::{Split, SplitPattern};
++        use crate::utils::byte_level::GPT2_REGEX_STR;
++        PipelinePreTokenizer::Split(
++            Split::new(
++                SplitPattern::Regex(GPT2_REGEX_STR.to_owned()),
++                crate::tokenizer::SplitDelimiterBehavior::Isolated,
++                false,
++            )
++            .unwrap(),
++        )
++    }
++
++    #[test]
++    fn long_text_is_split_only_where_encoding_restarts_identically() {
++        use crate::pre_tokenizers::bert::BertPreTokenizer;
++        use crate::pre_tokenizers::delimiter::CharDelimiterSplit;
++        use crate::pre_tokenizers::digits::Digits;
++        use crate::pre_tokenizers::punctuation::Punctuation;
++        use crate::pre_tokenizers::sequence::PipelineSequence;
++        use crate::pre_tokenizers::whitespace::{Whitespace, WhitespaceSplit};
++        use crate::tokenizer::SplitDelimiterBehavior::Isolated;
++
++        for (pre_tokenizer, splittable) in [
++            (gpt2_split(), true),
++            (PipelinePreTokenizer::Whitespace(Whitespace), true),
++            (PipelinePreTokenizer::WhitespaceSplit(WhitespaceSplit), true),
++            (PipelinePreTokenizer::Bert(BertPreTokenizer), true),
++            (
++                PipelinePreTokenizer::Sequence(PipelineSequence::new(vec![
++                    PipelinePreTokenizer::WhitespaceSplit(WhitespaceSplit),
++                    gpt2_split(),
++                ])),
++                true,
++            ),
++            (
++                PipelinePreTokenizer::Punctuation(Punctuation::new(Isolated)),
++                false,
++            ),
++            (PipelinePreTokenizer::Digits(Digits::new(true)), false),
++            (
++                PipelinePreTokenizer::Delimiter(CharDelimiterSplit::new(' ')),
++                false,
++            ),
++            (PipelinePreTokenizer::None, false),
++        ] {
++            assert_eq!(
++                pipeline_with_pre_tokenizer(pre_tokenizer).can_split_text(),
++                splittable
++            );
++        }
++    }
++
++    #[test]
++    fn a_long_text_encodes_to_the_same_ids_when_split() {
++        use crate::pre_tokenizers::bert::BertPreTokenizer;
++        use crate::pre_tokenizers::whitespace::{Whitespace, WhitespaceSplit};
++
++        let text = long_text();
++        for pre_tokenizer in [
++            gpt2_split(),
++            PipelinePreTokenizer::Whitespace(Whitespace),
++            PipelinePreTokenizer::WhitespaceSplit(WhitespaceSplit),
++            PipelinePreTokenizer::Bert(BertPreTokenizer),
++        ] {
++            let pipeline = pipeline_with_pre_tokenizer(pre_tokenizer);
++            assert!(pipeline.can_split_text());
++            // `encode_into` encodes the text whole, on this thread: the reference
++            let mut whole = Vec::new();
++            pipeline
++                .encode_into(&text, &EncodeOptions::no_specials(), &mut whole)
++                .unwrap();
++            let whole: Vec<u32> = whole.iter().map(|t| t.id()).collect();
++            let split = pipeline
++                .encode(vec![text.as_str()], &EncodeOptions::no_specials())
++                .wait()
++                .unwrap();
++            assert_eq!(split[0].ids(), &whole[..]);
++        }
++    }
+ }
 diff --git a/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs b/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs
-index 9f72fe3..b601a2f 100644
+index 9f72fe39..16846996 100644
 --- a/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs
 +++ b/tokenizers/tk-encode/src/tokenizer/pipeline/parallel.rs
 @@ -27,6 +27,8 @@ use super::Result;
@@ -98,7 +225,7 @@ index 9f72fe3..b601a2f 100644
          for segment in SpecialSegmentIterator::new(
              input,
              &self.inner.added_vocabulary,
-@@ -336,13 +339,34 @@ impl PipelineTokenizer {
+@@ -336,13 +339,38 @@ impl PipelineTokenizer {
                  }
                  Segment::Text { text, input_offset } => (text, input_offset),
              };
@@ -130,7 +257,11 @@ index 9f72fe3..b601a2f 100644
 +                }
 +                chunks.push(SequenceChunk {
 +                    seq: seq_idx,
-+                    idx: if start == offset { idx } else { seq_outputs.len() },
++                    idx: if start == offset {
++                        idx
++                    } else {
++                        seq_outputs.len()
++                    },
 +                    side,
 +                    range: start..cut,
 +                });
@@ -140,3 +271,6 @@ index 9f72fe3..b601a2f 100644
          }
          // make sure we have at least one chunk per sequence, otherwise we'll wait indefinitely
          // for a completion event
+-- 
+2.43.0
+

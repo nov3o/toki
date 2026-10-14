@@ -28,7 +28,7 @@ exists: HF `main` (the 1.0 rewrite) for encoding and Yikai Liao's parallel train
 datasets. **Training**: ours vs PR #2501 (its Rust `BpeTrainer`, with HF's own pre-tokenizer and normalizers), on the
 whole sample. **Encoding**: ours vs HF `main` (from Rust, its batch `encode`), on the held-out half of each sample, with
 the vocab trained on the other half. Every run is pinned to exactly N cores (HF 1.0 ignores `RAYON_NUM_THREADS`);
-time = median of 2 runs, bytes/s = bytes processed (training: the whole sample; encoding: the held-out half) per second, MEM = peak memory in GB (ours: change vs the baseline in parentheses). Per-dataset tables:
+all runs from Rust, no Python (see [Rust-only vs Python binding](#rust-only-vs-python-binding)); time = median of 2 runs, bytes/s = bytes processed (training: the whole sample; encoding: the held-out half) per second, MEM = peak memory in GB (ours: change vs the baseline in parentheses). Per-dataset tables:
 [BY_DATASET.md](bench_server/results_toki/BY_DATASET.md).
 
 **Exactly what is compared:**
@@ -139,6 +139,27 @@ Equivalence: 216 training runs of ours, 216 with merges identical to PR #2501's;
 ![feed + train](bench_server/results_plots/throughput_feed_train.png)
 ![train only](bench_server/results_plots/throughput_train.png)
 ![memory](bench_server/results_plots/memory.png)
+
+### Rust-only vs Python binding
+
+**Every other number in this README is Rust-only:** HF `main` and PR #2501 run from Rust drivers
+([`hfenc`](bench_server/hfenc/src/main.rs), [`hfbench`](bench_server/hfbench/src/main.rs)), ours as the Rust tools; no
+Python in the timed path. For the Python cost, the default setting (1 GB, 8 threads) from Python
+([`py_bench.py`](bench_server/py_bench.py)): HF `main`'s and our fork's ([nov3o/tokenizers](https://github.com/nov3o/tokenizers))
+`tokenizers` wheels, the same code as the Rust runs. Encoding: HF `main` gets the file in ~256 KB pieces through
+`encode_batch`, ours the whole file through one `encode`; training: our `train_bpe`. PR #2501 has no Python training
+API (the 1.0 bindings have no trainers). Ids and merges are the same as from Rust in every run. Seconds, Rust /
+Python (Python ÷ Rust), median of 2 runs, whole process:
+
+| | english | multilingual | code | mix |
+|---|---|---|---|---|
+| HF `main` encode | 2.21 / 5.18 (2.3×) | 3.33 / 6.72 (2.0×) | 2.97 / 15.44 (5.2×) | 2.86 / 8.81 (3.1×) |
+| **ours** encode | 1.22 / 5.22 (4.3×) | 2.08 / 4.10 (2.0×) | 1.38 / 3.75 (2.7×) | 1.68 / 3.12 (1.9×) |
+| **ours** train | 3.04 / 2.71 (0.9×) | 14.02 / 13.45 (1.0×) | 4.96 / 4.91 (1.0×) | 8.38 / 8.22 (1.0×) |
+
+From Python, encoding takes 2-5× the Rust time and ~3.5-4.5 GB instead of 0.3-0.9 GB: the text is read into a Python
+string and every id comes back as a Python object. Training from Python costs nothing extra in time (it hands
+`train_bpe` a path and gets back the vocab and merges) and 0.1-0.9 GB more memory (no mimalloc inside Python).
 
 ## Upstream
 

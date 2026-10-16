@@ -215,12 +215,12 @@ counts match in every training run; the full merge-by-merge check matched in 35 
 
 ## Upstream
 
-- **PR 1, HF `main`: encoding** (+504 −8, 7 files). One long input is encoded on every thread: `main` splits an input
+- **PR 1, HF `main`: encoding** ([huggingface/tokenizers#2542](https://github.com/huggingface/tokenizers/pull/2542), +503 −7, 7 files). One long input is encoded on every thread: `main` splits an input
   across threads only at special tokens, so the patch also cuts long text before a `\n` between ASCII letters or digits,
   when the pre-tokenizer always ends a word there and the normalizers work char by char. It also adds Python
-  `Tokenizer.encode_file`, which streams a file. From Python it is 3–10× faster than `main`'s `encode_batch`, with
+  `Tokenizer.encode_file`, which streams a file. From Python it is 2.7–9.5× faster than `main`'s `encode_batch`, with
   92–94% less memory; ids are identical.
-- **PR 2, PR #2501: training from entries** ([patch](patches/pr2501-do-train-entries.diff), +8 lines and a test). It adds
+- **PR 2, PR #2501: training from entries** ([comment in #2501](https://github.com/huggingface/tokenizers/pull/2501#issuecomment-6209990067), [Yikai-Liao/tokenizers#1](https://github.com/Yikai-Liao/tokenizers/pull/1), [patch](patches/pr2501-do-train-entries.diff), +8 lines and a test). It adds
   `do_train_entries`, which trains from `(word, count)` entries counted elsewhere, without building a map of them. With
   our counting in front, feed + train is 1.75–1.81× faster than PR #2501 on code and English in its own harness.
 - **PR 3.1, HF `main`: a small parallel trainer** ([huggingface/tokenizers#2541](https://github.com/huggingface/tokenizers/pull/2541), [patch](patches/hf-main-small-bpe-trainer.diff), +544 −1). This is

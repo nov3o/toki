@@ -2,14 +2,26 @@
 
 encode_file: `Tokenizer.encode_file`, the file streamed from Rust in numpy id arrays (written to <out> if given).
 encode_batch: the file cut into ~256 KB pieces before a "\\n" between ASCII letters/digits (as the Rust driver
-`hfenc`), 256 pieces per `encode_batch` call. encode_whole: the file as one `encode` call. train: `train_bpe`.
+`hfenc`), 256 pieces per `encode_batch` call. encode_whole: the file as one `encode` call. train: `train_bpe`. train_pr2501: `train_bpe_pr2501`.
 Prints ids= (or merges=)."""
 import sys
 import tokenizers
 
 mode, arg, path = sys.argv[1:4]
-if mode == "train":
-    vocab, merges = tokenizers.train_bpe(path, int(arg), threads=int(sys.argv[4]))
+if mode in ("train", "train_pr2501"):
+    # train <vocab> <corpus> <threads> [pretok] [normalizers, comma-separated] [merges out]
+    # train_pr2501 <vocab> <corpus> <tokenizer.json> [byte_level 0|1] [merges out]
+    if mode == "train":
+        a = sys.argv[4:] + [""] * 4
+        vocab, merges = tokenizers.train_bpe(path, int(arg), pre_tokenizer=a[1] or "bytelevel",
+                                             normalizers=[x for x in a[2].split(",") if x], threads=int(a[0]))
+        out = a[3]
+    else:
+        a = sys.argv[4:] + [""] * 3
+        vocab, merges = tokenizers.train_bpe_pr2501(path, a[0], int(arg), byte_level=a[1] != "0")
+        out = a[2]
+    if out:
+        open(out, "w").write("".join(f"{l} {r}\n" for l, r in merges))
     print(f"merges={len(merges)}")
     sys.exit()
 tok = tokenizers.Tokenizer.from_file(arg)

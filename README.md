@@ -7,6 +7,13 @@ BPE training and encoding that reproduce [HuggingFace `tokenizers`](https://gith
 exists: HF `main` (the 1.0 rewrite) for encoding and Yikai Liao's parallel trainer
 [huggingface/tokenizers#2501](https://github.com/huggingface/tokenizers/pull/2501) for training.
 
+**HF `tokenizers` 1.0 (`main`)** is a big step up from the 0.2x releases. The encoder was rewritten around per-word
+engines: a SIMD pre-tokenizer, a word cache and dedicated merge engines. Against the
+[0.22 release](https://github.com/huggingface/tokenizers/releases/tag/v0.22.0) it encodes 12–20× faster with about the
+same memory, and trains 1.1–2.4× faster. Yikai Liao's PR #2501 adds a parallel trainer on top that is another 8–20×
+faster with 4–5× less memory. That is why both are the baselines here, and why ours is built on top of them rather than
+next to them.
+
 **Ours** combines both sides:
 - **encoding**: HF `main`'s per-word engine (SIMD pre-tokenizer, word cache, merge engines) inside our driver: every
   thread finds its own chunk at a safe cut point, reads it with `pread`, encodes it and writes its ids; streaming, so
@@ -28,7 +35,7 @@ exists: HF `main` (the 1.0 rewrite) for encoding and Yikai Liao's parallel train
 datasets. **Training**: ours vs PR #2501 (its Rust `BpeTrainer`, with HF's own pre-tokenizer and normalizers), on the
 whole sample. **Encoding**: ours vs HF `main` (from Rust, its batch `encode`), on the held-out half of each sample, with
 the vocab trained on the other half. Every run is pinned to exactly N cores (HF 1.0 ignores `RAYON_NUM_THREADS`);
-all runs from Rust, no Python (see [Python binding overhead](#python-binding-overhead-rust-only-vs-python-and-encode_file)); time = median of 2 runs, bytes/s = bytes processed (training: the whole sample; encoding: the held-out half) per second, MEM = peak memory in GB (ours: change vs the baseline in parentheses). Per-dataset tables:
+all runs from Rust, no Python (see [Rust-only vs Python binding](#rust-only-vs-python-binding)); time = median of 2 runs, bytes/s = bytes processed (training: the whole sample; encoding: the held-out half) per second, MEM = peak memory in GB (ours: change vs the baseline in parentheses). Per-dataset tables:
 [BY_DATASET.md](bench_server/results_toki/BY_DATASET.md).
 
 **Exactly what is compared:**
@@ -56,10 +63,6 @@ all runs from Rust, no Python (see [Python binding overhead](#python-binding-ove
 | mix | english + multilingual + code, 1:1:1 |
 
 Each sample is drawn at random from a 100 GB pool.
-
-**From Python:** HF's `encode` / `encode_batch` costs 1.5-5× its Rust time and +2.5-4 GB. Our fork's streaming
-`Tokenizer.encode_file` costs 0.9-1.6× and at most +0.12 GB, on every setting tested; training from Python costs
-nothing extra in time. See [Python binding overhead](#python-binding-overhead-rust-only-vs-python-and-encode_file).
 
 ### Results (average of the 4 datasets)
 
@@ -144,63 +147,85 @@ Equivalence: 216 training runs of ours, 216 with merges identical to PR #2501's;
 ![train only](bench_server/results_plots/throughput_train.png)
 ![memory](bench_server/results_plots/memory.png)
 
-### Python binding overhead: Rust-only vs Python, and `encode_file`
+### Rust-only vs Python binding
 
 **Every other number in this README is Rust-only:** HF `main` and PR #2501 run from Rust drivers
 ([`hfenc`](bench_server/hfenc/src/main.rs), [`hfbench`](bench_server/hfbench/src/main.rs)), ours as the Rust tools; no
-Python in the timed path. For the Python cost, the default setting (1 GB, 8 threads) from Python
-([`py_bench.py`](bench_server/py_bench.py)): HF `main`'s and our fork's ([nov3o/tokenizers](https://github.com/nov3o/tokenizers))
-`tokenizers` wheels, the same code as the Rust runs. Encoding: HF `main` gets the file in ~256 KB pieces through
-`encode_batch`, ours the whole file through one `encode`; training: our `train_bpe`. PR #2501 has no Python training
-API (the 1.0 bindings have no trainers). Ids and merges are the same as from Rust in every run. Seconds, Rust /
-Python (Python ÷ Rust), median of 2 runs, whole process:
+Python in the timed path. Here the same code runs from Python ([`py_bench.py`](bench_server/py_bench.py)), at the
+default setting (1 GB, 8 threads): HF `main`'s and our fork's ([nov3o/tokenizers](https://github.com/nov3o/tokenizers))
+`tokenizers` wheels. Training: PR #2501's `BpeTrainer` and our `train_bpe`, each from Rust and from Python. Encoding:
+HF `main` gets the file in ~256 KB pieces through `encode_batch`, ours the whole file through one `encode`, or streamed
+with `encode_file`. Each cell is **Rust → Python**, then the Python cost in parentheses. Median of 2 runs, whole
+process.
+
+Time, seconds (in parentheses: how much slower Python is):
 
 | | english | multilingual | code | mix |
 |---|---|---|---|---|
-| HF `main` encode | 2.21 / 5.18 (2.3×) | 3.33 / 6.72 (2.0×) | 2.97 / 15.44 (5.2×) | 2.86 / 8.81 (3.1×) |
-| **ours** encode | 1.22 / 5.22 (4.3×) | 2.08 / 4.10 (2.0×) | 1.38 / 3.75 (2.7×) | 1.68 / 3.12 (1.9×) |
-| **ours** train | 3.04 / 2.71 (0.9×) | 14.02 / 13.45 (1.0×) | 4.96 / 4.91 (1.0×) | 8.38 / 8.22 (1.0×) |
-| **ours** `encode_file` | 1.22 / 1.29 (1.06×) | 2.08 / 2.23 (1.07×) | 1.38 / 1.50 (1.09×) | 1.68 / 1.94 (1.15×) |
+| PR #2501 train | 5.72 → 5.86 (+2%) | 16.73 → 16.90 (+1%) | 10.20 → 10.41 (+2%) | 11.36 → 11.53 (+1%) |
+| **ours** train | 2.84 → 3.03 (+7%) | 13.94 → 13.47 (−3%) | 4.88 → 4.92 (+1%) | 8.32 → 8.54 (+3%) |
+| HF `main` encode | 2.21 → 5.18 (+134%) | 3.33 → 6.72 (+102%) | 2.97 → 15.44 (+420%) | 2.86 → 8.81 (+208%) |
+| **ours** encode | 1.22 → 5.22 (+328%) | 2.08 → 4.10 (+97%) | 1.38 → 3.75 (+172%) | 1.68 → 3.12 (+86%) |
+| **ours** `encode_file` | 1.22 → 1.29 (+6%) | 2.08 → 2.23 (+7%) | 1.38 → 1.50 (+9%) | 1.68 → 1.94 (+15%) |
 
-Peak memory, GB, Rust / Python (Python ÷ Rust):
+Peak memory, GB (in parentheses: GB added by Python):
 
 | | english | multilingual | code | mix |
 |---|---|---|---|---|
-| HF `main` encode | 0.69 / 3.72 (5.4×) | 0.77 / 3.33 (4.3×) | 0.86 / 3.93 (4.6×) | 0.80 / 3.75 (4.7×) |
-| **ours** encode | 0.30 / 3.90 (13×) | 0.34 / 3.37 (9.9×) | 0.35 / 4.64 (13×) | 0.36 / 4.00 (11×) |
-| **ours** `encode_file` | 0.30 / 0.24 (0.8×) | 0.34 / 0.26 (0.8×) | 0.35 / 0.29 (0.8×) | 0.36 / 0.29 (0.8×) |
+| PR #2501 train | 0.38 → 0.40 (+0.02) | 4.22 → 4.30 (+0.08) | 1.25 → 1.21 (−0.04) | 2.35 → 2.34 (−0.02) |
+| **ours** train | 0.33 → 0.45 (+0.12) | 4.19 → 5.32 (+1.13) | 0.90 → 1.46 (+0.56) | 2.31 → 2.88 (+0.58) |
+| HF `main` encode | 0.69 → 3.72 (+3.03) | 0.77 → 3.33 (+2.56) | 0.86 → 3.93 (+3.07) | 0.80 → 3.75 (+2.95) |
+| **ours** encode | 0.30 → 3.90 (+3.60) | 0.34 → 3.37 (+3.03) | 0.35 → 4.64 (+4.29) | 0.36 → 4.00 (+3.64) |
+| **ours** `encode_file` | 0.30 → 0.24 (−0.06) | 0.34 → 0.26 (−0.08) | 0.35 → 0.29 (−0.06) | 0.36 → 0.29 (−0.07) |
 
-Through `encode` / `encode_batch`, encoding from Python takes 2-5× the Rust time and ~3.5-4.5 GB instead of
-0.3-0.9 GB, for both: the text is read into a Python string and every token comes back in an `Encoding` (ids, type
-ids, mask, offsets). Our fork adds `Tokenizer.encode_file(path)`, which streams instead: Rust threads read and encode
-the file piece by piece and the iterator yields each piece's ids, in file order, as a `uint32` numpy array (no
-copy), running at most `4 × threads` pieces ahead of the consumer:
+**Training:** the binding costs almost nothing in time for both trainers: −3% to +7% at the default setting (−3% to +22%
+over all 14 settings below, the largest on NFKC + lowercase). Our binding does not slow training down, so ours stays
+1.25–2.1× faster than PR #2501 from Python too. Memory is where they differ: PR #2501 from Python adds under 0.1 GB, ours adds 0.1–1.1 GB at
+the default setting (up to 1.8 GB on multilingual at 2 threads), because inside Python our counting runs without
+mimalloc.
+
+**Encoding:** through `encode` / `encode_batch`, Python adds 2–5× the time and 2.6–4.3 GB for both: the text is read into
+a Python string and every token comes back in an `Encoding` (ids, type ids, mask, offsets). Our fork adds
+`Tokenizer.encode_file(path)`, which streams instead. Rust threads read and encode the file piece by piece, and the
+iterator yields each piece's ids, in file order, as a `uint32` numpy array (no copy), running at most `4 × threads`
+pieces ahead of the consumer:
 
 ```python
 for ids in tok.encode_file("corpus.txt", threads=8):
     ids.tofile(out)
 ```
 
-From Python that is 6-15% over Rust-only, with less memory than HF `main` from Rust; ids are identical. Training from
-Python costs nothing extra in time (it hands `train_bpe` a path and gets back the vocab and merges) and 0.1-0.9 GB more
-memory (no mimalloc inside Python).
+From Python that is 6–15% over Rust-only, with less memory than HF `main` from Rust, and ids are identical. Its memory
+shows below Rust's here only because this table's Rust runs keep mimalloc's default, which holds on to freed memory;
+against a Rust run that returns it at once, `encode_file` uses about the same memory (0.6–1.6×, at most +0.12 GB, see
+below). Python does not save memory.
 
-Other settings (2 and 16 threads, llama3, BERT, Metaspace, NFKC + lowercase, vocab 32k; english and multilingual;
-[`results_py_axes.tsv`](bench_server/results_toki/results_py_axes.tsv)): Python ÷ Rust time is 1.5-2.7× for HF
-`main` and 0.9-1.6× for `encode_file`; memory 3.9-5.6× (+2.5-3 GB) for HF `main` and 0.6-1.6× (at most +0.12 GB)
-for `encode_file`. Measured against our Rust tool with mimalloc returning memory at once (`MIMALLOC_PURGE_DELAY=0`),
-since by default it keeps freed memory and its peak looks higher than the Python run's. Ids are identical in every
-setting.
+**Other settings** (2 and 16 threads, Llama-3, BERT, Metaspace, NFKC + lowercase, vocab 32k; English and
+multilingual):
+- encoding ([`results_py_axes.tsv`](bench_server/results_toki/results_py_axes.tsv)): Python takes 1.5–2.7× the Rust
+  time for HF `main` and 0.9–1.6× for `encode_file`; memory is 3.9–5.6× (+2.5–3 GB) for HF `main` and 0.6–1.6× (at
+  most +0.12 GB) for `encode_file`;
+- training ([`results_py_train.tsv`](bench_server/results_toki/results_py_train.tsv)): Python takes 0.97–1.22× the Rust
+  time for PR #2501 and 0.97–1.14× for ours; memory is +0.08 GB at most for PR #2501 and +0.01–1.83 GB for ours.
+
+Our Rust tools are measured with mimalloc returning memory at once (`MIMALLOC_PURGE_DELAY=0`): by default it keeps
+freed memory, so its peak looks higher than the Python run's. Ids are identical in every encoding setting. Merge
+counts match in every training run; the full merge-by-merge check matched in 35 of 42 comparisons, and the other 7
+(two BERT settings and the first English run) are being rechecked.
 
 ## Upstream
 
-- **HF `main`, encoding** ([patch](patches/hf-main-encode-long-input.diff), 77 lines added, 7 removed): `main` splits a
-  long input across threads only at special tokens, so one long text is encoded on one thread. The patch also cuts long
-  text before a `\n` between ASCII letters/digits when the pre-tokenizer always ends a word there (GPT regexes,
-  whitespace, BERT) and the normalizers work char by char. One 0.5 GB input on 16 cores: 3.95 s → 0.49 s; ids identical
-  on all 68 tested configurations; `tk-encode` tests pass.
-- **PR #2501, training** ([patch](patches/pr2501-do-train-entries.diff), 6 lines): `do_train_entries`, training from
-  `(word, count)` entries without building a map of them.
+- **PR 1, HF `main`: encoding** (+504 −8, 7 files). One long input is encoded on every thread: `main` splits an input
+  across threads only at special tokens, so the patch also cuts long text before a `\n` between ASCII letters or digits,
+  when the pre-tokenizer always ends a word there and the normalizers work char by char. It also adds Python
+  `Tokenizer.encode_file`, which streams a file. From Python it is 3–10× faster than `main`'s `encode_batch`, with
+  92–94% less memory; ids are identical.
+- **PR 2, PR #2501: training from entries** ([patch](patches/pr2501-do-train-entries.diff), +8 lines and a test). It adds
+  `do_train_entries`, which trains from `(word, count)` entries counted elsewhere, without building a map of them. With
+  our counting in front, feed + train is 1.75–1.81× faster than PR #2501 on code and English in its own harness.
+- **PR 3.1, HF `main`: a small parallel trainer** ([huggingface/tokenizers#2541](https://github.com/huggingface/tokenizers/pull/2541), [patch](patches/hf-main-small-bpe-trainer.diff), +544 −1). This is
+  PR #2501's fixed-coordinate merge loop in ~470 lines of code (+544 with comments) instead of ~14,500. In PR #2501's harness it is 3.5–19× faster
+  than `main` on feed + train and uses 54–61% less memory, but it is 1.4–2.8× slower than PR #2501.
 
 ## Reproduce
 
@@ -213,6 +238,11 @@ BASE=0 ./enc_heldout.sh results_enc_ho3             # held-out halves and their 
 BASE=0 ./toki_axes.sh results_toki
 python3 toki_tables.py results_toki/results.tsv results_toki
 ```
+
+## Acknowledgements
+
+The experiments were run on the [Swiss National Supercomputing Centre (CSCS)](https://www.cscs.ch)'s systems. Thanks
+to CSCS for the compute.
 
 ## History
 

@@ -7,19 +7,55 @@ BPE training and encoding that reproduce [HuggingFace `tokenizers`](https://gith
 exists: HF `main` (the 1.0 rewrite) for encoding and Yikai Liao's parallel trainer
 [huggingface/tokenizers#2501](https://github.com/huggingface/tokenizers/pull/2501) for training.
 
-**HF `tokenizers` 1.0 (`main`)** is a big step up from the 0.2x releases. The encoder was rewritten around per-word
-engines: a SIMD pre-tokenizer, a word cache and dedicated merge engines. Against the
-[0.22 release](https://github.com/huggingface/tokenizers/releases/tag/v0.22.0) it encodes 12–20× faster with about the
-same memory, and trains 1.1–2.4× faster. Yikai Liao's PR #2501 adds a parallel trainer on top that is another 8–20×
-faster with 4–5× less memory. That is why both are the baselines here, and why ours is built on top of them rather than
-next to them.
-
 **Ours** combines both sides:
 - **encoding**: HF `main`'s per-word engine (SIMD pre-tokenizer, word cache, merge engines) inside our driver: every
   thread finds its own chunk at a safe cut point, reads it with `pread`, encodes it and writes its ids; streaming, so
   memory stays flat;
 - **training**: our counting (parallel chunked reads, arena word maps, bounded per-thread maps flushed into a sharded
   global map) feeding PR #2501's parallel merge loop.
+
+**Install** (Python):
+
+```bash
+pip install "git+https://github.com/nov3o/tokenizers#subdirectory=bindings/python"
+```
+
+This builds the fork [nov3o/tokenizers](https://github.com/nov3o/tokenizers) (a Rust toolchain is needed). It is HF
+`tokenizers` `main`, plus Yikai Liao's parallel trainer from
+[PR #2501](https://github.com/huggingface/tokenizers/pull/2501), plus two things of ours on top: a small entry point
+that lets our word counting feed his trainer (`tokenizers.train_bpe`), and our encoder changes, which encode one long
+input on every thread and stream a file from Python without the binding overhead (`Tokenizer.encode_file`). It installs
+as `tokenizers`, so use a separate venv to keep HF's.
+
+**Compare it yourself** with [`benchmark.py`](benchmark.py) on any text file: it trains on the first half and encodes
+the second half with the vocab it trained, each package in its own venv, and checks merges and ids are identical.
+
+Against the latest release on PyPI:
+
+```bash
+python3 -m venv hf && hf/bin/pip install tokenizers numpy
+python3 -m venv toki && toki/bin/pip install numpy "git+https://github.com/nov3o/tokenizers#subdirectory=bindings/python"
+python3 benchmark.py corpus.txt --hf hf/bin/python --toki toki/bin/python
+```
+
+Against HF's latest on GitHub (`main`; its Python bindings have no trainer yet, so this compares encoding only):
+
+```bash
+python3 -m venv hf && hf/bin/pip install numpy "git+https://github.com/huggingface/tokenizers#subdirectory=bindings/python"
+python3 -m venv toki && toki/bin/pip install numpy "git+https://github.com/nov3o/tokenizers#subdirectory=bindings/python"
+python3 benchmark.py corpus.txt --hf hf/bin/python --toki toki/bin/python
+```
+
+On 2 GB of English (1 GB to train, the other 1 GB to encode), 8 threads, vocab 131072:
+
+| | train | encode |
+|---|---|---|
+| PyPI `tokenizers` 0.23.3 | 42.87 s, 1.47 GB | 121.54 s, 9.26 GB |
+| HF `main` (1.0.0-dev.2) | (no trainer in Python) | 8.77 s, 8.83 GB |
+| **toki** | **2.96 s, 0.39 GB** | **1.77 s, 0.25 GB** |
+
+Merges and ids are identical in every run. PyPI 0.23 hands ids back as Python lists, which accounts for part of its
+encode time; `main` has numpy arrays, and the script uses them.
 
 | dir | what |
 |---|---|
@@ -138,15 +174,6 @@ Equivalence: 216 training runs of ours, 216 with merges identical to PR #2501's;
 
 <!-- /tables -->
 
-### Training vs PR #2501 (its three figures, rerun)
-
-256 MiB per corpus, vocab 100 000, pinned cores; merges identical in all 176 runs. Feed + train is 1.0-1.7× faster
-(the counting); train alone is the same merge loop; peak memory 84-100% of PR #2501's at 1 GiB.
-
-![feed + train](bench_server/results_plots/throughput_feed_train.png)
-![train only](bench_server/results_plots/throughput_train.png)
-![memory](bench_server/results_plots/memory.png)
-
 ### Rust-only vs Python binding
 
 **Every other number in this README is Rust-only:** HF `main` and PR #2501 run from Rust drivers
@@ -213,6 +240,19 @@ freed memory, so its peak looks higher than the Python run's. Ids are identical 
 counts match in every training run; the full merge-by-merge check matched in 35 of 42 comparisons, and the other 7
 (two BERT settings and the first English run) are being rechecked.
 
+## Compact version
+
+```bash
+pip install "git+https://github.com/nov3o/tokenizers@toki-compact#subdirectory=bindings/python"
+```
+
+The [`toki-compact`](https://github.com/nov3o/tokenizers/tree/toki-compact) branch swaps PR #2501's trainer (~14,500
+lines added) for a compact version of it, [huggingface/tokenizers#2541](https://github.com/huggingface/tokenizers/pull/2541):
+the same merge loop ideas in ~470 lines of code, with identical merges. That costs speed and memory: in PR #2501's own
+harness it is 1.4–2.8× slower than PR #2501 on feed + train and uses 2–3× its memory, while still 3.5–19× faster than
+`main` with 54–61% less memory. The encoder is the same as on the default install. From Python this branch encodes
+only: `main`'s bindings have no training API, so the compact trainer is reachable from Rust.
+
 ## Upstream
 
 - **PR 1, HF `main`: encoding** ([huggingface/tokenizers#2542](https://github.com/huggingface/tokenizers/pull/2542), +503 −7, 7 files). One long input is encoded on every thread: `main` splits an input
@@ -243,6 +283,9 @@ python3 toki_tables.py results_toki/results.tsv results_toki
 
 The experiments were run on the [Swiss National Supercomputing Centre (CSCS)](https://www.cscs.ch)'s systems. Thanks
 to CSCS for the compute.
+
+I really admire where HF `tokenizers` has gone in a year. `main`, the 1.0 rewrite, encodes 12–20× faster than 0.22,
+and Yikai Liao's PR #2501 trains another 8–20× faster with 4–5× less memory. Everything here stands on that work.
 
 ## History
 

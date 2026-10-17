@@ -38,7 +38,8 @@ python3 -m venv toki && toki/bin/pip install numpy "git+https://github.com/nov3o
 python3 benchmark.py corpus.txt --hf hf/bin/python --toki toki/bin/python
 ```
 
-Against HF's latest on GitHub (`main`; its Python bindings have no trainer yet, so this compares encoding only):
+Against HF's latest on GitHub (`main`; it has a trainer, the same sequential one as 0.2x, but only in Rust: its
+Python bindings don't expose it yet, so from Python this compares encoding only):
 
 ```bash
 python3 -m venv hf && hf/bin/pip install numpy "git+https://github.com/huggingface/tokenizers#subdirectory=bindings/python"
@@ -51,7 +52,7 @@ On 2 GB of English (1 GB to train, the other 1 GB to encode), 8 threads, vocab 1
 | | train | encode |
 |---|---|---|
 | PyPI `tokenizers` 0.23.3 | 42.87 s, 1.47 GB | 121.54 s, 9.26 GB |
-| HF `main` (1.0.0-dev.2) | (no trainer in Python) | 8.77 s, 8.83 GB |
+| HF `main` (1.0.0-dev.2) | (trainer not exposed in Python) | 8.77 s, 8.83 GB |
 | **toki** | **2.96 s, 0.39 GB** | **1.77 s, 0.25 GB** |
 
 Merges and ids are identical in every run. PyPI 0.23 hands ids back as Python lists, which accounts for part of its
@@ -253,6 +254,28 @@ harness it is 1.4–2.8× slower than PR #2501 on feed + train and uses 2–3× 
 `main` with 54–61% less memory. The encoder is the same as on the default install. From Python this branch encodes
 only: `main`'s bindings have no training API, so the compact trainer is reachable from Rust.
 
+## How long would 1 TB take? (estimate)
+
+An extrapolation, not a measurement: the largest runs here are 10 GB and 16 threads. Assumed setting: the mix dataset,
+64 threads, vocab 2^17 = 131072, a decoder-style tokenizer (GPT-2 / Llama-3 byte-level pre-tokenizer, NFC normalizer).
+Measured on mix, from Rust:
+
+| mix | 1 GB, 8 threads | 10 GB, 8 threads | 1 GB, 16 threads | NFC vs none, 1 GB |
+|---|---|---|---|---|
+| train (ours) | 7.9 s, 2.2 GB | 69.6 s, 13.4 GB | 6.0 s | 1.4× slower |
+| encode (ours) | 1.5 s, 0.38 GB | 32.1 s, 0.37 GB | 1.0 s | 1.4× slower |
+| encode (HF `main`) | 2.8 s, 0.84 GB | 51.4 s, 10.2 GB | 2.1 s | 1.0× |
+
+- **Training on 1 TB: about 2–3 hours, but ~0.5 TB of memory.** Time grows about linearly with data (10× data took
+  8.8× the time), so 1 TB is ~2 h at 8 threads before NFC. 64 threads helps the counting, but the merge loop scales
+  less (8 → 16 threads: 1.3×). Memory grows with the number of distinct words: 2.2 GB at 1 GB, 13.4 GB at 10 GB,
+  so roughly 0.4–0.5 TB at 1 TB. That needs a large-memory node, or, as is usual for tokenizers, training on a
+  10–100 GB sample.
+- **Encoding 10 TB: about 3–4 hours, with under 1 GB of memory.** 311 MB/s at 8 threads on 10 GB, 1.4× more at 16
+  threads; at 64 threads, ~1–1.5 GB/s with NFC, so 2–3 h of compute. At that speed the disk is likely the limit:
+  reading 10 TB at 1 GB/s alone takes ~3 h. Memory stays flat, since the file is streamed. HF `main` holds its input
+  in memory (10.2 GB for 10 GB), so 10 TB would have to be split into pieces first.
+
 ## Upstream
 
 - **PR 1, HF `main`: encoding** ([huggingface/tokenizers#2542](https://github.com/huggingface/tokenizers/pull/2542), +503 −7, 7 files). One long input is encoded on every thread: `main` splits an input
@@ -266,6 +289,10 @@ only: `main`'s bindings have no training API, so the compact trainer is reachabl
 - **PR 3.1, HF `main`: a small parallel trainer** ([huggingface/tokenizers#2541](https://github.com/huggingface/tokenizers/pull/2541), [patch](patches/hf-main-small-bpe-trainer.diff), +544 −1). This is
   PR #2501's fixed-coordinate merge loop in ~470 lines of code (+544 with comments) instead of ~14,500. In PR #2501's harness it is 3.5–19× faster
   than `main` on feed + train and uses 54–61% less memory, but it is 1.4–2.8× slower than PR #2501.
+- **A byproduct, HF `main`: thread count** ([huggingface/tokenizers#2546](https://github.com/huggingface/tokenizers/pull/2546),
+  +72 −5). While pinning benchmarks to N cores we found that 1.0 ignores `RAYON_NUM_THREADS`, which 0.2x honored, and
+  that Python can't set the thread count at all, so it takes every core. The fix reads `RAYON_NUM_THREADS` again and
+  exposes `tokenizers.set_num_threads(n)` in Python.
 
 ## Reproduce
 
@@ -291,7 +318,7 @@ and Yikai Liao's PR #2501 trains another 8–20× faster with 4–5× less memor
 
 I started by implementing models and ML algorithms from scratch. At the same time I got very excited about
 pre-training, partly through my project [chsm8](https://huggingface.co/LegumMagister/chsm8): seeing which data leads
-to which result made me read a lot about pre-training and its best practices. After a couple of models I moved on to
+to which result made me read a lot about pre-training and its best practices. After a couple of implemented models I moved on to
 tokenizers, to figure out how they work.
 
 I wrote my own BPE in C++ without looking at how it is done in practice; my competitive programming background helped
